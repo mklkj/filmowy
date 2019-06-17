@@ -8,10 +8,17 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.R
+import io.github.mklkj.filmowy.data.repo.FilmRepo
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
+import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
+
+    @Inject
+    lateinit var filmwebApi: FilmRepo
 
     /**
      * The [androidx.viewpager.widget.PagerAdapter] that will provide
@@ -36,8 +43,14 @@ class MainActivity : DaggerAppCompatActivity() {
         container.adapter = mSectionsPagerAdapter
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            filmwebApi.findFilm("Epoka")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Snackbar.make(view, it.joinToString("\n") { it.polishTitle }, Snackbar.LENGTH_LONG).show()
+                }) {
+                    Snackbar.make(view, it.localizedMessage, Snackbar.LENGTH_LONG).show()
+                }
         }
 
     }
