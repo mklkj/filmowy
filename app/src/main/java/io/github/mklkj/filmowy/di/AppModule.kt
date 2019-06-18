@@ -2,6 +2,7 @@ package io.github.mklkj.filmowy.di
 
 import android.content.Context
 import com.google.gson.GsonBuilder
+import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
 import io.github.mklkj.filmowy.FilmowyApp
@@ -27,6 +28,12 @@ internal class AppModule {
 
     @Singleton
     @Provides
+    fun providePicasso(context: Context): Picasso = Picasso.Builder(context)
+        .loggingEnabled(true)
+        .build()
+
+    @Singleton
+    @Provides
     fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create()
 
     @Singleton
@@ -45,6 +52,6 @@ internal class AppModule {
         .readTimeout(30, TimeUnit.SECONDS)
         .addInterceptor(SignatureInterceptor())
         .addInterceptor(ResponseInterceptor())
-        .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
         .build()
 }

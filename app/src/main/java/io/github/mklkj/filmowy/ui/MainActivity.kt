@@ -1,5 +1,6 @@
 package io.github.mklkj.filmowy.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerAppCompatActivity
@@ -20,21 +21,26 @@ class MainActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var filmRepository: FilmRepository
 
+    @Inject
+    lateinit var picasso: Picasso
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         var i = 0
         reloadImage(i)
         fab.setOnClickListener { reloadImage(++i) }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun reloadImage(index: Int) {
         disposable.clear()
         disposable.add(filmRepository.getFilmImages(771634, 0)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Picasso.get().load(it[index].imagePath.getImageUrl(500)).into(image)
+                picasso.load(it[index].imagePath.getImageUrl(500)).into(image)
                 container.text = "$index: " + it[index].persons?.joinToString { it.personName }
             }) {
                 Timber.e(it)
