@@ -1,4 +1,4 @@
-package io.github.mklkj.filmowy.api
+package io.github.mklkj.filmowy.api.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.Response

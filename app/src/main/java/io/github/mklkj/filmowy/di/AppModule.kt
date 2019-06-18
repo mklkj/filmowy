@@ -6,8 +6,8 @@ import dagger.Module
 import dagger.Provides
 import io.github.mklkj.filmowy.FilmowyApp
 import io.github.mklkj.filmowy.api.ApiService
-import io.github.mklkj.filmowy.api.ResponseInterceptor
-import io.github.mklkj.filmowy.api.SignatureInterceptor
+import io.github.mklkj.filmowy.api.interceptor.ResponseInterceptor
+import io.github.mklkj.filmowy.api.interceptor.SignatureInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
