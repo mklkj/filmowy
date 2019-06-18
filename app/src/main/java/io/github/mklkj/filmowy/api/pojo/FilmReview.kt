@@ -4,6 +4,6 @@ data class FilmReview(
     val authorName: String,
     val authorUserId: Int?,
     val authorImagePath: String?,
-    val review: String,
+    val content: String,
     val title: String
 )

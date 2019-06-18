@@ -14,7 +14,7 @@ fun JsonArray.mapFilmDescription(): FilmDescription {
 }
 
 fun JsonArray.mapFilmFullInfo(): Film {
-    val videos = get(12).asJsonArray
+    val videos = getNullable(12)?.asJsonArray
 
     return Film(
         title = get(0).asString,
@@ -30,11 +30,11 @@ fun JsonArray.mapFilmFullInfo(): Film {
             forumUrl = get(8).asString,
             hasReview = get(9).asInt > 0,
             hasDescription = get(10).asInt > 0,
-            videoImageUrl = videos.get(0).asString,
-            videoUrl = videos.get(1).asString,
-            videoHDUrl = videos.elementAtOrNull(2)?.asString,
-            video480pUrl = videos.elementAtOrNull(3)?.asString,
-            ageRestriction = videos.elementAtOrNull(4)?.asInt,
+            videoImageUrl = videos?.get(0)?.asString,
+            videoUrl = videos?.get(1)?.asString,
+            videoHDUrl = videos?.elementAtOrNull(2)?.asString,
+            video480pUrl = videos?.elementAtOrNull(3)?.asString,
+            ageRestriction = videos?.elementAtOrNull(4)?.asInt,
             premiereWorld = get(13).asString,
             premiereCountry = getNullable(14)?.asString,
             filmType = get(15).asInt,
@@ -54,7 +54,7 @@ fun JsonArray.mapFilmReview(): FilmReview {
         authorName = get(0).asString,
         authorUserId = get(1)?.asInt,
         authorImagePath = get(2)?.asString,
-        review = get(3).asString,
+        content = get(3).asString,
         title = get(4).asString
     )
 }

@@ -1,0 +1,2 @@
+ok
+["Paragraf 187","One Eight Seven",7.32431,7758,"Thriller",1997,120,0,"https://www.filmweb.pl/film/Paragraf+187-1997-1/discussion",1,1,"/00/01/1/7003079.2.jpg",null,"1997-07-30","1998-02-27",0,0,0,"USA","Napadnięty nauczyciel postanawia wrócić do pracy w innej szkole, aby walczyć z agresją i przemocą."] t:43200
