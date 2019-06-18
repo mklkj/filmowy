@@ -10,8 +10,7 @@ references:
       - image: circleci/android@sha256:5cdc8626cc6f13efe5ed982cdcdb432b0472f8740fed8743a6461e025ad6cdfc
     working_directory: *workspace_root
     environment:
-      environment:
-        _JAVA_OPTS: -Xmx3072m
+      _JAVA_OPTS: -Xmx3072m
 
   attach_workspace: &attach_workspace
     attach_workspace:
