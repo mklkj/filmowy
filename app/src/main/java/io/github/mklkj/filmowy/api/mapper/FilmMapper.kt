@@ -1,12 +1,11 @@
 package io.github.mklkj.filmowy.api.mapper
 
 import com.google.gson.JsonArray
+import io.github.mklkj.filmowy.api.getNullable
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.pojo.FilmDescription
 import io.github.mklkj.filmowy.api.pojo.FilmInfo
 import io.github.mklkj.filmowy.api.pojo.FilmReview
-
-private fun JsonArray.getNullable(index: Int) = if (get(index).isJsonNull) null else this
 
 fun JsonArray.mapFilmDescription(): FilmDescription {
     return FilmDescription(

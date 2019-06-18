@@ -12,43 +12,39 @@ import javax.inject.Inject
 
 class FilmRepository @Inject constructor(private val api: ApiService) {
 
-    private fun formatMethod(method: String, vararg params: Int): String {
-        return "$method ${params.joinToString(",", "[", "]")}\n"
-    }
-
     fun getFilmDescription(filmId: Int): Single<FilmDescription> {
-        return api.getWithMethod(formatMethod("getFilmDescription", filmId)).map { it.mapFilmDescription() }
+        return api.getWithMethod("getFilmDescription".asMethod(filmId)).map { it.mapFilmDescription() }
     }
 
 //    fun getFilmComments(filmId: Int, page: Int): Single<JsonArray> {
-//        return api.getWithMethod(formatMethod("getFilmComments", filmId, page * 5, (page + 1) * 5))
+//        return api.getWithMethod("getFilmComments".asMethod(filmId, page * 5, (page + 1) * 5))
 //    }
 
     fun getFilmImages(filmId: Int, page: Int): Single<JsonArray> {
-        return api.getWithMethod(formatMethod("getFilmImages", filmId, page * 5, (page + 1) * 5))
+        return api.getWithMethod("getFilmImages".asMethod(filmId, page * 5, (page + 1) * 5))
     }
 
     fun getFilmInfoFull(filmId: Int): Single<Film> {
-        return api.getWithMethod(formatMethod("getFilmInfoFull", filmId)).map { it.mapFilmFullInfo() }
+        return api.getWithMethod("getFilmInfoFull".asMethod(filmId)).map { it.mapFilmFullInfo() }
     }
 
     fun getFilmPersons(filmId: Int, type: Int, page: Int): Single<JsonArray> {
-        return api.getWithMethod(formatMethod("getFilmPersons", filmId, type, page * 50, 50))
+        return api.getWithMethod("getFilmPersons".asMethod(filmId, type, page * 50, 50))
     }
 
     fun getFilmPersonsLead(filmId: Int, limit: Int): Single<JsonArray> {
-        return api.getWithMethod(formatMethod("getFilmPersonsLead", filmId, limit))
+        return api.getWithMethod("getFilmPersonsLead".asMethod(filmId, limit))
     }
 
     fun getFilmProfessionCounts(filmId: Int): Single<JsonArray> {
-        return api.getWithMethod(formatMethod("getFilmProfessionCounts", filmId))
+        return api.getWithMethod("getFilmProfessionCounts".asMethod(filmId))
     }
 
     fun getFilmReview(filmId: Int): Single<FilmReview> {
-        return api.getWithMethod(formatMethod("getFilmReview", filmId)).map { it.mapFilmReview() }
+        return api.getWithMethod("getFilmReview".asMethod(filmId)).map { it.mapFilmReview() }
     }
 
     fun getFilmVideos(filmId: Int, page: Int): Single<JsonArray> {
-        return api.getWithMethod(formatMethod("getFilmVideos", filmId, page * 100, (page + 1) * 100))
+        return api.getWithMethod("getFilmVideos".asMethod(filmId, page * 100, (page + 1) * 100))
     }
 }
