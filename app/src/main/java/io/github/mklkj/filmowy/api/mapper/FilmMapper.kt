@@ -2,9 +2,16 @@ package io.github.mklkj.filmowy.api.mapper
 
 import com.google.gson.JsonArray
 import io.github.mklkj.filmowy.api.pojo.Film
+import io.github.mklkj.filmowy.api.pojo.FilmDescription
 import io.github.mklkj.filmowy.api.pojo.FilmInfo
 
 private fun JsonArray.getNullable(index: Int) = if (get(index).isJsonNull) null else this
+
+fun JsonArray.mapFilmDescription(): FilmDescription {
+    return FilmDescription(
+        description = getNullable(0)?.asString
+    )
+}
 
 fun JsonArray.mapFilmFullInfo(): Film {
     val videos = get(12).asJsonArray
