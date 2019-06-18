@@ -4,6 +4,7 @@ import com.google.gson.JsonArray
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.pojo.FilmDescription
 import io.github.mklkj.filmowy.api.pojo.FilmInfo
+import io.github.mklkj.filmowy.api.pojo.FilmReview
 
 private fun JsonArray.getNullable(index: Int) = if (get(index).isJsonNull) null else this
 
@@ -46,5 +47,15 @@ fun JsonArray.mapFilmFullInfo(): Film {
             premiereWorldPublic = elementAtOrNull(28)?.asInt,
             premiereCountryPublic = elementAtOrNull(29)?.asInt
         )
+    )
+}
+
+fun JsonArray.mapFilmReview(): FilmReview {
+    return FilmReview(
+        authorName = get(0).asString,
+        authorUserId = get(1)?.asInt,
+        authorImagePath = get(2)?.asString,
+        review = get(3).asString,
+        title = get(4).asString
     )
 }

@@ -20,7 +20,7 @@ class MainActivity : DaggerAppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         fab.setOnClickListener {
-            filmRepository.getFilmDescription(771634)
+            filmRepository.getFilmReview(771634)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
