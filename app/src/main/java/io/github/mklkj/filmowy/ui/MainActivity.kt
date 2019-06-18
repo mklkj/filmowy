@@ -24,7 +24,7 @@ class MainActivity : DaggerAppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    container.text = it[0].asString
+                    container.text = it.toString()
                 }) {
                     Timber.e(it)
                     container.text = it.localizedMessage

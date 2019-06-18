@@ -1,6 +1,8 @@
 package io.github.mklkj.filmowy.api
 
 import com.google.gson.JsonArray
+import io.github.mklkj.filmowy.api.mapper.mapFilmFullInfo
+import io.github.mklkj.filmowy.api.pojo.Film
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -22,8 +24,8 @@ class FilmRepository @Inject constructor(private val api: ApiService) {
         return api.getWithMethod(formatMethod("getFilmImages", filmId, page * 5, (page + 1) * 5))
     }
 
-    fun getFilmInfoFull(filmId: Int): Single<JsonArray> {
-        return api.getWithMethod(formatMethod("getFilmInfoFull", filmId))
+    fun getFilmInfoFull(filmId: Int): Single<Film> {
+        return api.getWithMethod(formatMethod("getFilmInfoFull", filmId)).map { it.mapFilmFullInfo() }
     }
 
     fun getFilmPersons(filmId: Int, type: Int, page: Int): Single<JsonArray> {
