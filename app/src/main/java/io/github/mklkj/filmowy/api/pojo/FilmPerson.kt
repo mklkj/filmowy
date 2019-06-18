@@ -10,6 +10,7 @@ data class FilmPerson(
     val personImagePath: String?
 ) {
     enum class AssocType(val id: Int) {
+        UNKNOWN(0),
         DIRECTOR(1),
         SCREENWRITER(2),
         MUSIC(3),
@@ -22,6 +23,11 @@ data class FilmPerson(
         MONTAGE(10),
         COSTUME_DESIGNER(11),
         ARCHIVAL_MATERIALS(12),
-        GUEST(13),
+        GUEST(13);
+
+        companion object {
+            private val values = values()
+            fun getById(id: Int) = values.firstOrNull { it.id == id } ?: UNKNOWN
+        }
     }
 }

@@ -32,8 +32,8 @@ class FilmRepository @Inject constructor(private val api: ApiService) {
         return api.getWithMethod("getFilmPersonsLead".asMethod(filmId, limit))
     }
 
-    fun getFilmProfessionCounts(filmId: Int): Single<JsonArray> {
-        return api.getWithMethod("getFilmProfessionCounts".asMethod(filmId))
+    fun getFilmProfessionCounts(filmId: Int): Single<List<FilmProfessionCount>> {
+        return api.getWithMethod("getFilmProfessionCounts".asMethod(filmId)).map { it.mapFilmProfessionCount(filmId) }
     }
 
     fun getFilmReview(filmId: Int): Single<FilmReview> {

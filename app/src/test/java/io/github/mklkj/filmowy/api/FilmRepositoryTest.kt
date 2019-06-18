@@ -81,6 +81,20 @@ class FilmRepositoryTest : BaseApiTest() {
     }
 
     @Test
+    fun getFilmProfessionCounts() {
+        server.enqueue(MockResponse().setBody(getResource("film-profession-counts.txt")))
+        server.start()
+
+        val professions = filmRepository.getFilmProfessionCounts(3).blockingGet()
+        assertEquals(8, professions.size)
+        professions[0].run {
+            assertEquals(3, filmId)
+            assertEquals(7, assocCount)
+            assertEquals(FilmPerson.AssocType.DIRECTOR, assocType)
+        }
+    }
+
+    @Test
     fun getFilmReview() {
         server.enqueue(MockResponse().setBody(getResource("film-review.txt")))
         server.start()

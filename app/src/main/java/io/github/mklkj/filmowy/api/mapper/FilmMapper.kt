@@ -61,6 +61,17 @@ fun JsonArray.mapFilmPersons(filmId: Int, type: FilmPerson.AssocType): List<Film
     }
 }
 
+fun JsonArray.mapFilmProfessionCount(filmId: Int): List<FilmProfessionCount> {
+    return map {
+        val item = it.asJsonArray
+        FilmProfessionCount(
+            filmId = filmId,
+            assocType = FilmPerson.AssocType.getById(item.get(0).asInt),
+            assocCount = item.get(1).asInt
+        )
+    }
+}
+
 fun JsonArray.mapFilmReview(): FilmReview {
     return FilmReview(
         authorName = get(0).asString,
