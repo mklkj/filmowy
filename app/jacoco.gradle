@@ -1,0 +1,47 @@
+apply plugin: "jacoco"
+
+jacoco {
+    toolVersion "0.8.3"
+    reportsDir = file("$buildDir/reports")
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+task jacocoTestReport(type: JacocoReport) {
+
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports"
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def excludes = ['**/R.class',
+                    '**/R$*.class',
+                    '**/BuildConfig.*',
+                    '**/Manifest*.*',
+                    '**/*Test*.*',
+                    'android/**/*.*',
+                    '**/*Module.*',
+                    '**/*Dagger*.*',
+                    '**/*MembersInjector*.*',
+                    '**/*_Provide*Factory*.*',
+                    '**/*_Factory.*']
+
+    classDirectories.setFrom(fileTree(
+            dir: "$buildDir/intermediates/classes/debug",
+            excludes: excludes
+    ) + fileTree(
+            dir: "$buildDir/tmp/kotlin-classes/debug",
+            excludes: excludes
+    ))
+
+    sourceDirectories.setFrom(files(["src/main/java"]))
+    executionData.setFrom(fileTree(
+            dir: project.projectDir,
+            includes: ["**/*.exec", "**/*.ec"]
+    ))
+}
