@@ -21,6 +21,19 @@ class FilmRepositoryTest : BaseApiTest() {
     }
 
     @Test
+    fun getFilmImages() {
+        server.enqueue(MockResponse().setBody(getResource("film-images.txt")))
+        server.start()
+
+        val images = filmRepository.getFilmImages(1, 5).blockingGet()
+        assertEquals(50, images.size)
+        images[0].run {
+            assertEquals(1, filmId)
+            assertEquals("/16/34/771634/708447.0.jpg", imagePath)
+        }
+    }
+
+    @Test
     fun getFilmInfoFull_noVideos() {
         server.enqueue(MockResponse().setBody(getResource("film-info-full_no-videos.txt")))
         server.start()

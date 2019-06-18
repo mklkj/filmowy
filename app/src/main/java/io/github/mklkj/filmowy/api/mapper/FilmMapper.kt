@@ -10,6 +10,29 @@ fun JsonArray.mapFilmDescription(): FilmDescription {
     )
 }
 
+fun JsonArray.mapFilmImages(filmId: Int): List<FilmImage> {
+    return map {
+        val item = it.asJsonArray
+        FilmImage(
+            filmId = filmId,
+            imagePath = item.get(0).asString,
+            persons = item.getNullable(1)?.asJsonArray?.map { element ->
+                val person = element.asJsonArray
+                FilmPerson(
+                    filmId = filmId,
+                    assocType = FilmPerson.AssocType.getById(0),
+                    personId = person.get(0).asLong,
+                    personName = person.get(1).asString,
+                    personImagePath = person.get(2).asString,
+                    assocAttributes = null,
+                    assocName = null
+                )
+            },
+            photoSources = item.getNullable(2)?.asJsonArray?.map { it.asString }
+        )
+    }
+}
+
 fun JsonArray.mapFilmFullInfo(): Film {
     val videos = getNullable(12)?.asJsonArray
 

@@ -1,6 +1,5 @@
 package io.github.mklkj.filmowy.api
 
-import com.google.gson.JsonArray
 import io.github.mklkj.filmowy.api.mapper.*
 import io.github.mklkj.filmowy.api.pojo.*
 import io.reactivex.Single
@@ -16,8 +15,8 @@ class FilmRepository @Inject constructor(private val api: ApiService) {
 //        return api.getWithMethod("getFilmComments".asMethod(filmId, page * 5, (page + 1) * 5))
 //    }
 
-    fun getFilmImages(filmId: Int, page: Int): Single<JsonArray> {
-        return api.getWithMethod("getFilmImages".asMethod(filmId, page * 5, (page + 1) * 5))
+    fun getFilmImages(filmId: Int, page: Int): Single<List<FilmImage>> {
+        return api.getWithMethod("getFilmImages".asMethod(filmId, page * 100, (page + 1) * 100)).map { it.mapFilmImages(filmId) }
     }
 
     fun getFilmInfoFull(filmId: Int): Single<Film> {
