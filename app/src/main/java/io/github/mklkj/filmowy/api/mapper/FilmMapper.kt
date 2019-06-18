@@ -4,6 +4,8 @@ import com.google.gson.JsonArray
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.pojo.FilmInfo
 
+private fun JsonArray.getNullable(index: Int) = if (get(index).isJsonNull) null else this
+
 fun JsonArray.mapFilmFullInfo(): Film {
     val videos = get(12).asJsonArray
 
@@ -12,7 +14,7 @@ fun JsonArray.mapFilmFullInfo(): Film {
         avgRate = get(2).asDouble,
         votesCount = get(3).asInt,
         year = get(5).asInt,
-        duration = get(6).asInt,
+        duration = getNullable(6)?.asInt,
         imagePath = get(11).asString,
         filmInfo = FilmInfo(
             originalTitle = get(1).asString,
@@ -27,7 +29,7 @@ fun JsonArray.mapFilmFullInfo(): Film {
             video480pUrl = videos.elementAtOrNull(3)?.asString,
             ageRestriction = videos.elementAtOrNull(4)?.asInt,
             premiereWorld = get(13).asString,
-            premiereCountry = get(14).asString,
+            premiereCountry = getNullable(14)?.asString,
             filmType = get(15).asInt,
             seasonsCount = get(16).asInt,
             episodesCount = get(17).asInt,

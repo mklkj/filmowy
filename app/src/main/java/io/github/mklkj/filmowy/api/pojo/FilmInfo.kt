@@ -13,7 +13,7 @@ data class FilmInfo(
     val video480pUrl: String?,
     val ageRestriction: Int?,
     val premiereWorld: String,
-    val premiereCountry: String,
+    val premiereCountry: String?,
     val filmType: Int,
     val seasonsCount: Int,
     val episodesCount: Int,
