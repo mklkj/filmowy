@@ -13,7 +13,7 @@ class FilmRepositoryTest : BaseApiTest() {
     @Test
     fun getFilmDescription() {
         server.enqueue(MockResponse().setBody(getResource("film-description.txt")))
-        server.start(3000)
+        server.start()
 
         val desc = filmRepository.getFilmDescription(1).blockingGet()
         assertEquals("W systemie edukacji znajdującym się na krawędzi upadku, jeden człowiek został doprowadzony do ostateczności.", desc.description)
@@ -22,7 +22,7 @@ class FilmRepositoryTest : BaseApiTest() {
     @Test
     fun getFilmInfoFull_noVideos() {
         server.enqueue(MockResponse().setBody(getResource("film-info-full_no-videos.txt")))
-        server.start(3000)
+        server.start()
 
         val info = filmRepository.getFilmInfoFull(2).blockingGet()
         info.run {
@@ -62,7 +62,7 @@ class FilmRepositoryTest : BaseApiTest() {
     @Test
     fun getFilmReview() {
         server.enqueue(MockResponse().setBody(getResource("film-review.txt")))
-        server.start(3000)
+        server.start()
 
         val review = filmRepository.getFilmReview(3).blockingGet()
         review.run {
@@ -73,5 +73,28 @@ class FilmRepositoryTest : BaseApiTest() {
             assertEquals(3533, content.length)
             assertEquals("Szkolna rzeczywistość", title)
         }
+    }
+
+    @Test
+    fun getFilmVideos() {
+        server.enqueue(MockResponse().setBody(getResource("film-videos.txt")))
+        server.start()
+
+        val videos = filmRepository.getFilmVideos(4, 0).blockingGet()
+        assertEquals(1, videos.size)
+        videos[0].run {
+            assertEquals(4, filmId)
+            assertEquals("https://1.fwcdn.pl/wv/34/10/13410/snap2.13410.1.jpg", imagePath)
+            assertEquals("https://mm.filmweb.pl/2/the_devil_s_advocate__1997____official_movie_trailer.iphone.mp4", videoPath)
+        }
+    }
+
+    @Test
+    fun getFilmVideos_empty() {
+        server.enqueue(MockResponse().setBody(getResource("empty.txt")))
+        server.start()
+
+        val videos = filmRepository.getFilmVideos(5, 0).blockingGet()
+        assertEquals(0, videos.size)
     }
 }

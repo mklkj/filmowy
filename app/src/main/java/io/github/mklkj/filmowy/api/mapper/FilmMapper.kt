@@ -2,10 +2,7 @@ package io.github.mklkj.filmowy.api.mapper
 
 import com.google.gson.JsonArray
 import io.github.mklkj.filmowy.api.getNullable
-import io.github.mklkj.filmowy.api.pojo.Film
-import io.github.mklkj.filmowy.api.pojo.FilmDescription
-import io.github.mklkj.filmowy.api.pojo.FilmInfo
-import io.github.mklkj.filmowy.api.pojo.FilmReview
+import io.github.mklkj.filmowy.api.pojo.*
 
 fun JsonArray.mapFilmDescription(): FilmDescription {
     return FilmDescription(
@@ -57,4 +54,15 @@ fun JsonArray.mapFilmReview(): FilmReview {
         content = get(3).asString,
         title = get(4).asString
     )
+}
+
+fun JsonArray.mapFilmVideos(filmId: Int): List<FilmVideo> {
+    return map {
+        val item = it.asJsonArray
+        FilmVideo(
+            filmId = filmId,
+            imagePath = item.get(1).asString,
+            videoPath = item.get(2).asString
+        )
+    }
 }

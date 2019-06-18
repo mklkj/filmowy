@@ -4,9 +4,11 @@ import com.google.gson.JsonArray
 import io.github.mklkj.filmowy.api.mapper.mapFilmDescription
 import io.github.mklkj.filmowy.api.mapper.mapFilmFullInfo
 import io.github.mklkj.filmowy.api.mapper.mapFilmReview
+import io.github.mklkj.filmowy.api.mapper.mapFilmVideos
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.pojo.FilmDescription
 import io.github.mklkj.filmowy.api.pojo.FilmReview
+import io.github.mklkj.filmowy.api.pojo.FilmVideo
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -44,7 +46,7 @@ class FilmRepository @Inject constructor(private val api: ApiService) {
         return api.getWithMethod("getFilmReview".asMethod(filmId)).map { it.mapFilmReview() }
     }
 
-    fun getFilmVideos(filmId: Int, page: Int): Single<JsonArray> {
-        return api.getWithMethod("getFilmVideos".asMethod(filmId, page * 100, (page + 1) * 100))
+    fun getFilmVideos(filmId: Int, page: Int): Single<List<FilmVideo>> {
+        return api.getWithMethod("getFilmVideos".asMethod(filmId, page * 100, (page + 1) * 100)).map { it.mapFilmVideos(filmId) }
     }
 }
