@@ -4,6 +4,7 @@ import android.os.Bundle
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.FilmRepository
+import io.github.mklkj.filmowy.api.pojo.FilmPerson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,7 +21,7 @@ class MainActivity : DaggerAppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         fab.setOnClickListener {
-            filmRepository.getFilmReview(771634)
+            filmRepository.getFilmPersons(771634, FilmPerson.AssocType.ACTOR, 0)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

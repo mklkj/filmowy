@@ -1,14 +1,8 @@
 package io.github.mklkj.filmowy.api
 
 import com.google.gson.JsonArray
-import io.github.mklkj.filmowy.api.mapper.mapFilmDescription
-import io.github.mklkj.filmowy.api.mapper.mapFilmFullInfo
-import io.github.mklkj.filmowy.api.mapper.mapFilmReview
-import io.github.mklkj.filmowy.api.mapper.mapFilmVideos
-import io.github.mklkj.filmowy.api.pojo.Film
-import io.github.mklkj.filmowy.api.pojo.FilmDescription
-import io.github.mklkj.filmowy.api.pojo.FilmReview
-import io.github.mklkj.filmowy.api.pojo.FilmVideo
+import io.github.mklkj.filmowy.api.mapper.*
+import io.github.mklkj.filmowy.api.pojo.*
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -30,8 +24,8 @@ class FilmRepository @Inject constructor(private val api: ApiService) {
         return api.getWithMethod("getFilmInfoFull".asMethod(filmId)).map { it.mapFilmFullInfo() }
     }
 
-    fun getFilmPersons(filmId: Int, type: Int, page: Int): Single<JsonArray> {
-        return api.getWithMethod("getFilmPersons".asMethod(filmId, type, page * 50, 50))
+    fun getFilmPersons(filmId: Int, type: FilmPerson.AssocType, page: Int): Single<List<FilmPerson>> {
+        return api.getWithMethod("getFilmPersons".asMethod(filmId, type.id, page * 50, 50)).map { it.mapFilmPersons(filmId, type) }
     }
 
     fun getFilmPersonsLead(filmId: Int, limit: Int): Single<JsonArray> {

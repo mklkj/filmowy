@@ -1,5 +1,6 @@
 package io.github.mklkj.filmowy.api
 
+import io.github.mklkj.filmowy.api.pojo.FilmPerson
 import okhttp3.mockwebserver.MockResponse
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -57,6 +58,26 @@ class FilmRepositoryTest : BaseApiTest() {
                 assertEquals(null, premiereCountryPublic)
             }
         }
+    }
+
+    @Test
+    fun getFilmPersons() {
+        server.enqueue(MockResponse().setBody(getResource("film-persons.txt")))
+        server.start()
+
+        val persons = filmRepository.getFilmPersons(2, FilmPerson.AssocType.ACTOR, 0).blockingGet()
+        persons.run {
+            assertEquals(1, size)
+        }
+    }
+
+    @Test
+    fun getFilmPersons_null() {
+        server.enqueue(MockResponse().setBody(getResource("null.txt")))
+        server.start()
+
+        val persons = filmRepository.getFilmPersons(2, FilmPerson.AssocType.ACTOR, 0).blockingGet()
+        assertEquals(0, persons.size)
     }
 
     @Test

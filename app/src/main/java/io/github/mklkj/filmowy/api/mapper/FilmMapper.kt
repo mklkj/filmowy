@@ -46,6 +46,21 @@ fun JsonArray.mapFilmFullInfo(): Film {
     )
 }
 
+fun JsonArray.mapFilmPersons(filmId: Int, type: FilmPerson.AssocType): List<FilmPerson> {
+    return map {
+        val item = it.asJsonArray
+        FilmPerson(
+            filmId = filmId,
+            assocType = type,
+            personId = item.get(0).asLong,
+            assocName = item.getNullable(1)?.asString,
+            assocAttributes = item.getNullable(2)?.asString,
+            personName = item.get(3).asString,
+            personImagePath = item.getNullable(4)?.asString
+        )
+    }
+}
+
 fun JsonArray.mapFilmReview(): FilmReview {
     return FilmReview(
         authorName = get(0).asString,
