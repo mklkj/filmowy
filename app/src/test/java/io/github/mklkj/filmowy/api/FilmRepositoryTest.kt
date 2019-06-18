@@ -81,6 +81,24 @@ class FilmRepositoryTest : BaseApiTest() {
     }
 
     @Test
+    fun getFilmPersonsLead() {
+        server.enqueue(MockResponse().setBody(getResource("film-persons-lead.txt")))
+        server.start()
+
+        val persons = filmRepository.getFilmPersonsLead(3, 50).blockingGet()
+        assertEquals(15, persons.size)
+        persons[0].run {
+            assertEquals(3, filmId)
+            assertEquals(606018, personId)
+            assertEquals(null, assocAttributes)
+            assertEquals(null, assocName)
+            assertEquals(FilmPerson.AssocType.DIRECTOR, assocType)
+            assertEquals("Reed Morano", personName)
+            assertEquals("/60/18/606018/291795.1.jpg", personImagePath)
+        }
+    }
+
+    @Test
     fun getFilmProfessionCounts() {
         server.enqueue(MockResponse().setBody(getResource("film-profession-counts.txt")))
         server.start()

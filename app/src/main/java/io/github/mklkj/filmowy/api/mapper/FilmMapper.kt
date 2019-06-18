@@ -61,6 +61,21 @@ fun JsonArray.mapFilmPersons(filmId: Int, type: FilmPerson.AssocType): List<Film
     }
 }
 
+fun JsonArray.mapFilmPersonsLead(filmId: Int): List<FilmPersonsLead> {
+    return map {
+        val item = it.asJsonArray
+        FilmPersonsLead(
+            filmId = filmId,
+            assocType = FilmPerson.AssocType.getById(item.get(0).asInt),
+            personId = item.get(1).asLong,
+            assocName = item.getNullable(2)?.asString,
+            assocAttributes = item.getNullable(3)?.asString,
+            personName = item.getNullable(4)?.asString,
+            personImagePath = item.getNullable(5)?.asString
+        )
+    }
+}
+
 fun JsonArray.mapFilmProfessionCount(filmId: Int): List<FilmProfessionCount> {
     return map {
         val item = it.asJsonArray

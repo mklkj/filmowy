@@ -20,7 +20,7 @@ class MainActivity : DaggerAppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         fab.setOnClickListener {
-            filmRepository.getFilmProfessionCounts(771634)
+            filmRepository.getFilmPersonsLead(771634, 10)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
