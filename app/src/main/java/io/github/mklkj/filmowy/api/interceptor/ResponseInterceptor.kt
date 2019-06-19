@@ -1,5 +1,6 @@
 package io.github.mklkj.filmowy.api.interceptor
 
+import io.github.mklkj.filmowy.api.safeSubstring
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody
@@ -16,7 +17,12 @@ class ResponseInterceptor : Interceptor {
         }
 
         val content = parts.drop(1).joinToString("\n")
-        val timeInfo = content.substring(content.lastIndexOf(" "))
+        val timeInfo = content.safeSubstring(content.lastIndexOf(" "))
+
+        if (content.trim() == "null") {
+            throw Exception("404")
+        }
+
         val newBody = content
             .replace("exc NullPointerException", "[]")
             .replace(timeInfo, "")

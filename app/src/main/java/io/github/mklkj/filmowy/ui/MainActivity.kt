@@ -28,20 +28,22 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var i = 0
+        var i = 133567
         reloadImage(i)
-        fab.setOnClickListener { reloadImage(++i) }
+        fab.setOnClickListener { reloadImage(--i) }
     }
 
     @SuppressLint("SetTextI18n")
     private fun reloadImage(index: Int) {
         disposable.clear()
-        disposable.add(newsRepository.getNewsList(0)
+        disposable.add(newsRepository.getNews(index.toLong())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                picasso.load(it[index].newsImageUrl.getNewsImageUrl(1024)).into(image)
-                container.text = "$index: " + it[index].title
+                it.run {
+                    picasso.load(newsImageUrl?.getNewsImageUrl(1024)).into(image)
+                    container.text = "$index: $title \n $content"
+                }
             }) {
                 Timber.e(it)
                 container.text = it.localizedMessage

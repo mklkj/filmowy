@@ -87,7 +87,7 @@ class FilmRepositoryTest : BaseApiTest() {
 
     @Test
     fun getFilmPersons_null() {
-        server.enqueue(MockResponse().setBody(getResource("null.txt")))
+        server.enqueue(MockResponse().setBody(getResource("exc-npe.txt")))
         server.start()
 
         val persons = filmRepository.getFilmPersons(2, FilmPerson.AssocType.ACTOR, 0).blockingGet()

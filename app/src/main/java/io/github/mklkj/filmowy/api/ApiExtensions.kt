@@ -6,7 +6,11 @@ import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 
-fun JsonArray.getNullable(index: Int) = get(index).let { if (it.isJsonNull) null else it }
+fun JsonArray.getNullable(index: Int) = elementAtOrNull(index).let { if (it?.isJsonNull == true) null else it }
+
+fun String.safeSubstring(index: Int) = if (index == -1) this else substring(index)
+
+fun String.asMethod(vararg params: Long) = "$this ${params.joinToString(",", "[", "]")}\n"
 
 fun String.asMethod(vararg params: Int) = "$this ${params.joinToString(",", "[", "]")}\n"
 
