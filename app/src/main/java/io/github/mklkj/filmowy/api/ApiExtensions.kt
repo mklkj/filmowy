@@ -5,6 +5,7 @@ import com.google.gson.JsonArray
 import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
+import org.threeten.bp.ZoneOffset
 
 fun JsonArray.getNullable(index: Int) = elementAtOrNull(index).let { if (it?.isJsonNull == true) null else it }
 
@@ -48,4 +49,5 @@ fun String.toUri(): Uri = Uri.parse(this)
 fun Long.toLocalDateTime(): LocalDateTime = Instant
     .ofEpochMilli(this)
     .atZone(ZoneId.systemDefault())
+    .withZoneSameInstant(ZoneOffset.UTC)
     .toLocalDateTime()
