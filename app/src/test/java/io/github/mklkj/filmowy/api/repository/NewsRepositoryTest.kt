@@ -54,4 +54,21 @@ class NewsRepositoryTest : BaseApiTest() {
 
         newsRepository.getNews(1).blockingGet()
     }
+
+    @Test
+    fun getNewsComments() {
+        server.enqueue(MockResponse().setBody(getResource("news-comments.txt")))
+        server.start()
+
+        val comments = newsRepository.getNewsComments(1, 0).blockingGet()
+        assertEquals(2, comments.size)
+        comments[0].run {
+            assertEquals(1, newsId)
+            assertEquals(1013634, userId)
+            assertEquals("/98/64/2439864/2439864.0.jpg", userPhoto)
+            assertEquals("Tiw", userName)
+            assertEquals("Dobry serial byl, w przeciwienstwie do wielu innych na tej platformie", comment)
+            assertEquals(of(2019, 6, 19, 21, 37, 36), time)
+        }
+    }
 }

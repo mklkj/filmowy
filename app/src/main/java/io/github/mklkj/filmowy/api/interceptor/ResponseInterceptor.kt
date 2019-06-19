@@ -25,7 +25,10 @@ class ResponseInterceptor : Interceptor {
 
         val newBody = content
             .replace("exc NullPointerException", "[]")
-            .replace(timeInfo, "")
+            .run {
+                if (timeInfo.startsWith(" t:")) replace(timeInfo, "")
+                else this
+            }
 
         val body = ResponseBody.create(response.body()?.contentType(), newBody)
         return response.newBuilder().body(body).build()

@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.R
-import io.github.mklkj.filmowy.api.getNewsImageUrl
+import io.github.mklkj.filmowy.api.getUserImageUrl
 import io.github.mklkj.filmowy.api.repository.NewsRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -28,21 +28,21 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var i = 133567
+        var i = 0
         reloadImage(i)
-        fab.setOnClickListener { reloadImage(--i) }
+        fab.setOnClickListener { reloadImage(++i) }
     }
 
     @SuppressLint("SetTextI18n")
     private fun reloadImage(index: Int) {
         disposable.clear()
-        disposable.add(newsRepository.getNews(index.toLong())
+        disposable.add(newsRepository.getNewsComments(133564, 0)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                it.run {
-                    picasso.load(newsImageUrl?.getNewsImageUrl(1024)).into(image)
-                    container.text = "$index: $title \n $content"
+                it[index].run {
+                    picasso.load(userPhoto?.getUserImageUrl(1024)).into(image)
+                    container.text = "$index: $userName \n $comment"
                 }
             }) {
                 Timber.e(it)
