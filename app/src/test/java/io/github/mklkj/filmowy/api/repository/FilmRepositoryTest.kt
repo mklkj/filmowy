@@ -1,5 +1,6 @@
-package io.github.mklkj.filmowy.api
+package io.github.mklkj.filmowy.api.repository
 
+import io.github.mklkj.filmowy.api.BaseApiTest
 import io.github.mklkj.filmowy.api.pojo.FilmPerson
 import okhttp3.mockwebserver.MockResponse
 import org.junit.Assert.assertEquals

@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.R
-import io.github.mklkj.filmowy.api.FilmRepository
+import io.github.mklkj.filmowy.api.repository.FilmRepository
 import io.github.mklkj.filmowy.api.getImageUrl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

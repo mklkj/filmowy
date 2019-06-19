@@ -1,5 +1,7 @@
-package io.github.mklkj.filmowy.api
+package io.github.mklkj.filmowy.api.repository
 
+import io.github.mklkj.filmowy.api.ApiService
+import io.github.mklkj.filmowy.api.asMethod
 import io.github.mklkj.filmowy.api.mapper.*
 import io.github.mklkj.filmowy.api.pojo.*
 import io.reactivex.Single
