@@ -5,8 +5,8 @@ import android.os.Bundle
 import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.R
-import io.github.mklkj.filmowy.api.repository.FilmRepository
-import io.github.mklkj.filmowy.api.getImageUrl
+import io.github.mklkj.filmowy.api.getNewsImageUrl
+import io.github.mklkj.filmowy.api.repository.NewsRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -19,7 +19,7 @@ class MainActivity : DaggerAppCompatActivity() {
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     @Inject
-    lateinit var filmRepository: FilmRepository
+    lateinit var newsRepository: NewsRepository
 
     @Inject
     lateinit var picasso: Picasso
@@ -36,12 +36,12 @@ class MainActivity : DaggerAppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun reloadImage(index: Int) {
         disposable.clear()
-        disposable.add(filmRepository.getFilmImages(771634, 0)
+        disposable.add(newsRepository.getNewsList(0)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                picasso.load(it[index].imagePath.getImageUrl(500)).into(image)
-                container.text = "$index: " + it[index].persons?.joinToString { it.personName }
+                picasso.load(it[index].newsImageUrl.getNewsImageUrl(1024)).into(image)
+                container.text = "$index: " + it[index].title
             }) {
                 Timber.e(it)
                 container.text = it.localizedMessage

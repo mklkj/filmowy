@@ -65,6 +65,7 @@ dependencies {
     testImplementation "junit:junit:4.12"
     testImplementation "org.mockito:mockito-core:2.28.2"
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp3"
+    testImplementation "org.threeten:threetenbp:$threetenbp"
 
     androidTestImplementation "androidx.test:runner:1.2.0"
     androidTestImplementation "androidx.test.ext:junit:1.1.1"

@@ -52,6 +52,6 @@ internal class AppModule {
         .readTimeout(30, TimeUnit.SECONDS)
         .addInterceptor(SignatureInterceptor())
         .addInterceptor(ResponseInterceptor())
-        .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
+        .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
         .build()
 }
