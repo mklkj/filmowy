@@ -5,8 +5,8 @@ import android.os.Bundle
 import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.R
-import io.github.mklkj.filmowy.api.getUserImageUrl
-import io.github.mklkj.filmowy.api.repository.NewsRepository
+import io.github.mklkj.filmowy.api.getPersonImageUrl
+import io.github.mklkj.filmowy.api.repository.PersonRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -19,7 +19,7 @@ class MainActivity : DaggerAppCompatActivity() {
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     @Inject
-    lateinit var newsRepository: NewsRepository
+    lateinit var personRepository: PersonRepository
 
     @Inject
     lateinit var picasso: Picasso
@@ -36,13 +36,13 @@ class MainActivity : DaggerAppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun reloadImage(index: Int) {
         disposable.clear()
-        disposable.add(newsRepository.getNewsComments(133564, 0)
+        disposable.add(personRepository.getBornTodayPersons()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 it[index].run {
-                    picasso.load(userPhoto?.getUserImageUrl(1024)).into(image)
-                    container.text = "$index: $userName \n $comment"
+                    picasso.load(poster.getPersonImageUrl(200)).into(image)
+                    container.text = "$index: $name \n $birthDate"
                 }
             }) {
                 Timber.e(it)
