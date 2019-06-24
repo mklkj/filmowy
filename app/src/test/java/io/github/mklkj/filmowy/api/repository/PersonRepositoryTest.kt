@@ -35,4 +35,22 @@ class PersonRepositoryTest : BaseApiTest() {
         val biography = personRepository.getPersonBiography(1).blockingGet()
         assertEquals(6193, biography.biography.length)
     }
+
+    @Test
+    fun getPersonFilms() {
+        server.enqueue(MockResponse().setBody(getResource("person-films.txt")))
+        server.start()
+
+        val films = personRepository.getPersonFilms(1, 1, 1, 1, 1).blockingGet()
+        assertEquals(5, films.size)
+        films[0].run {
+            assertEquals(820771, filmId)
+            assertEquals("Ryszard Nowak \"Rysiek\"", assocName)
+            assertEquals("Odwróceni. Ojcowie i córki", filmTitle)
+            assertEquals("/07/71/820771/7877148.1.jpg", filmImagePath)
+            assertEquals(2019, filmYear)
+            assertEquals(null, assocAttributes)
+            assertEquals(null, originalFilmTitle)
+        }
+    }
 }

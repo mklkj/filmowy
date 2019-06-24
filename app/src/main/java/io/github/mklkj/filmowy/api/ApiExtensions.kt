@@ -57,6 +57,14 @@ fun String.getPersonImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/p" 
     else -> replace("1.jpg", "5.jpg")
 }).toUri()
 
+fun String.getPersonFilmsImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/po" + when (width) {
+    in 0..38 -> replace("1.jpg", "0.jpg")
+    in 39..70 -> replace("1.jpg", "4.jpg")
+    in 71..90 -> this
+    in 91..140 -> replace("1.jpg", "2.jpg")
+    else -> replace("1.jpg", "5.jpg")
+}).toUri()
+
 fun String.toUri(): Uri = Uri.parse(this)
 
 fun Long.toLocalDateTime(): LocalDateTime = Instant
