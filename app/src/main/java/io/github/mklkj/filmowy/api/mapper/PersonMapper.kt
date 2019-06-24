@@ -2,6 +2,7 @@ package io.github.mklkj.filmowy.api.mapper
 
 import com.google.gson.JsonArray
 import io.github.mklkj.filmowy.api.getNullable
+import io.github.mklkj.filmowy.api.pojo.PersonBiography
 import io.github.mklkj.filmowy.api.pojo.PersonBirthdate
 import io.github.mklkj.filmowy.api.toLocalDate
 
@@ -16,4 +17,10 @@ fun JsonArray.mapBornTodayPersons(): List<PersonBirthdate> {
             deathDate = item.getNullable(4)?.asString?.toLocalDate("yyyy-MM-dd")
         )
     }
+}
+
+fun JsonArray.mapPersonBiography(): PersonBiography {
+    return PersonBiography(
+        biography = get(0).asString
+    )
 }

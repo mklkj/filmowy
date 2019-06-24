@@ -26,4 +26,13 @@ class PersonRepositoryTest : BaseApiTest() {
             assertEquals(null, deathDate)
         }
     }
+
+    @Test
+    fun getPersonBiography() {
+        server.enqueue(MockResponse().setBody(getResource("person-biography.txt")))
+        server.start()
+
+        val biography = personRepository.getPersonBiography(1).blockingGet()
+        assertEquals(6193, biography.biography.length)
+    }
 }

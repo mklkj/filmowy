@@ -19,7 +19,7 @@ class ResponseInterceptor : Interceptor {
         val content = parts.drop(1).joinToString("\n")
         val timeInfo = content.safeSubstring(content.lastIndexOf(" "))
 
-        if (content.trim() == "null") {
+        if (content.startsWith("null")) {
             throw Exception("404")
         }
 
