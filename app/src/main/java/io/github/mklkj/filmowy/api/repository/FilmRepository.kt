@@ -49,4 +49,8 @@ class FilmRepository @Inject constructor(private val api: ApiService) {
     fun getFilmsInfoShort(vararg filmIds: Long): Single<List<Film>> {
         return api.getWithMethod("getFilmsInfoShort".asVarargMethod(*filmIds.toTypedArray())).map { it.mapFilmsInfoShort() }
     }
+
+    fun getFilmsNearestBroadcasts(filmId: Int, page: Int): Single<List<FilmNearestBroadcast>> {
+        return api.getWithMethod("getFilmsNearestBroadcasts".asVarargMethod(filmId, page * 100, (page + 1) * 100)).map { it.mapFilmsNearestBroadcasts() }
+    }
 }

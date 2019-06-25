@@ -10,7 +10,11 @@ import java.text.SimpleDateFormat
 fun JsonArray.getNullable(index: Int) = elementAtOrNull(index).let { if (it?.isJsonNull == true) null else it }
 
 @SuppressLint("SimpleDateFormat")
-fun String.toLocalDate(format: String = "yyyy-MM-dd"): LocalDate = ofEpochMilli(SimpleDateFormat(format).parse(this).time).atZone(ZoneId.systemDefault()).toLocalDate()
+private fun String.toZonedTime(format: String) = ofEpochMilli(SimpleDateFormat(format).parse(this).time).atZone(ZoneId.systemDefault())
+
+fun String.toLocalDate(format: String = "yyyy-MM-dd"): LocalDate = toZonedTime(format).toLocalDate()
+
+fun String.toLocalDateTime(format: String = "yyyy-MM-dd HH:mm:ss"): LocalDateTime = toZonedTime(format).toLocalDateTime()
 
 fun String.safeSubstring(index: Int) = if (index == -1) this else substring(index)
 

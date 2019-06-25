@@ -36,12 +36,12 @@ class MainActivity : DaggerAppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun reloadImage(index: Int) {
         disposable.clear()
-        disposable.add(filmRepository.getFilmsInfoShort(index.toLong(), 1)
+        disposable.add(filmRepository.getFilmsNearestBroadcasts(index, 0)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                it[0].run {
-                    picasso.load(imagePath?.getPersonFilmsImageUrl(200)).into(image)
+                it.getOrNull(0)?.run {
+//                    picasso.load(imagePath?.getPersonFilmsImageUrl(200)).into(image)
                     container.text = "$index: $this"
                 }
             }) {

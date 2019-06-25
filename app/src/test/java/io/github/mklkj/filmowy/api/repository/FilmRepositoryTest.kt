@@ -6,6 +6,7 @@ import okhttp3.mockwebserver.MockResponse
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.threeten.bp.LocalDateTime
 import retrofit2.create
 
 class FilmRepositoryTest : BaseApiTest() {
@@ -180,6 +181,22 @@ class FilmRepositoryTest : BaseApiTest() {
             assertEquals(120, duration)
             assertEquals("/00/01/1/7003079.2.jpg", imagePath)
             assertEquals(null, filmInfo)
+        }
+    }
+
+    @Test
+    fun getFilmsNearestBroadcasts() {
+        server.enqueue(MockResponse().setBody(getResource("film-nearest-broadcasts.txt")))
+        server.start()
+
+        val broadcasts = filmRepository.getFilmsNearestBroadcasts(1, 0).blockingGet()
+        assertEquals(3, broadcasts.size)
+        broadcasts[0].run {
+            assertEquals(9, filmId)
+            assertEquals(29, tvChannelId)
+            assertEquals(LocalDateTime.of(2019, 6, 29, 17, 55, 0), dateTime)
+            assertEquals(61600719, id)
+            assertEquals("film SF", description)
         }
     }
 }

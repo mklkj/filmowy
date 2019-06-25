@@ -3,6 +3,7 @@ package io.github.mklkj.filmowy.api.mapper
 import com.google.gson.JsonArray
 import io.github.mklkj.filmowy.api.getNullable
 import io.github.mklkj.filmowy.api.pojo.*
+import io.github.mklkj.filmowy.api.toLocalDateTime
 
 fun JsonArray.mapFilmDescription(): FilmDescription {
     return FilmDescription(
@@ -143,6 +144,19 @@ fun JsonArray.mapFilmsInfoShort(): List<Film> {
             duration = item.getNullable(4)?.asInt,
             imagePath = item.getNullable(5)?.asString,
             filmInfo = null
+        )
+    }
+}
+
+fun JsonArray.mapFilmsNearestBroadcasts(): List<FilmNearestBroadcast> {
+    return map {
+        val item = it.asJsonArray
+        FilmNearestBroadcast(
+            filmId = item.get(0).asLong,
+            tvChannelId = item.get(1).asLong,
+            dateTime = (item.get(3).asString + " " + item.get(2).asString).toLocalDateTime("yyyy-MM-dd HH:mm"),
+            id = item.get(4).asLong,
+            description = item.get(5).asString
         )
     }
 }
