@@ -44,7 +44,7 @@ fun JsonArray.mapFilmFullInfo(): Film {
         duration = getNullable(6)?.asInt,
         imagePath = get(11).asString,
         filmInfo = FilmInfo(
-            originalTitle = get(1).asString,
+            originalTitle = getNullable(1)?.asString.orEmpty(),
             genres = get(4).asString,
             commentsCount = get(7).asString,
             forumUrl = get(8).asString,
@@ -61,7 +61,7 @@ fun JsonArray.mapFilmFullInfo(): Film {
             seasonsCount = get(16).asInt,
             episodesCount = get(17).asInt,
             countriesString = get(18).asString,
-            synopsis = get(19).asString,
+            synopsis = getNullable(19)?.asString.orEmpty(),
             recommends = elementAtOrNull(23)?.asInt ?: 0 > 0,
             premiereWorldPublic = elementAtOrNull(28)?.asInt,
             premiereCountryPublic = elementAtOrNull(29)?.asInt
