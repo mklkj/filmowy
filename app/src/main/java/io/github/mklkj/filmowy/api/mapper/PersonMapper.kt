@@ -12,8 +12,8 @@ fun JsonArray.mapBornTodayPersons(): List<PersonBirthdate> {
             id = item.get(0).asLong,
             name = item.get(1).asString,
             poster = item.get(2).asString,
-            birthDate = item.get(3).asString.toLocalDate("yyy-MM-dd"),
-            deathDate = item.getNullable(4)?.asString?.toLocalDate("yyyy-MM-dd")
+            birthDate = item.get(3).asString.toLocalDate(),
+            deathDate = item.getNullable(4)?.asString?.toLocalDate()
         )
     }
 }
@@ -67,4 +67,22 @@ fun JsonArray.mapPersonImages(personId: Long): List<PersonImage> {
             imagePath = item.get(0).asString
         )
     }
+}
+
+fun JsonArray.mapPersonInfoFull(personId: Long): Person {
+    return Person(
+        personId = personId,
+        name = get(0).asString,
+        realName = getNullable(9)?.asString,
+        birthDate = getNullable(1)?.asString?.toLocalDate(),
+        birthPlace = getNullable(2)?.asString,
+        deathDate = getNullable(10)?.asString?.toLocalDate(),
+        votesCount = getNullable(3)?.asInt ?: 0,
+        avgRate = getNullable(4)?.asDouble ?: .0,
+        imagePath = getNullable(5)?.asString,
+        hasBiography = getNullable(6)?.asInt == 1,
+        filmKnownFor = getNullable(7)?.asLong,
+        height = getNullable(11)?.asInt,
+        sex = getNullable(8)?.asInt ?: 0
+    )
 }

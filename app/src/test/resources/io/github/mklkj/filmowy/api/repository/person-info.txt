@@ -1,0 +1,2 @@
+ok
+["Janusz Chabior","1963-02-17","Legnica, Polska",4463,8.367466,"/81/52/48152/386756.1.jpg",1,null,2,null,null,"189",2] t:43200

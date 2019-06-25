@@ -86,4 +86,28 @@ class PersonRepositoryTest : BaseApiTest() {
             assertEquals("/07/71/820771/802695_1.0.jpg", imagePath)
         }
     }
+
+    @Test
+    fun getPersonInfoFull() {
+        server.enqueue(MockResponse().setBody(getResource("person-info.txt")))
+        server.start()
+
+        val info = personRepository.getPersonInfoFull(1).blockingGet()
+        info.run {
+            assertEquals(1, personId)
+            assertEquals("Janusz Chabior", name)
+            assertEquals(null, realName)
+            assertEquals(of(1963, 2, 17), birthDate)
+            assertEquals("Legnica, Polska", birthPlace)
+            assertEquals(null, deathDate)
+            assertEquals(null, filmKnownFor)
+            assertEquals(4463, votesCount)
+            assertEquals(8.367466, avgRate, .0)
+            assertEquals("/81/52/48152/386756.1.jpg", imagePath)
+            assertEquals(true, hasBiography)
+            assertEquals(null, filmKnownFor)
+            assertEquals(189, height)
+            assertEquals(2, sex)
+        }
+    }
 }
