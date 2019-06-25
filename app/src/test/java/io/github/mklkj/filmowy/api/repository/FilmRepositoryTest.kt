@@ -164,4 +164,22 @@ class FilmRepositoryTest : BaseApiTest() {
         val videos = filmRepository.getFilmVideos(5, 0).blockingGet()
         assertEquals(0, videos.size)
     }
+
+    @Test
+    fun getFilmsInfoShort() {
+        server.enqueue(MockResponse().setBody(getResource("film-info-short.txt")))
+        server.start()
+
+        val infos = filmRepository.getFilmsInfoShort(1, 2).blockingGet()
+        assertEquals(1, infos.size)
+        infos[0].run {
+            assertEquals("Paragraf 187", title)
+            assertEquals(1997, year)
+            assertEquals(7.32566, avgRate, .0)
+            assertEquals(7689, votesCount)
+            assertEquals(120, duration)
+            assertEquals("/00/01/1/7003079.2.jpg", imagePath)
+            assertEquals(null, filmInfo)
+        }
+    }
 }

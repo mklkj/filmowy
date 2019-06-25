@@ -5,8 +5,8 @@ import android.os.Bundle
 import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.R
-import io.github.mklkj.filmowy.api.getPersonImageUrl
-import io.github.mklkj.filmowy.api.repository.PersonRepository
+import io.github.mklkj.filmowy.api.getPersonFilmsImageUrl
+import io.github.mklkj.filmowy.api.repository.FilmRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -19,7 +19,7 @@ class MainActivity : DaggerAppCompatActivity() {
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     @Inject
-    lateinit var personRepository: PersonRepository
+    lateinit var filmRepository: FilmRepository
 
     @Inject
     lateinit var picasso: Picasso
@@ -36,12 +36,12 @@ class MainActivity : DaggerAppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun reloadImage(index: Int) {
         disposable.clear()
-        disposable.add(personRepository.getPersonProfessionCounts(48152 + index.toLong())
+        disposable.add(filmRepository.getFilmsInfoShort(index.toLong(), 1)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                it.run {
-//                    picasso.load(imagePath?.getPersonImageUrl(200)).into(image)
+                it[0].run {
+                    picasso.load(imagePath?.getPersonFilmsImageUrl(200)).into(image)
                     container.text = "$index: $this"
                 }
             }) {

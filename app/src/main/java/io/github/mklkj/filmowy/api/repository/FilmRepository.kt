@@ -2,6 +2,7 @@ package io.github.mklkj.filmowy.api.repository
 
 import io.github.mklkj.filmowy.api.ApiService
 import io.github.mklkj.filmowy.api.asMethod
+import io.github.mklkj.filmowy.api.asVarargMethod
 import io.github.mklkj.filmowy.api.mapper.*
 import io.github.mklkj.filmowy.api.pojo.*
 import io.reactivex.Single
@@ -43,5 +44,9 @@ class FilmRepository @Inject constructor(private val api: ApiService) {
 
     fun getFilmVideos(filmId: Int, page: Int): Single<List<FilmVideo>> {
         return api.getWithMethod("getFilmVideos".asMethod(filmId, page * 100, (page + 1) * 100)).map { it.mapFilmVideos(filmId) }
+    }
+
+    fun getFilmsInfoShort(vararg filmIds: Long): Single<List<Film>> {
+        return api.getWithMethod("getFilmsInfoShort".asVarargMethod(*filmIds.toTypedArray())).map { it.mapFilmsInfoShort() }
     }
 }

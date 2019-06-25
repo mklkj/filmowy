@@ -130,3 +130,19 @@ fun JsonArray.mapFilmVideos(filmId: Int): List<FilmVideo> {
         )
     }
 }
+
+fun JsonArray.mapFilmsInfoShort(): List<Film> {
+    return mapNotNull {
+        if (it.isJsonNull) return@mapNotNull null
+        val item = it.asJsonArray
+        Film(
+            title = item.get(0).asString,
+            year = item.get(1).asInt,
+            avgRate = item.getNullable(2)?.asDouble ?: .0,
+            votesCount = item.getNullable(3)?.asInt ?: 0,
+            duration = item.getNullable(4)?.asInt,
+            imagePath = item.getNullable(5)?.asString,
+            filmInfo = null
+        )
+    }
+}

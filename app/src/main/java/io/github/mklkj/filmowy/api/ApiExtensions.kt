@@ -19,6 +19,8 @@ fun <T> Array<out T>.joinNotEmptyToString(separator: String, prefix: String, pos
 
 fun String.asMethod(vararg params: Any) = "$this${params.joinNotEmptyToString(",", " [", "]")}\n"
 
+fun String.asVarargMethod(vararg params: Any) = "$this${params.joinNotEmptyToString(",", " [[", "]]")}\n"
+
 fun String.getFilmImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/ph" + when (width) {
     in 0..90 -> this
     in 91..180 -> replace("0.jpg", "2.jpg")
