@@ -2,14 +2,8 @@ package io.github.mklkj.filmowy.api.repository
 
 import io.github.mklkj.filmowy.api.ApiService
 import io.github.mklkj.filmowy.api.asMethod
-import io.github.mklkj.filmowy.api.mapper.mapBornTodayPersons
-import io.github.mklkj.filmowy.api.mapper.mapPersonBiography
-import io.github.mklkj.filmowy.api.mapper.mapPersonFilms
-import io.github.mklkj.filmowy.api.mapper.mapPersonFilmsLead
-import io.github.mklkj.filmowy.api.pojo.PersonBiography
-import io.github.mklkj.filmowy.api.pojo.PersonBirthdate
-import io.github.mklkj.filmowy.api.pojo.PersonFilm
-import io.github.mklkj.filmowy.api.pojo.PersonFilmsLead
+import io.github.mklkj.filmowy.api.mapper.*
+import io.github.mklkj.filmowy.api.pojo.*
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -30,5 +24,9 @@ class PersonRepository @Inject constructor(private val api: ApiService) {
 
     fun getPersonFilmsLead(personId: Long, limit: Int): Single<List<PersonFilmsLead>> {
         return api.getWithMethod("getPersonFilmsLead".asMethod(personId, limit)).map { it.mapPersonFilmsLead(personId) }
+    }
+
+    fun getPersonImages(personId: Long, page: Int): Single<List<PersonImage>> {
+        return api.getWithMethod("getPersonImages".asMethod(personId, page, (page + 1))).map { it.mapPersonImages(personId) }
     }
 }

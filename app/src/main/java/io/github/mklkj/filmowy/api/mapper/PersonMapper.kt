@@ -2,10 +2,7 @@ package io.github.mklkj.filmowy.api.mapper
 
 import com.google.gson.JsonArray
 import io.github.mklkj.filmowy.api.getNullable
-import io.github.mklkj.filmowy.api.pojo.PersonBiography
-import io.github.mklkj.filmowy.api.pojo.PersonBirthdate
-import io.github.mklkj.filmowy.api.pojo.PersonFilm
-import io.github.mklkj.filmowy.api.pojo.PersonFilmsLead
+import io.github.mklkj.filmowy.api.pojo.*
 import io.github.mklkj.filmowy.api.toLocalDate
 
 fun JsonArray.mapBornTodayPersons(): List<PersonBirthdate> {
@@ -58,6 +55,16 @@ fun JsonArray.mapPersonFilmsLead(personId: Long): List<PersonFilmsLead> {
             filmTitle = item.getNullable(4)?.asString,
             filmImagePath = item.getNullable(5)?.asString,
             filmYear = item.getNullable(6)?.asInt
+        )
+    }
+}
+
+fun JsonArray.mapPersonImages(personId: Long): List<PersonImage> {
+    return map {
+        val item = it.asJsonArray
+        PersonImage(
+            personId = personId,
+            imagePath = item.get(0).asString
         )
     }
 }

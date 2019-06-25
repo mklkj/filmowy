@@ -73,4 +73,17 @@ class PersonRepositoryTest : BaseApiTest() {
             assertEquals(2014, filmYear)
         }
     }
+
+    @Test
+    fun getPersonImages() {
+        server.enqueue(MockResponse().setBody(getResource("person-images.txt")))
+        server.start()
+
+        val images = personRepository.getPersonImages(1, 0).blockingGet()
+        assertEquals(100, images.size)
+        images[0].run {
+            assertEquals(1, personId)
+            assertEquals("/07/71/820771/802695_1.0.jpg", imagePath)
+        }
+    }
 }
