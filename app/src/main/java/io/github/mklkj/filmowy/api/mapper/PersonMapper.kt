@@ -86,3 +86,17 @@ fun JsonArray.mapPersonInfoFull(personId: Long): Person {
         sex = getNullable(8)?.asInt ?: 0
     )
 }
+
+fun JsonArray.mapPersonProfessionCounts(personId: Long): List<PersonProfessionCount> {
+    return mapIndexed { index, type ->
+        type.asJsonArray.map {
+            val item = it.asJsonArray
+            PersonProfessionCount(
+                personId = personId,
+                filmType = index,
+                assocType = item.get(0).asInt,
+                assocCount = item.get(1).asInt
+            )
+        }
+    }.flatten()
+}

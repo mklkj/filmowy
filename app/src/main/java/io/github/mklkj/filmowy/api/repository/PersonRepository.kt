@@ -33,4 +33,8 @@ class PersonRepository @Inject constructor(private val api: ApiService) {
     fun getPersonInfoFull(personId: Long): Single<Person> {
         return api.getWithMethod("getPersonInfoFull".asMethod(personId)).map { it.mapPersonInfoFull(personId) }
     }
+
+    fun getPersonProfessionCounts(personId: Long): Single<List<PersonProfessionCount>> {
+        return api.getWithMethod("getPersonProfessionCounts".asMethod(personId)).map { it.mapPersonProfessionCounts(personId) }
+    }
 }

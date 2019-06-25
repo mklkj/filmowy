@@ -36,13 +36,13 @@ class MainActivity : DaggerAppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun reloadImage(index: Int) {
         disposable.clear()
-        disposable.add(personRepository.getPersonInfoFull(48152 + index.toLong())
+        disposable.add(personRepository.getPersonProfessionCounts(48152 + index.toLong())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 it.run {
-                    picasso.load(imagePath?.getPersonImageUrl(200)).into(image)
-                    container.text = "$index: $personId $name"
+//                    picasso.load(imagePath?.getPersonImageUrl(200)).into(image)
+                    container.text = "$index: $this"
                 }
             }) {
                 Timber.e(it)

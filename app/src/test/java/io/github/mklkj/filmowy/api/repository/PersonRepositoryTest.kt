@@ -110,4 +110,31 @@ class PersonRepositoryTest : BaseApiTest() {
             assertEquals(2, sex)
         }
     }
+
+    @Test
+    fun getPersonProfessionCounts() {
+        server.enqueue(MockResponse().setBody(getResource("person-profession-counts.txt")))
+        server.start()
+
+        val counts = personRepository.getPersonProfessionCounts(1).blockingGet()
+        assertEquals(8, counts.size)
+        counts[0].run {
+            assertEquals(1, personId)
+            assertEquals(0, filmType)
+            assertEquals(1, assocType)
+            assertEquals(13, assocCount)
+        }
+        counts[1].run {
+            assertEquals(1, personId)
+            assertEquals(0, filmType)
+            assertEquals(2, assocType)
+            assertEquals(8, assocCount)
+        }
+        counts[6].run {
+            assertEquals(1, personId)
+            assertEquals(1, filmType)
+            assertEquals(1, assocType)
+            assertEquals(7, assocCount)
+        }
+    }
 }
