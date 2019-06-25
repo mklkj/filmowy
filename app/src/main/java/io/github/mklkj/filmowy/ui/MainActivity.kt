@@ -36,7 +36,7 @@ class MainActivity : DaggerAppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun reloadImage(index: Int) {
         disposable.clear()
-        disposable.add(personRepository.getPersonFilms(48152, 1, 6, 0, 5)
+        disposable.add(personRepository.getPersonFilmsLead(48152, 5)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

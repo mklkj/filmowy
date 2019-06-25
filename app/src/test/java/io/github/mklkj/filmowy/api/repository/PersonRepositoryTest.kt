@@ -53,4 +53,24 @@ class PersonRepositoryTest : BaseApiTest() {
             assertEquals(null, originalFilmTitle)
         }
     }
+
+    @Test
+    fun getPersonFilmsLead() {
+        server.enqueue(MockResponse().setBody(getResource("person-films-lead.txt")))
+        server.start()
+
+        val films = personRepository.getPersonFilmsLead(1, 5).blockingGet()
+        assertEquals(5, films.size)
+        films[0].run {
+            assertEquals(1, personId)
+            assertEquals(1, filmType)
+            assertEquals(6, assocType)
+            assertEquals(699881, filmId)
+            assertEquals("Pułkownik Marian Bońka", assocName)
+            assertEquals(null, assocAttributes)
+            assertEquals("Służby specjalne", filmTitle)
+            assertEquals("/98/81/699881/7637158.1.jpg", filmImagePath)
+            assertEquals(2014, filmYear)
+        }
+    }
 }

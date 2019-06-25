@@ -5,6 +5,7 @@ import io.github.mklkj.filmowy.api.getNullable
 import io.github.mklkj.filmowy.api.pojo.PersonBiography
 import io.github.mklkj.filmowy.api.pojo.PersonBirthdate
 import io.github.mklkj.filmowy.api.pojo.PersonFilm
+import io.github.mklkj.filmowy.api.pojo.PersonFilmsLead
 import io.github.mklkj.filmowy.api.toLocalDate
 
 fun JsonArray.mapBornTodayPersons(): List<PersonBirthdate> {
@@ -40,6 +41,23 @@ fun JsonArray.mapPersonFilms(personId: Long, filmType: Int, assocType: Int): Lis
             filmImagePath = item.getNullable(3)?.asString,
             filmYear = item.getNullable(4)?.asInt,
             originalFilmTitle = item.getNullable(6)?.asString
+        )
+    }
+}
+
+fun JsonArray.mapPersonFilmsLead(personId: Long): List<PersonFilmsLead> {
+    return map {
+        val item = it.asJsonArray
+        PersonFilmsLead(
+            personId = personId,
+            filmType = item.getNullable(0)?.asInt ?: 0,
+            assocType = item.get(1).asInt,
+            filmId = item.get(2).asLong,
+            assocName = item.getNullable(3)?.asString,
+            assocAttributes = item.getNullable(7)?.asString,
+            filmTitle = item.getNullable(4)?.asString,
+            filmImagePath = item.getNullable(5)?.asString,
+            filmYear = item.getNullable(6)?.asInt
         )
     }
 }

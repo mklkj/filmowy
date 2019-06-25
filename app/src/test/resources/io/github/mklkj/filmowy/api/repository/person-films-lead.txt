@@ -1,0 +1,2 @@
+ok
+[[1,6,699881,"Pułkownik Marian Bońka","Służby specjalne","/98/81/699881/7637158.1.jpg",2014,null],[1,6,535786,"Dziadek Makarewicz, ojciec Michała","Kołysanka","/57/86/535786/7311257.1.jpg",2010,null],[1,6,730099,"Terapeuta \"Żuk\"","Żyć nie umierać","/00/99/730099/7697576.1.jpg",2015,null],[1,6,786410,"Ordynator Adam","Botoks","/64/10/786410/7799357.1.jpg",2017,null],[0,6,729152,"Pułkownik Marian Bońka","Służby specjalne","/91/52/729152/7692006.1.jpg",2015,null]] t:42300
