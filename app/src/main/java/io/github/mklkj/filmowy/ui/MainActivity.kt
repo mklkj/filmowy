@@ -1,57 +1,29 @@
 package io.github.mklkj.filmowy.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import com.squareup.picasso.Picasso
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.R
-import io.github.mklkj.filmowy.api.getPersonFilmsImageUrl
-import io.github.mklkj.filmowy.api.repository.FilmRepository
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_main.*
-import timber.log.Timber
+import io.github.mklkj.filmowy.databinding.ActivityMainBinding
+import io.github.mklkj.filmowy.di.ViewModelFactory
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
 
-    private val disposable: CompositeDisposable = CompositeDisposable()
-
     @Inject
-    lateinit var filmRepository: FilmRepository
+    lateinit var viewModelFactory: ViewModelFactory
 
-    @Inject
-    lateinit var picasso: Picasso
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main).apply {
+            mainViewModel = viewModel
+            lifecycleOwner = this@MainActivity
+        }
 
-        var i = 0
-        reloadImage(i)
-        fab.setOnClickListener { reloadImage(++i) }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun reloadImage(index: Int) {
-        disposable.clear()
-        disposable.add(filmRepository.getFilmsNearestBroadcasts(index, 0)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                it.getOrNull(0)?.run {
-//                    picasso.load(imagePath?.getPersonFilmsImageUrl(200)).into(image)
-                    container.text = "$index: $this"
-                }
-            }) {
-                Timber.e(it)
-                container.text = it.localizedMessage
-            })
-    }
-
-    public override fun onDestroy() {
-        super.onDestroy()
-        disposable.clear()
+        viewModel.loadFullFilmInfo()
     }
 }

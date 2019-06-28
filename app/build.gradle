@@ -21,6 +21,10 @@ android {
         }
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -32,6 +36,7 @@ ext {
     retrofit = "2.6.0"
     threetenbp = "1.4.0"
     dagger = "2.23.2"
+    lifecycle = "2.2.0-alpha01"
 }
 
 dependencies {
@@ -55,6 +60,9 @@ dependencies {
 
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
     implementation "io.reactivex.rxjava2:rxkotlin:2.3.0"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle"
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
