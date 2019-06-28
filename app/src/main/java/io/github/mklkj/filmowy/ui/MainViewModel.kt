@@ -2,6 +2,7 @@ package io.github.mklkj.filmowy.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.github.mklkj.filmowy.api.getPersonFilmsImageUrl
 import io.github.mklkj.filmowy.api.repository.FilmRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -14,6 +15,8 @@ class MainViewModel @Inject constructor(private val filmRepository: FilmReposito
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     val text = MutableLiveData("Loading…")
+
+    val imageUrl = MutableLiveData<String>(null)
 
     private var index = 1
 
@@ -29,7 +32,7 @@ class MainViewModel @Inject constructor(private val filmRepository: FilmReposito
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 it.run {
-//                    picasso.load(imagePath?.getPersonFilmsImageUrl(200)).into(image)
+                    imageUrl.value = imagePath?.getPersonFilmsImageUrl(300).toString()
                     text.value = "$index: $this"
                 }
             }) {
