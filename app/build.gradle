@@ -37,6 +37,7 @@ ext {
     threetenbp = "1.4.0"
     dagger = "2.23.2"
     lifecycle = "2.2.0-alpha01"
+    nav = "2.1.0-alpha05"
 }
 
 dependencies {
@@ -63,6 +64,9 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav"
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
 

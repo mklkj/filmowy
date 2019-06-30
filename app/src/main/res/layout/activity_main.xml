@@ -1,76 +1,22 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity">
 
-    <data>
-        <variable
-            name="mainViewModel"
-            type="io.github.mklkj.filmowy.ui.MainViewModel"/>
-    </data>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/main_content"
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:context=".ui.MainActivity">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
 
-        <ScrollView
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:text="@{`Tytuł: ` + mainViewModel.film.title + `, oryginalny: ` + mainViewModel.film.filmInfo.originalTitle}"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:text="@{`Ocena: ` + Double.toString(mainViewModel.film.avgRate)}"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:text="@{`Liczba głosów: ` + Integer.toString(mainViewModel.film.votesCount)}"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:text="@{`Rok: ` + Integer.toString(mainViewModel.film.year)}"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:text="@{`Czas trwania: ` + Integer.toString(mainViewModel.film.duration)}"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:text="@{`Synopis: ` + mainViewModel.film.filmInfo.synopsis}"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:imageUrl="@{mainViewModel.film.imagePath}"
-                    android:contentDescription="@string/app_name" />
-            </LinearLayout>
-        </ScrollView>
+</FrameLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="@dimen/fab_margin"
-            android:onClick="@{() -> mainViewModel.loadNextFilmInfo()}"
-            app:srcCompat="@android:drawable/ic_media_next"/>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>

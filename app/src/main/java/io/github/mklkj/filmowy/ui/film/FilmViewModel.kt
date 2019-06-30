@@ -1,15 +1,16 @@
-package io.github.mklkj.filmowy.ui
+package io.github.mklkj.filmowy.ui.film
 
 import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.getPersonFilmsImageUrl
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.repository.FilmRepository
+import io.github.mklkj.filmowy.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val filmRepository: FilmRepository) : BaseViewModel() {
+class FilmViewModel @Inject constructor(private val filmRepository: FilmRepository) : BaseViewModel() {
 
     val film = MutableLiveData<Film>()
 

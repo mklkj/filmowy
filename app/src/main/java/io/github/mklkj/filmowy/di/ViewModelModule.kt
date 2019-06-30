@@ -6,7 +6,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
-import io.github.mklkj.filmowy.ui.MainViewModel
+import io.github.mklkj.filmowy.ui.film.FilmViewModel
 
 @Suppress("unused")
 @Module
@@ -14,8 +14,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ClassKey(MainViewModel::class)
-    abstract fun bindMainViewModel(mainViewModel: MainViewModel): ViewModel
+    @ClassKey(FilmViewModel::class)
+    abstract fun bindMainViewModel(filmViewModel: FilmViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
