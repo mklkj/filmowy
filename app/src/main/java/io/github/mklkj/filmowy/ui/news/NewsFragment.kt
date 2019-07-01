@@ -19,6 +19,9 @@ class NewsFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    @Inject
+    lateinit var dataAdapter: NewsListAdapter
+
     private lateinit var vm: NewsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -30,17 +33,12 @@ class NewsFragment : DaggerFragment() {
                 lifecycleOwner = this@NewsFragment
             }
 
-        val dataAdapter = NewsListAdapter()
-
         binding.newsRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = dataAdapter
         }
 
-        vm.news.observe(this, Observer {
-            dataAdapter.loadItems(it)
-            dataAdapter.notifyDataSetChanged()
-        })
+        vm.news.observe(this, Observer { dataAdapter.submitList(it) })
 
         return binding.root
     }
