@@ -6,6 +6,11 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/newsFragment"
+            android:icon="@drawable/ic_settings"
+            android:title="Newsy" />
+
+        <item
             android:id="@+id/filmFragment"
             android:icon="@drawable/ic_settings"
             android:title="Film" />

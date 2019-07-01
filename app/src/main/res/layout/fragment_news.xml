@@ -1,0 +1,17 @@
+<layout xmlns:tools="http://schemas.android.com/tools"
+    tools:context="io.github.mklkj.filmowy.ui.news.NewsFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="io.github.mklkj.filmowy.ui.news.NewsViewModel" />
+    </data>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/newsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</layout>

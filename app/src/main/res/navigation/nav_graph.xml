@@ -3,7 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/filmFragment">
+    app:startDestination="@id/newsFragment">
+
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="io.github.mklkj.filmowy.ui.news.NewsFragment"
+        android:label="NewsFragment" />
 
     <fragment
         android:id="@+id/filmFragment"

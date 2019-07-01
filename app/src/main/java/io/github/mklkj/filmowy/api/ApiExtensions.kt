@@ -2,7 +2,11 @@ package io.github.mklkj.filmowy.api
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.LiveDataReactiveStreams
 import com.google.gson.JsonArray
+import io.reactivex.Flowable
 import org.threeten.bp.*
 import org.threeten.bp.Instant.ofEpochMilli
 import java.text.SimpleDateFormat
@@ -10,11 +14,13 @@ import java.text.SimpleDateFormat
 fun JsonArray.getNullable(index: Int) = elementAtOrNull(index).let { if (it?.isJsonNull == true) null else it }
 
 @SuppressLint("SimpleDateFormat")
-private fun String.toZonedTime(format: String) = ofEpochMilli(SimpleDateFormat(format).parse(this).time).atZone(ZoneId.systemDefault())
+private fun String.toZonedTime(format: String) =
+    ofEpochMilli(SimpleDateFormat(format).parse(this).time).atZone(ZoneId.systemDefault())
 
 fun String.toLocalDate(format: String = "yyyy-MM-dd"): LocalDate = toZonedTime(format).toLocalDate()
 
-fun String.toLocalDateTime(format: String = "yyyy-MM-dd HH:mm:ss"): LocalDateTime = toZonedTime(format).toLocalDateTime()
+fun String.toLocalDateTime(format: String = "yyyy-MM-dd HH:mm:ss"): LocalDateTime =
+    toZonedTime(format).toLocalDateTime()
 
 fun String.safeSubstring(index: Int) = if (index == -1) this else substring(index)
 
@@ -78,3 +84,8 @@ fun Long.toLocalDateTime(): LocalDateTime = Instant
     .atZone(ZoneId.systemDefault())
     .withZoneSameInstant(ZoneOffset.UTC)
     .toLocalDateTime()
+
+fun <T> LiveData<T>.toFlowable(owner: LifecycleOwner): Flowable<T> =
+    Flowable.fromPublisher(LiveDataReactiveStreams.toPublisher(owner, this))
+
+fun <T> Flowable<T>.toLiveData(): LiveData<T> = LiveDataReactiveStreams.fromPublisher(this)

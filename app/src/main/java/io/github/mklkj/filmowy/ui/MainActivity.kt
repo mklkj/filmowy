@@ -19,6 +19,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
         navController = navHostFragment.findNavController()
         val appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.newsFragment,
             R.id.filmFragment,
             R.id.personFragment
         ), drawerLayout)

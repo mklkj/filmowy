@@ -1,0 +1,17 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="io.github.mklkj.filmowy.ui.news.NewsViewModel" />
+    </data>
+
+    <TextView
+        android:id="@+id/list_item_news"
+        android:text="@string/app_name"
+        android:layout_width="wrap_content"
+        android:padding="16dp"
+        android:layout_height="wrap_content" />
+
+</layout>
