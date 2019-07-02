@@ -1,10 +1,14 @@
 package io.github.mklkj.filmowy
 
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.databinding.DataBindingUtil
 import com.jakewharton.threetenabp.AndroidThreeTen
+import com.squareup.picasso.Picasso
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
+import io.github.mklkj.filmowy.di.BindingModule
 import io.github.mklkj.filmowy.di.DaggerAppComponent
+import io.github.mklkj.filmowy.di.DaggerBindingComponent
 import timber.log.Timber
 
 class FilmowyApp : DaggerApplication() {
@@ -17,6 +21,18 @@ class FilmowyApp : DaggerApplication() {
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.builder().application(this).build()
+        val appComponent = DaggerAppComponent.builder().application(this).build()
+
+        val bindingComponent = DaggerBindingComponent.builder()
+            .bindAppComponent(appComponent)
+            .bindingModule(BindingModule)
+            .picasso(Picasso.Builder(applicationContext)
+                .loggingEnabled(BuildConfig.DEBUG)
+                .build())
+            .build()
+
+        DataBindingUtil.setDefaultComponent(bindingComponent)
+
+        return appComponent
     }
 }

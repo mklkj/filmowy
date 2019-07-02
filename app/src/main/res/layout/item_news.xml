@@ -6,6 +6,10 @@
         <variable
             name="viewModel"
             type="io.github.mklkj.filmowy.ui.news.NewsViewModel" />
+
+        <variable
+            name="item"
+            type="io.github.mklkj.filmowy.api.pojo.NewsLead" />
     </data>
 
     <LinearLayout
@@ -16,12 +20,14 @@
 
         <ImageView
             android:id="@+id/itemNewsImage"
+            android:src="@{item.newsImageUrl}"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/itemNewsTitle"
+            android:text="@{item.title}"
             tools:text="@tools:sample/lorem"
             android:textSize="16sp"
             android:layout_marginTop="8dp"
@@ -33,6 +39,7 @@
 
         <TextView
             android:id="@+id/itemNewsDate"
+            android:text="@{item.publicationTime}"
             tools:text="@tools:sample/date/ddmmyy"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -41,6 +48,7 @@
 
         <TextView
             android:id="@+id/itemNewsLead"
+            android:text="@{item.lead}"
             tools:text="@tools:sample/lorem/random"
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"

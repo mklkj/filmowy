@@ -1,24 +1,23 @@
 package io.github.mklkj.filmowy.ui.news
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.getNewsImageUrl
 import io.github.mklkj.filmowy.api.pojo.NewsLead
-import kotlinx.android.synthetic.main.item_news.view.*
+import io.github.mklkj.filmowy.databinding.ItemNewsBinding
 import javax.inject.Inject
 
 class NewsListAdapter @Inject constructor() : PagedListAdapter<NewsLead, RecyclerView.ViewHolder>(userDiffCallback) {
 
+    override fun getItemViewType(position: Int) = R.layout.item_news
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.item_news, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), viewType, parent, false))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -37,13 +36,11 @@ class NewsListAdapter @Inject constructor() : PagedListAdapter<NewsLead, Recycle
         }
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(private val binding: ItemNewsBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindTo(news: NewsLead?) {
-            itemView.itemNewsTitle.text = news?.title
-            itemView.itemNewsLead.text = news?.lead
-            itemView.itemNewsDate.text = news?.publicationTime.toString()
-//            picasso.load(news?.newsImageUrl?.getNewsImageUrl(640)).into(itemView.itemNewsImage)
+            binding.item = news?.copy(newsImageUrl = news.newsImageUrl.getNewsImageUrl(640).toString())
+            binding.executePendingBindings()
         }
     }
 }
