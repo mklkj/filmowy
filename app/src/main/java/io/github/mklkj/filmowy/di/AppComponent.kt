@@ -1,9 +1,11 @@
 package io.github.mklkj.filmowy.di
 
+import android.app.Application
+import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
-import io.github.mklkj.filmowy.FilmowyApp
+import dagger.android.support.DaggerApplication
 import javax.inject.Singleton
 
 @Singleton
@@ -15,8 +17,13 @@ import javax.inject.Singleton
         BuilderModule::class
     ]
 )
-interface AppComponent : AndroidInjector<FilmowyApp> {
+interface AppComponent : AndroidInjector<DaggerApplication> {
 
-    @Component.Factory
-    interface Factory : AndroidInjector.Factory<FilmowyApp>
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        fun application(application: Application): Builder
+
+        fun build(): AppComponent
+    }
 }

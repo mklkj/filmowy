@@ -13,14 +13,12 @@ import io.github.mklkj.filmowy.api.pojo.NewsLead
 import kotlinx.android.synthetic.main.item_news.view.*
 import javax.inject.Inject
 
-class NewsListAdapter @Inject constructor(
-    private val picasso: Picasso
-) : PagedListAdapter<NewsLead, RecyclerView.ViewHolder>(userDiffCallback) {
+class NewsListAdapter @Inject constructor() : PagedListAdapter<NewsLead, RecyclerView.ViewHolder>(userDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.item_news, parent, false)
-        return ViewHolder(view, picasso)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -39,13 +37,13 @@ class NewsListAdapter @Inject constructor(
         }
     }
 
-    class ViewHolder(view: View, private val picasso: Picasso) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bindTo(news: NewsLead?) {
             itemView.itemNewsTitle.text = news?.title
             itemView.itemNewsLead.text = news?.lead
             itemView.itemNewsDate.text = news?.publicationTime.toString()
-            picasso.load(news?.newsImageUrl?.getNewsImageUrl(640)).into(itemView.itemNewsImage)
+//            picasso.load(news?.newsImageUrl?.getNewsImageUrl(640)).into(itemView.itemNewsImage)
         }
     }
 }
