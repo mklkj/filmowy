@@ -39,7 +39,7 @@ class NewsListAdapter @Inject constructor() : PagedListAdapter<NewsLead, Recycle
     class ViewHolder(private val binding: ItemNewsBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindTo(news: NewsLead?) {
-            binding.item = news?.copy(newsImageUrl = news.newsImageUrl.getNewsImageUrl(640).toString())
+            binding.item = news
             binding.executePendingBindings()
         }
     }

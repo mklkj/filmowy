@@ -7,8 +7,8 @@ import org.threeten.bp.format.DateTimeFormatter
 
 class DateBindingAdapter {
 
-    @BindingAdapter("android:text")
-    fun TextView.formatDate(dateTime: LocalDateTime) {
-        text = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+    @BindingAdapter("android:text", "android:format")
+    fun TextView.formatDate(dateTime: LocalDateTime, format: String) {
+        text = dateTime.format(DateTimeFormatter.ofPattern(format))
     }
 }
