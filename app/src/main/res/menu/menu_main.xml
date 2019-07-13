@@ -7,8 +7,8 @@
 
         <item
             android:id="@+id/newsFragment"
-            android:icon="@drawable/ic_settings"
-            android:title="Newsy" />
+            android:icon="@drawable/ic_newspaper"
+            android:title="@string/news_title" />
 
         <item
             android:id="@+id/filmFragment"
