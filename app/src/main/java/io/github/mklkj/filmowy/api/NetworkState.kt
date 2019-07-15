@@ -6,8 +6,8 @@ data class NetworkState private constructor(
     val message: String? = null
 ) {
     companion object {
-        val LOADED = NetworkState(Status.SUCCESS)
-        val LOADING = NetworkState(Status.RUNNING)
+        @JvmStatic val LOADED = NetworkState(Status.SUCCESS)
+        @JvmStatic val LOADING = NetworkState(Status.RUNNING)
         fun error(msg: String?) = NetworkState(Status.FAILED, msg)
     }
 

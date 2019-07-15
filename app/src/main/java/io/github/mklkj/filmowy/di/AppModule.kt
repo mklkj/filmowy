@@ -49,7 +49,7 @@ internal class AppModule {
     @Singleton
     @Provides
     fun provideOkHttp(): OkHttpClient = OkHttpClient.Builder()
-        .readTimeout(30, TimeUnit.SECONDS)
+        .callTimeout(30, TimeUnit.SECONDS)
         .addInterceptor(SignatureInterceptor())
         .addInterceptor(ResponseInterceptor())
         .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))

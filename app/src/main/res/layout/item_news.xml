@@ -24,40 +24,43 @@
             android:imageWidth="@{640}"
             android:layout_width="match_parent"
             android:layout_height="170dp"
+            tools:src="@drawable/ic_placeholder"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/itemNewsTitle"
             android:text="@{item.title}"
-            tools:text="@tools:sample/lorem"
             android:textSize="16sp"
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/lorem"/>
 
         <TextView
             android:id="@+id/itemNewsDate"
             android:text="@{item.publicationTime}"
             android:format='@{"yyyy-MM-dd HH:mm"}'
-            tools:text="@tools:sample/date/ddmmyy"
+            android:textColor="?android:attr/textColorSecondary"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/date/ddmmyy" />
 
         <TextView
             android:id="@+id/itemNewsLead"
             android:text="@{item.lead}"
-            tools:text="@tools:sample/lorem/random"
-            android:layout_marginTop="8dp"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            tools:text="@tools:sample/lorem" />
     </LinearLayout>
 
 </layout>

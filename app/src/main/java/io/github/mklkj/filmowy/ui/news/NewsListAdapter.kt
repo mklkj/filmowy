@@ -10,24 +10,43 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.github.mklkj.filmowy.R
+import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.NewsLead
 import io.github.mklkj.filmowy.databinding.ItemNewsBinding
 import javax.inject.Inject
 
-class NewsListAdapter @Inject constructor() : PagedListAdapter<NewsLead, RecyclerView.ViewHolder>(userDiffCallback) {
+class NewsListAdapter @Inject constructor() : PagedListAdapter<NewsLead, RecyclerView.ViewHolder>(diffCallback) {
 
-    override fun getItemViewType(position: Int) = R.layout.item_news
+    private var networkState: NetworkState? = null
+
+    lateinit var retryCallback: () -> Unit
+
+    private fun hasExtraRow() = networkState != null && networkState != NetworkState.LOADED
+
+    override fun getItemViewType(position: Int): Int {
+        return if (hasExtraRow() && position == itemCount - 1) R.layout.item_network_state
+        else R.layout.item_news
+    }
+
+    override fun getItemCount() = super.getItemCount() + if (hasExtraRow()) 1 else 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), viewType, parent, false), parent.context)
+        return when (viewType) {
+            R.layout.item_network_state -> NetworkStateViewHolder.create(parent, viewType, retryCallback)
+            R.layout.item_news -> ViewHolder.create(parent, viewType)
+            else -> throw IllegalArgumentException("unknown view type")
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ViewHolder).bindTo(getItem(position))
+        when (getItemViewType(position)) {
+            R.layout.item_news -> (holder as ViewHolder).bindTo(getItem(position))
+            R.layout.item_network_state -> (holder as NetworkStateViewHolder).bindTo(networkState)
+        }
     }
 
     companion object {
-        val userDiffCallback = object : DiffUtil.ItemCallback<NewsLead>() {
+        val diffCallback = object : DiffUtil.ItemCallback<NewsLead>() {
             override fun areItemsTheSame(oldItem: NewsLead, newItem: NewsLead): Boolean {
                 return oldItem.id == newItem.id
             }
@@ -38,17 +57,42 @@ class NewsListAdapter @Inject constructor() : PagedListAdapter<NewsLead, Recycle
         }
     }
 
-    class ViewHolder(private val binding: ItemNewsBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
+    fun setNetworkState(newNetworkState: NetworkState?) {
+        if (currentList?.size == 0) return
+
+        val previousState = this.networkState
+        val hadExtraRow = hasExtraRow()
+        networkState = newNetworkState
+        val hasExtraRow = hasExtraRow()
+        if (hadExtraRow != hasExtraRow) {
+            if (hadExtraRow) notifyItemRemoved(super.getItemCount())
+            else notifyItemInserted(super.getItemCount())
+        } else if (hasExtraRow && previousState !== newNetworkState) {
+            notifyItemChanged(itemCount - 1)
+        }
+    }
+
+    class ViewHolder(private val binding: ItemNewsBinding, private val context: Context) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bindTo(news: NewsLead?) {
+            binding.item = news
             binding.itemNewsContainer.setOnClickListener {
                 Intent(Intent.ACTION_VIEW).let { intent ->
                     intent.data = Uri.parse("https://www.filmweb.pl/news/-${news?.id}")
                     context.startActivity(intent)
                 }
             }
-            binding.item = news
             binding.executePendingBindings()
+        }
+
+        companion object {
+            fun create(parent: ViewGroup, viewType: Int): ViewHolder {
+                return ViewHolder(
+                    DataBindingUtil.inflate(LayoutInflater.from(parent.context), viewType, parent, false),
+                    parent.context
+                )
+            }
         }
     }
 }

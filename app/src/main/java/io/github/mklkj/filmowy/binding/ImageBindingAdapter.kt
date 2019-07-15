@@ -5,7 +5,6 @@ import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.getNewsImageUrl
-import timber.log.Timber
 
 class ImageBindingAdapter(val picasso: Picasso) {
 

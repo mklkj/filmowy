@@ -4,6 +4,7 @@ import androidx.databinding.DataBindingComponent
 import com.squareup.picasso.Picasso
 import dagger.BindsInstance
 import dagger.Component
+import io.github.mklkj.filmowy.binding.BooleanBindingAdapter
 import io.github.mklkj.filmowy.binding.DateBindingAdapter
 import io.github.mklkj.filmowy.binding.ImageBindingAdapter
 
@@ -25,4 +26,6 @@ interface BindingComponent : DataBindingComponent {
     override fun getImageBindingAdapter(): ImageBindingAdapter
 
     override fun getDateBindingAdapter(): DateBindingAdapter
+
+    override fun getBooleanBindingAdapter(): BooleanBindingAdapter
 }

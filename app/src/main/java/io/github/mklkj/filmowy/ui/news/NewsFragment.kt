@@ -22,11 +22,8 @@ class NewsFragment : DaggerFragment() {
     @Inject
     lateinit var dataAdapter: NewsListAdapter
 
-    private lateinit var vm: NewsViewModel
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        vm = ViewModelProviders.of(this, viewModelFactory).get(NewsViewModel::class.java)
-
+        val vm = ViewModelProviders.of(this, viewModelFactory).get(NewsViewModel::class.java)
         val binding = DataBindingUtil.inflate<FragmentNewsBinding>(inflater, R.layout.fragment_news, container, false)
             .apply {
                 viewModel = vm
@@ -38,7 +35,10 @@ class NewsFragment : DaggerFragment() {
             adapter = dataAdapter
         }
 
+        dataAdapter.retryCallback = { vm.retry() }
+
         vm.news.observe(this, Observer { dataAdapter.submitList(it) })
+        vm.networkState.observe(this, Observer { dataAdapter.setNetworkState(it) })
 
         return binding.root
     }
