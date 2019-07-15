@@ -17,13 +17,11 @@ class FilmFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var vm: FilmViewModel
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        vm = ViewModelProviders.of(this, viewModelFactory).get(FilmViewModel::class.java)
+        val vm = ViewModelProviders.of(this, viewModelFactory).get(FilmViewModel::class.java)
 
         return DataBindingUtil.inflate<FragmentFilmBinding>(inflater, R.layout.fragment_film, container, false).apply {
-            lifecycleOwner = this@FilmFragment
+            lifecycleOwner = viewLifecycleOwner
             viewModel = vm.apply {
                 loadFullFilmInfo()
             }

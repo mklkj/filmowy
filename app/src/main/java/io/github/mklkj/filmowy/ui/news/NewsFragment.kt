@@ -27,7 +27,7 @@ class NewsFragment : DaggerFragment() {
         val binding = DataBindingUtil.inflate<FragmentNewsBinding>(inflater, R.layout.fragment_news, container, false)
             .apply {
                 viewModel = vm
-                lifecycleOwner = this@NewsFragment
+                lifecycleOwner = viewLifecycleOwner
             }
 
         binding.newsRecyclerView.apply {
@@ -37,8 +37,8 @@ class NewsFragment : DaggerFragment() {
 
         dataAdapter.retryCallback = { vm.retry() }
 
-        vm.news.observe(this, Observer { dataAdapter.submitList(it) })
-        vm.networkState.observe(this, Observer { dataAdapter.setNetworkState(it) })
+        vm.news.observe(viewLifecycleOwner, Observer { dataAdapter.submitList(it) })
+        vm.networkState.observe(viewLifecycleOwner, Observer { dataAdapter.setNetworkState(it) })
 
         return binding.root
     }
