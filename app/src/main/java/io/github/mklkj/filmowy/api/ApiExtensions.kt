@@ -1,7 +1,6 @@
 package io.github.mklkj.filmowy.api
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
@@ -36,7 +35,7 @@ fun String.getFilmImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/ph" +
     in 91..180 -> replace("0.jpg", "2.jpg")
     in 181..450 -> replace("0.jpg", "3.jpg")
     else -> replace("0.jpg", "1.jpg")
-}).toUri()
+})
 
 fun String.getNewsImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/an" + when (width) {
     in 0..90 -> this
@@ -52,13 +51,13 @@ fun String.getNewsImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/an" +
     in 1201..1360 -> replace("1.jpg", "13.jpg")
 
     else -> replace("0.jpg", "1.jpg")
-}).toUri()
+})
 
 fun String.getUserImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/u" + when (width) {
     in 0..75 -> replace("0.jpg", "3.jpg")
     in 76..80 -> replace("0.jpg", "2.jpg")
     else -> replace("0.jpg", "1.jpg")
-}).toUri()
+})
 
 fun String.getPersonImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/p" + when (width) {
     in 0..70 -> replace("1.jpg", "0.jpg")
@@ -67,17 +66,17 @@ fun String.getPersonImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/p" 
     in 201..360 -> replace("1.jpg", "3.jpg")
     in 361..500 -> replace("1.jpg", "4.jpg")
     else -> replace("1.jpg", "5.jpg")
-}).toUri()
+})
 
 fun String.getPersonFilmsImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/po" + when (width) {
-    in 0..38 -> replace("1.jpg", "0.jpg")
-    in 39..70 -> replace("1.jpg", "4.jpg")
-    in 71..90 -> this
-    in 91..140 -> replace("1.jpg", "2.jpg")
-    else -> replace("1.jpg", "5.jpg")
-}).toUri()
-
-fun String.toUri(): Uri = Uri.parse(this)
+        in 0..38 -> replace("2.jpg", "0.jpg")
+        in 39..70 -> replace("2.jpg", "4.jpg")
+        in 71..90 -> replace("2.jpg", "1.jpg")
+        in 91..140 -> this
+        in 141..200 -> replace("2.jpg", "6.jpg")
+        in 201..370 -> replace("2.jpg", "5.jpg")
+        else -> replace("2.jpg", "3.jpg")
+    })
 
 fun Long.toLocalDateTime(): LocalDateTime = Instant
     .ofEpochMilli(this)
