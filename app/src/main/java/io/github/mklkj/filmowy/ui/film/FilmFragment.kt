@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
@@ -19,12 +20,13 @@ class FilmFragment : DaggerFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val vm = ViewModelProviders.of(this, viewModelFactory).get(FilmViewModel::class.java)
-
-        return DataBindingUtil.inflate<FragmentFilmBinding>(inflater, R.layout.fragment_film, container, false).apply {
+        val binding =  DataBindingUtil.inflate<FragmentFilmBinding>(inflater, R.layout.fragment_film, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
-            viewModel = vm.apply {
-                loadFullFilmInfo()
-            }
-        }.root
+            viewModel = vm
+        }
+
+        vm.film.observe(viewLifecycleOwner, Observer { binding.film = it })
+
+        return binding.root
     }
 }

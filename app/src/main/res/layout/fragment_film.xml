@@ -6,6 +6,10 @@
         <variable
             name="viewModel"
             type="io.github.mklkj.filmowy.ui.film.FilmViewModel" />
+
+        <variable
+            name="film"
+            type="io.github.mklkj.filmowy.api.pojo.Film" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
@@ -21,42 +25,42 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:text="@{`Tytuł: ` + viewModel.film.title + `, oryginalny: ` + viewModel.film.filmInfo.originalTitle}"
+                android:text="@{`Tytuł: ` + film.title + `, oryginalny: ` + film.filmInfo.originalTitle}"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 tools:text="Tytuł"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="@{`Ocena: ` + Double.toString(viewModel.film.avgRate)}"
+                android:text="@{`Ocena: ` + Double.toString(film.avgRate)}"
                 android:layout_marginBottom="10dp"
                 tools:text="Ocena"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="@{`Liczba głosów: ` + Integer.toString(viewModel.film.votesCount)}"
+                android:text="@{`Liczba głosów: ` + Integer.toString(film.votesCount)}"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 tools:text="Liczba głosów"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="@{`Rok: ` + Integer.toString(viewModel.film.year)}"
+                android:text="@{`Rok: ` + Integer.toString(film.year)}"
                 android:layout_marginBottom="10dp"
                 tools:text="Rok"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="@{`Czas trwania: ` + Integer.toString(viewModel.film.duration)}"
+                android:text="@{`Czas trwania: ` + Integer.toString(film.duration)}"
                 android:layout_marginBottom="10dp"
                 tools:text="Czas trwania"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="@{`Synopis: ` + viewModel.film.filmInfo.synopsis}"
+                android:text="@{`Synopis: ` + film.filmInfo.synopsis}"
                 android:layout_marginBottom="10dp"
                 tools:text="Synopis"
                 android:layout_width="match_parent"
@@ -66,7 +70,7 @@
                 android:id="@+id/image"
                 android:layout_width="500dp"
                 android:layout_height="wrap_content"
-                android:filmImage="@{viewModel.film.imagePath}"
+                android:filmImage="@{film.imagePath}"
                 android:imageWidth="@{500}"
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/app_name" />

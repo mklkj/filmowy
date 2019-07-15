@@ -15,12 +15,16 @@ class FilmViewModel @Inject constructor(private val filmRepository: FilmReposito
 
     private var index = 1
 
+    init {
+        loadFullFilmInfo()
+    }
+
     fun loadNextFilmInfo() {
         index++
         loadFullFilmInfo()
     }
 
-    fun loadFullFilmInfo() {
+    private fun loadFullFilmInfo() {
         disposable.clear()
         disposable.add(filmRepository.getFilmInfoFull(index)
             .subscribeOn(Schedulers.io())
