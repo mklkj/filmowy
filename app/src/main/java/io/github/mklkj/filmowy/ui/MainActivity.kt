@@ -2,22 +2,32 @@ package io.github.mklkj.filmowy.ui
 
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.navigation.NavigationView
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.R
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : DaggerAppCompatActivity() {
 
-    private lateinit var navController: NavController
+    private val navController by lazy { findNavController(R.id.navHostFragment) }
+
+    private val navView by lazy { findViewById<NavigationView>(R.id.navView) }
+
+    private val drawerLayout by lazy { findViewById<DrawerLayout>(R.id.drawerLayout) }
+
+    private val toolbar by lazy { findViewById<Toolbar>(R.id.toolbar) }
+
+    private val collapsingToolbarLayout by lazy { findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbarLayout) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navController = navHostFragment.findNavController()
+
         val appBarConfiguration = AppBarConfiguration(setOf(
             R.id.newsFragment,
             R.id.filmFragment,
@@ -26,13 +36,13 @@ class MainActivity : DaggerAppCompatActivity() {
 
         toolbar.setupWithNavController(navController, appBarConfiguration)
         setSupportActionBar(toolbar)
-        collapsingToolbarLayout.setupWithNavController(toolbar, navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        collapsingToolbarLayout.setupWithNavController(toolbar, navController, appBarConfiguration)
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navHostFragment.findNavController().let { it.navigateUp(AppBarConfiguration(it.graph)) } || super.onSupportNavigateUp()
+        return navController.let { it.navigateUp(AppBarConfiguration(it.graph)) } || super.onSupportNavigateUp()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
