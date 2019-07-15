@@ -42,7 +42,7 @@ ext {
 
 dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
+    implementation "com.jakewharton.threetenabp:threetenabp:1.2.1"
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
@@ -73,7 +73,7 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$paging"
     implementation "androidx.paging:paging-rxjava2:$paging"
 
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation "com.jakewharton.timber:timber:4.7.1"
 
     implementation "com.google.dagger:dagger-android-support:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
