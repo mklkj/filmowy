@@ -1,6 +1,7 @@
 package io.github.mklkj.filmowy.ui.news
 
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.NewsLead
@@ -12,7 +13,10 @@ import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class NewsDataSource(private val repository: NewsRepository, private val disposable: CompositeDisposable) : PageKeyedDataSource<Int, NewsLead>() {
+class NewsDataSource(
+    private val repository: NewsRepository,
+    private val disposable: CompositeDisposable
+) : PageKeyedDataSource<Int, NewsLead>() {
 
     val networkState = MutableLiveData<NetworkState>()
 
@@ -20,17 +24,33 @@ class NewsDataSource(private val repository: NewsRepository, private val disposa
 
     private var retryCompletable: Completable? = null
 
+    class Factory(
+        private val repository: NewsRepository,
+        private val disposable: CompositeDisposable
+    ) : DataSource.Factory<Int, NewsLead>() {
+
+        val newsDataSourceLiveData = MutableLiveData<NewsDataSource>()
+
+        override fun create(): DataSource<Int, NewsLead> {
+            val newsDataSource = NewsDataSource(repository, disposable)
+            newsDataSourceLiveData.postValue(newsDataSource)
+            return newsDataSource
+        }
+    }
+
     private fun setRetry(action: Action?) {
         if (action == null) retryCompletable = null
         else retryCompletable = Completable.fromAction(action)
     }
 
     fun retry() {
-        if (retryCompletable != null) {
-            disposable.add(retryCompletable!!
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ }, { throwable -> Timber.e(throwable) }))
+        retryCompletable?.let { completable ->
+            disposable.add(
+                completable
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ }, { throwable -> Timber.e(throwable) })
+            )
         }
     }
 

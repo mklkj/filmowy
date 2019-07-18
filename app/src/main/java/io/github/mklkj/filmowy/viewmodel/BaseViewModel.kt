@@ -1,4 +1,4 @@
-package io.github.mklkj.filmowy.ui
+package io.github.mklkj.filmowy.viewmodel
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable

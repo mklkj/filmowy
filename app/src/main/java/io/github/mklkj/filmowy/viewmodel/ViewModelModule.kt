@@ -1,4 +1,4 @@
-package io.github.mklkj.filmowy.di
+package io.github.mklkj.filmowy.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -1,4 +1,4 @@
-package io.github.mklkj.filmowy.ui.news
+package io.github.mklkj.filmowy.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

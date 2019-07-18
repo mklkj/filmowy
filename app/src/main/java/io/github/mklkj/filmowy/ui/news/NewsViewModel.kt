@@ -8,12 +8,12 @@ import androidx.paging.PagedList
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.NewsLead
 import io.github.mklkj.filmowy.api.repository.NewsRepository
-import io.github.mklkj.filmowy.ui.BaseViewModel
+import io.github.mklkj.filmowy.viewmodel.BaseViewModel
 import javax.inject.Inject
 
 class NewsViewModel @Inject constructor(private val newsRepository: NewsRepository) : BaseViewModel() {
 
-    private val sourceFactory by lazy { NewsDataSourceFactory(newsRepository, disposable) }
+    private val sourceFactory by lazy { NewsDataSource.Factory(newsRepository, disposable) }
 
     val news: LiveData<PagedList<NewsLead>>
         get() = LivePagedListBuilder(

@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.databinding.FragmentFilmBinding
-import io.github.mklkj.filmowy.di.ViewModelFactory
+import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
 class FilmFragment : DaggerFragment() {

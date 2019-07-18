@@ -1,12 +1,13 @@
-package io.github.mklkj.filmowy.di
+package io.github.mklkj.filmowy.binding
 
 import androidx.databinding.DataBindingComponent
 import com.squareup.picasso.Picasso
 import dagger.BindsInstance
 import dagger.Component
-import io.github.mklkj.filmowy.binding.BooleanBindingAdapter
-import io.github.mklkj.filmowy.binding.DateBindingAdapter
-import io.github.mklkj.filmowy.binding.ImageBindingAdapter
+import io.github.mklkj.filmowy.binding.adapter.BooleanBindingAdapter
+import io.github.mklkj.filmowy.binding.adapter.DateBindingAdapter
+import io.github.mklkj.filmowy.binding.adapter.ImageBindingAdapter
+import io.github.mklkj.filmowy.di.AppComponent
 
 @DataBinding
 @Component(dependencies = [AppComponent::class], modules = [BindingModule::class])

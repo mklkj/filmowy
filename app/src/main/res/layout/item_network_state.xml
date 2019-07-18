@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="8dp"
-        tools:context=".ui.news.NetworkStateViewHolder">
+        tools:context=".ui.NetworkStateViewHolder">
 
         <TextView
             android:id="@+id/errorMessageTextView"

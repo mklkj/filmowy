@@ -6,9 +6,9 @@ import com.jakewharton.threetenabp.AndroidThreeTen
 import com.squareup.picasso.Picasso
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
-import io.github.mklkj.filmowy.di.BindingModule
+import io.github.mklkj.filmowy.binding.BindingModule
+import io.github.mklkj.filmowy.binding.DaggerBindingComponent
 import io.github.mklkj.filmowy.di.DaggerAppComponent
-import io.github.mklkj.filmowy.di.DaggerBindingComponent
 import timber.log.Timber
 
 class FilmowyApp : DaggerApplication() {

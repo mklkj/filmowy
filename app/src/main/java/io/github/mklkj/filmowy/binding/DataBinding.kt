@@ -1,4 +1,4 @@
-package io.github.mklkj.filmowy.di
+package io.github.mklkj.filmowy.binding
 
 import javax.inject.Scope
 

@@ -1,4 +1,4 @@
-package io.github.mklkj.filmowy.binding
+package io.github.mklkj.filmowy.binding.adapter
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter

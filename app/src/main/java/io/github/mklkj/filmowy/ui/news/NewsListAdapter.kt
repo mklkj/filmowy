@@ -13,6 +13,7 @@ import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.NewsLead
 import io.github.mklkj.filmowy.databinding.ItemNewsBinding
+import io.github.mklkj.filmowy.ui.NetworkStateViewHolder
 import javax.inject.Inject
 
 class NewsListAdapter @Inject constructor() : PagedListAdapter<NewsLead, RecyclerView.ViewHolder>(diffCallback) {

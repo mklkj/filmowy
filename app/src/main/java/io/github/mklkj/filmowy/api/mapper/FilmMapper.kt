@@ -29,7 +29,7 @@ fun JsonArray.mapFilmImages(filmId: Int): List<FilmImage> {
                     assocName = null
                 )
             },
-            photoSources = item.getNullable(2)?.asJsonArray?.map { it.asString }
+            photoSources = item.getNullable(2)?.asJsonArray?.map { element -> element.asString }
         )
     }
 }

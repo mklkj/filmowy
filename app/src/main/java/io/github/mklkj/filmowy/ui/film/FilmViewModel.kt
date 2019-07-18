@@ -3,7 +3,7 @@ package io.github.mklkj.filmowy.ui.film
 import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.repository.FilmRepository
-import io.github.mklkj.filmowy.ui.BaseViewModel
+import io.github.mklkj.filmowy.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.databinding.FragmentNewsBinding
-import io.github.mklkj.filmowy.di.ViewModelFactory
+import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
 class NewsFragment : DaggerFragment() {

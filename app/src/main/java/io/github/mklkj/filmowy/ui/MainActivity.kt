@@ -27,7 +27,6 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         val appBarConfiguration = AppBarConfiguration(setOf(
             R.id.newsFragment,
             R.id.filmFragment,
