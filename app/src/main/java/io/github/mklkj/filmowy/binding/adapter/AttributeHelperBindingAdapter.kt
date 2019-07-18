@@ -3,7 +3,7 @@ package io.github.mklkj.filmowy.binding.adapter
 import android.view.View
 import androidx.databinding.BindingAdapter
 
-class BooleanBindingAdapter {
+class AttributeHelperBindingAdapter {
 
     @BindingAdapter("android:visibility")
     fun View.setVisibility(value: Boolean) {

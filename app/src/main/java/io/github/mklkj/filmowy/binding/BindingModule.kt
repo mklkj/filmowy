@@ -3,7 +3,7 @@ package io.github.mklkj.filmowy.binding
 import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
-import io.github.mklkj.filmowy.binding.adapter.BooleanBindingAdapter
+import io.github.mklkj.filmowy.binding.adapter.AttributeHelperBindingAdapter
 import io.github.mklkj.filmowy.binding.adapter.DateBindingAdapter
 import io.github.mklkj.filmowy.binding.adapter.ImageBindingAdapter
 
@@ -21,5 +21,5 @@ object BindingModule {
 
     @Provides
     @DataBinding
-    fun provideBooleanBindingAdapter() = BooleanBindingAdapter()
+    fun provideBooleanBindingAdapter() = AttributeHelperBindingAdapter()
 }
