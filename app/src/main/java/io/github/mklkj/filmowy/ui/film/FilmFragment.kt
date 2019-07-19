@@ -10,17 +10,18 @@ import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.databinding.FragmentFilmBinding
+import io.github.mklkj.filmowy.ui.news.NewsFragmentDirections
 import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
 class FilmFragment : DaggerFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var vmFactory: ViewModelFactory
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val vm = ViewModelProviders.of(this, viewModelFactory).get(FilmViewModel::class.java)
-        val binding =  DataBindingUtil.inflate<FragmentFilmBinding>(inflater, R.layout.fragment_film, container, false).apply {
+        val vm = ViewModelProviders.of(this, vmFactory).get(FilmViewModel::class.java)
+        val binding = DataBindingUtil.inflate<FragmentFilmBinding>(inflater, R.layout.fragment_film, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = vm
         }

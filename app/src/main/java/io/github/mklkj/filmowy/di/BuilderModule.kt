@@ -3,6 +3,7 @@ package io.github.mklkj.filmowy.di
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import io.github.mklkj.filmowy.ui.MainActivity
+import io.github.mklkj.filmowy.ui.article.ArticleFragment
 import io.github.mklkj.filmowy.ui.film.FilmFragment
 import io.github.mklkj.filmowy.ui.news.NewsFragment
 import io.github.mklkj.filmowy.ui.person.PersonFragment
@@ -13,6 +14,9 @@ internal abstract class BuilderModule {
 
     @ContributesAndroidInjector
     abstract fun bindMainActivity(): MainActivity
+
+    @ContributesAndroidInjector
+    abstract fun bindArticleFragment(): ArticleFragment
 
     @ContributesAndroidInjector
     abstract fun bindNewsFragment(): NewsFragment

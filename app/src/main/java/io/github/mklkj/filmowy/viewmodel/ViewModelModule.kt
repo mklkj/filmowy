@@ -6,12 +6,18 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
+import io.github.mklkj.filmowy.ui.article.ArticleViewModel
 import io.github.mklkj.filmowy.ui.film.FilmViewModel
 import io.github.mklkj.filmowy.ui.news.NewsViewModel
 
 @Suppress("unused")
 @Module
 abstract class ViewModelModule {
+
+    @Binds
+    @IntoMap
+    @ClassKey(ArticleViewModel::class)
+    abstract fun bindArticleViewModel(articleViewModel: ArticleViewModel): ViewModel
 
     @Binds
     @IntoMap

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
@@ -36,6 +37,9 @@ class NewsFragment : DaggerFragment() {
         }
 
         dataAdapter.retryCallback = { vm.retry() }
+        dataAdapter.openArticleCallback = {
+            binding.root.findNavController().navigate(NewsFragmentDirections.actionNewsFragmentToArticleFragment(it))
+        }
 
         vm.news.observe(viewLifecycleOwner, Observer { dataAdapter.submitList(it) })
         vm.networkState.observe(viewLifecycleOwner, Observer { dataAdapter.setNetworkState(it) })

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 apply from: 'jacoco.gradle'
 
 android {
@@ -36,7 +37,6 @@ ext {
     threetenbp = "1.4.0"
     dagger = "2.23.2"
     lifecycle = "2.2.0-alpha02"
-    nav = "2.1.0-alpha06"
     paging = "2.1.0"
 }
 
@@ -67,8 +67,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle"
 
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     implementation "androidx.paging:paging-runtime:$paging"
     implementation "androidx.paging:paging-rxjava2:$paging"

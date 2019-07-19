@@ -1,8 +1,5 @@
 package io.github.mklkj.filmowy.ui.news
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -22,6 +19,8 @@ class NewsListAdapter @Inject constructor() : PagedListAdapter<NewsLead, Recycle
 
     lateinit var retryCallback: () -> Unit
 
+    lateinit var openArticleCallback: (NewsLead) -> Unit
+
     private fun hasExtraRow() = networkState != null && networkState != NetworkState.LOADED
 
     override fun getItemViewType(position: Int): Int {
@@ -34,7 +33,7 @@ class NewsListAdapter @Inject constructor() : PagedListAdapter<NewsLead, Recycle
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             R.layout.item_network_state -> NetworkStateViewHolder.create(parent, viewType, retryCallback)
-            R.layout.item_news -> ViewHolder.create(parent, viewType)
+            R.layout.item_news -> ViewHolder.create(parent, viewType, openArticleCallback)
             else -> throw IllegalArgumentException("unknown view type")
         }
     }
@@ -73,25 +72,20 @@ class NewsListAdapter @Inject constructor() : PagedListAdapter<NewsLead, Recycle
         }
     }
 
-    class ViewHolder(private val binding: ItemNewsBinding, private val context: Context) :
+    class ViewHolder(private val binding: ItemNewsBinding, private val openArticleCallback: (NewsLead) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindTo(news: NewsLead?) {
             binding.item = news
-            binding.itemNewsContainer.setOnClickListener {
-                Intent(Intent.ACTION_VIEW).let { intent ->
-                    intent.data = Uri.parse("https://www.filmweb.pl/news/-${news?.id}")
-                    context.startActivity(intent)
-                }
-            }
+            binding.itemNewsContainer.setOnClickListener { news?.let(openArticleCallback) }
             binding.executePendingBindings()
         }
 
         companion object {
-            fun create(parent: ViewGroup, viewType: Int): ViewHolder {
+            fun create(parent: ViewGroup, viewType: Int, callBack: (NewsLead) -> Unit): ViewHolder {
                 return ViewHolder(
                     DataBindingUtil.inflate(LayoutInflater.from(parent.context), viewType, parent, false),
-                    parent.context
+                    callBack
                 )
             }
         }
