@@ -23,8 +23,15 @@ class NewsFragment : DaggerFragment() {
     @Inject
     lateinit var dataAdapter: NewsListAdapter
 
+    private val vm by lazy { ViewModelProviders.of(this, viewModelFactory).get(NewsViewModel::class.java) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        vm.news.observe(this, Observer { dataAdapter.submitList(it) })
+        vm.networkState.observe(this, Observer { dataAdapter.setNetworkState(it) })
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val vm = ViewModelProviders.of(this, viewModelFactory).get(NewsViewModel::class.java)
         val binding = DataBindingUtil.inflate<FragmentNewsBinding>(inflater, R.layout.fragment_news, container, false)
             .apply {
                 viewModel = vm
@@ -40,9 +47,6 @@ class NewsFragment : DaggerFragment() {
         dataAdapter.openArticleCallback = {
             binding.root.findNavController().navigate(NewsFragmentDirections.actionNewsFragmentToArticleFragment(it))
         }
-
-        vm.news.observe(viewLifecycleOwner, Observer { dataAdapter.submitList(it) })
-        vm.networkState.observe(viewLifecycleOwner, Observer { dataAdapter.setNetworkState(it) })
 
         return binding.root
     }
