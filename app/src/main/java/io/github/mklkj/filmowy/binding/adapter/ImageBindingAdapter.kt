@@ -13,7 +13,6 @@ class ImageBindingAdapter(private val picasso: Picasso) {
     fun ImageView.newsImage(url: String?, imageWidth: Int) {
         picasso
             .load(url?.getNewsImageUrl(imageWidth))
-            .placeholder(R.drawable.ic_placeholder)
             .into(this)
     }
 
@@ -21,7 +20,6 @@ class ImageBindingAdapter(private val picasso: Picasso) {
     fun ImageView.filmImage(url: String?, imageWidth: Int) {
         picasso
             .load(url?.getPersonFilmsImageUrl(imageWidth))
-            .placeholder(R.drawable.ic_placeholder)
             .into(this)
     }
 }
