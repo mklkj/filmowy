@@ -22,15 +22,19 @@ abstract class BaseApiTest {
 
     fun getResource(filename: String) = javaClass.getResource(filename)?.readText()
 
-    fun getRetrofit(): Retrofit = Retrofit.Builder()
-        .baseUrl(server.url("/").toString())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(ScalarsConverterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-        .client(OkHttpClient.Builder()
-                .addInterceptor(ResponseInterceptor())
-                .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .build())
-        .build()
+    fun getRetrofit(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(server.url("/").toString())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .client(
+                OkHttpClient.Builder()
+                    .addInterceptor(ResponseInterceptor())
+                    .addNetworkInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+                    .build()
+            )
+            .build()
+    }
 
 }

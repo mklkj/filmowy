@@ -15,7 +15,7 @@ class FilmRepositoryTest : BaseApiTest() {
 
     @Test
     fun getFilmDescription() {
-        server.enqueue(MockResponse().setBody(getResource("film-description.txt")))
+        server.enqueue(MockResponse().setBody(getResource("film-description.txt")!!))
         server.start()
 
         val desc = filmRepository.getFilmDescription(1).blockingGet()
@@ -24,7 +24,7 @@ class FilmRepositoryTest : BaseApiTest() {
 
     @Test
     fun getFilmImages() {
-        server.enqueue(MockResponse().setBody(getResource("film-images.txt")))
+        server.enqueue(MockResponse().setBody(getResource("film-images.txt")!!))
         server.start()
 
         val images = filmRepository.getFilmImages(1, 5).blockingGet()
@@ -37,7 +37,7 @@ class FilmRepositoryTest : BaseApiTest() {
 
     @Test
     fun getFilmInfoFull_noVideos() {
-        server.enqueue(MockResponse().setBody(getResource("film-info-full_no-videos.txt")))
+        server.enqueue(MockResponse().setBody(getResource("film-info-full_no-videos.txt")!!))
         server.start()
 
         val info = filmRepository.getFilmInfoFull(2).blockingGet()
@@ -77,7 +77,7 @@ class FilmRepositoryTest : BaseApiTest() {
 
     @Test
     fun getFilmPersons() {
-        server.enqueue(MockResponse().setBody(getResource("film-persons.txt")))
+        server.enqueue(MockResponse().setBody(getResource("film-persons.txt")!!))
         server.start()
 
         val persons = filmRepository.getFilmPersons(2, FilmPerson.AssocType.ACTOR, 0).blockingGet()
@@ -88,7 +88,7 @@ class FilmRepositoryTest : BaseApiTest() {
 
     @Test
     fun getFilmPersons_null() {
-        server.enqueue(MockResponse().setBody(getResource("exc-npe.txt")))
+        server.enqueue(MockResponse().setBody(getResource("exc-npe.txt")!!))
         server.start()
 
         val persons = filmRepository.getFilmPersons(2, FilmPerson.AssocType.ACTOR, 0).blockingGet()
@@ -97,7 +97,7 @@ class FilmRepositoryTest : BaseApiTest() {
 
     @Test
     fun getFilmPersonsLead() {
-        server.enqueue(MockResponse().setBody(getResource("film-persons-lead.txt")))
+        server.enqueue(MockResponse().setBody(getResource("film-persons-lead.txt")!!))
         server.start()
 
         val persons = filmRepository.getFilmPersonsLead(3, 50).blockingGet()
@@ -115,7 +115,7 @@ class FilmRepositoryTest : BaseApiTest() {
 
     @Test
     fun getFilmProfessionCounts() {
-        server.enqueue(MockResponse().setBody(getResource("film-profession-counts.txt")))
+        server.enqueue(MockResponse().setBody(getResource("film-profession-counts.txt")!!))
         server.start()
 
         val professions = filmRepository.getFilmProfessionCounts(3).blockingGet()
@@ -129,7 +129,7 @@ class FilmRepositoryTest : BaseApiTest() {
 
     @Test
     fun getFilmReview() {
-        server.enqueue(MockResponse().setBody(getResource("film-review.txt")))
+        server.enqueue(MockResponse().setBody(getResource("film-review.txt")!!))
         server.start()
 
         val review = filmRepository.getFilmReview(3).blockingGet()
@@ -145,7 +145,7 @@ class FilmRepositoryTest : BaseApiTest() {
 
     @Test
     fun getFilmVideos() {
-        server.enqueue(MockResponse().setBody(getResource("film-videos.txt")))
+        server.enqueue(MockResponse().setBody(getResource("film-videos.txt")!!))
         server.start()
 
         val videos = filmRepository.getFilmVideos(4, 0).blockingGet()
@@ -159,7 +159,7 @@ class FilmRepositoryTest : BaseApiTest() {
 
     @Test
     fun getFilmVideos_empty() {
-        server.enqueue(MockResponse().setBody(getResource("empty.txt")))
+        server.enqueue(MockResponse().setBody(getResource("empty.txt")!!))
         server.start()
 
         val videos = filmRepository.getFilmVideos(5, 0).blockingGet()
@@ -168,7 +168,7 @@ class FilmRepositoryTest : BaseApiTest() {
 
     @Test
     fun getFilmsInfoShort() {
-        server.enqueue(MockResponse().setBody(getResource("film-info-short.txt")))
+        server.enqueue(MockResponse().setBody(getResource("film-info-short.txt")!!))
         server.start()
 
         val infos = filmRepository.getFilmsInfoShort(1, 2).blockingGet()
@@ -186,7 +186,7 @@ class FilmRepositoryTest : BaseApiTest() {
 
     @Test
     fun getFilmsNearestBroadcasts() {
-        server.enqueue(MockResponse().setBody(getResource("film-nearest-broadcasts.txt")))
+        server.enqueue(MockResponse().setBody(getResource("film-nearest-broadcasts.txt")!!))
         server.start()
 
         val broadcasts = filmRepository.getFilmsNearestBroadcasts(1, 0).blockingGet()

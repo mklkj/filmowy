@@ -14,7 +14,7 @@ class NewsRepositoryTest : BaseApiTest() {
 
     @Test
     fun getNewsList() {
-        server.enqueue(MockResponse().setBody(getResource("news-list.txt")))
+        server.enqueue(MockResponse().setBody(getResource("news-list.txt")!!))
         server.start()
 
         val news = newsRepository.getNewsList(1).blockingGet()
@@ -31,7 +31,7 @@ class NewsRepositoryTest : BaseApiTest() {
 
     @Test
     fun getNews() {
-        server.enqueue(MockResponse().setBody(getResource("news.txt")))
+        server.enqueue(MockResponse().setBody(getResource("news.txt")!!))
         server.start()
 
         val news = newsRepository.getNews(1).blockingGet()
@@ -49,7 +49,7 @@ class NewsRepositoryTest : BaseApiTest() {
 
     @Test(expected = Exception::class)
     fun getNews_null() {
-        server.enqueue(MockResponse().setBody(getResource("null.txt")))
+        server.enqueue(MockResponse().setBody(getResource("null.txt")!!))
         server.start()
 
         newsRepository.getNews(1).blockingGet()
@@ -57,7 +57,7 @@ class NewsRepositoryTest : BaseApiTest() {
 
     @Test
     fun getNewsComments() {
-        server.enqueue(MockResponse().setBody(getResource("news-comments.txt")))
+        server.enqueue(MockResponse().setBody(getResource("news-comments.txt")!!))
         server.start()
 
         val comments = newsRepository.getNewsComments(1, 0).blockingGet()

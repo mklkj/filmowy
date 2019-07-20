@@ -13,7 +13,7 @@ class PersonRepositoryTest : BaseApiTest() {
 
     @Test
     fun getFilmDescription() {
-        server.enqueue(MockResponse().setBody(getResource("persons-born-today.txt")))
+        server.enqueue(MockResponse().setBody(getResource("persons-born-today.txt")!!))
         server.start()
 
         val birthdays = personRepository.getBornTodayPersons().blockingGet()
@@ -29,7 +29,7 @@ class PersonRepositoryTest : BaseApiTest() {
 
     @Test
     fun getPersonBiography() {
-        server.enqueue(MockResponse().setBody(getResource("person-biography.txt")))
+        server.enqueue(MockResponse().setBody(getResource("person-biography.txt")!!))
         server.start()
 
         val biography = personRepository.getPersonBiography(1).blockingGet()
@@ -38,7 +38,7 @@ class PersonRepositoryTest : BaseApiTest() {
 
     @Test
     fun getPersonFilms() {
-        server.enqueue(MockResponse().setBody(getResource("person-films.txt")))
+        server.enqueue(MockResponse().setBody(getResource("person-films.txt")!!))
         server.start()
 
         val films = personRepository.getPersonFilms(1, 1, 1, 1, 1).blockingGet()
@@ -56,7 +56,7 @@ class PersonRepositoryTest : BaseApiTest() {
 
     @Test
     fun getPersonFilmsLead() {
-        server.enqueue(MockResponse().setBody(getResource("person-films-lead.txt")))
+        server.enqueue(MockResponse().setBody(getResource("person-films-lead.txt")!!))
         server.start()
 
         val films = personRepository.getPersonFilmsLead(1, 5).blockingGet()
@@ -76,7 +76,7 @@ class PersonRepositoryTest : BaseApiTest() {
 
     @Test
     fun getPersonImages() {
-        server.enqueue(MockResponse().setBody(getResource("person-images.txt")))
+        server.enqueue(MockResponse().setBody(getResource("person-images.txt")!!))
         server.start()
 
         val images = personRepository.getPersonImages(1, 0).blockingGet()
@@ -89,7 +89,7 @@ class PersonRepositoryTest : BaseApiTest() {
 
     @Test
     fun getPersonInfoFull() {
-        server.enqueue(MockResponse().setBody(getResource("person-info.txt")))
+        server.enqueue(MockResponse().setBody(getResource("person-info.txt")!!))
         server.start()
 
         val info = personRepository.getPersonInfoFull(1).blockingGet()
@@ -113,7 +113,7 @@ class PersonRepositoryTest : BaseApiTest() {
 
     @Test
     fun getPersonProfessionCounts() {
-        server.enqueue(MockResponse().setBody(getResource("person-profession-counts.txt")))
+        server.enqueue(MockResponse().setBody(getResource("person-profession-counts.txt")!!))
         server.start()
 
         val counts = personRepository.getPersonProfessionCounts(1).blockingGet()
