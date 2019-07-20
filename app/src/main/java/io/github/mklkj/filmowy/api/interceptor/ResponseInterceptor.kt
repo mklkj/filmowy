@@ -3,14 +3,14 @@ package io.github.mklkj.filmowy.api.interceptor
 import io.github.mklkj.filmowy.api.safeSubstring
 import okhttp3.Interceptor
 import okhttp3.Response
-import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 
 class ResponseInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val response = chain.proceed(chain.request())
 
-        val parts = response.body()?.string().orEmpty().split("\n")
+        val parts = response.body?.string().orEmpty().split("\n")
 
         if ("ok" != parts[0]) {
             throw Exception(parts[1])
@@ -30,7 +30,7 @@ class ResponseInterceptor : Interceptor {
                 else this
             }
 
-        val body = ResponseBody.create(response.body()?.contentType(), newBody)
+        val body = newBody.toResponseBody(response.body?.contentType())
         return response.newBuilder().body(body).build()
     }
 }

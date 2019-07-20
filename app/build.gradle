@@ -32,7 +32,7 @@ android {
 }
 
 ext {
-    okhttp3 = "3.12.3"
+    okhttp3 = "4.0.1"
     retrofit = "2.6.0"
     threetenbp = "1.4.0"
     dagger = "2.23.2"
