@@ -11,7 +11,12 @@
         android:label="NewsFragment">
         <action
             android:id="@+id/action_newsFragment_to_articleFragment"
-            app:destination="@id/articleFragment" />
+            app:destination="@id/articleFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
     </fragment>
 
     <fragment
@@ -21,6 +26,9 @@
         <argument
             android:name="article"
             app:argType="java.io.Serializable" />
+        <argument
+            android:name="position"
+            app:argType="integer"/>
     </fragment>
 
     <fragment

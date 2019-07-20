@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
+import androidx.transition.TransitionInflater
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.pojo.News
@@ -18,13 +19,19 @@ import javax.inject.Inject
 
 class ArticleFragment : DaggerFragment() {
 
-    private val args by navArgs<ArticleFragmentArgs>()
-
     @Inject
     lateinit var vmFactory: ViewModelFactory
 
+    private val vm by lazy { ViewModelProviders.of(this, vmFactory).get(ArticleViewModel::class.java) }
+
+    private val args by navArgs<ArticleFragmentArgs>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val vm = ViewModelProviders.of(this, vmFactory).get(ArticleViewModel::class.java)
         val binding = DataBindingUtil.inflate<FragmentArticleBinding>(inflater, R.layout.fragment_article, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = vm
@@ -37,11 +44,13 @@ class ArticleFragment : DaggerFragment() {
                     source = null,
                     commentsCount = 0,
                     publicationTime = it.publicationTime,
-                    content = it.lead,
-                    lead = it.lead
+                    content = "",
+                    lead = null
                 )
             }
         }
+
+        binding.articleImage.transitionName = "news_image_${args.position}"
 
         vm.getArticle((args.article as NewsLead).id).observe(viewLifecycleOwner, Observer { if (it.content.isNotEmpty()) binding.article = it })
 

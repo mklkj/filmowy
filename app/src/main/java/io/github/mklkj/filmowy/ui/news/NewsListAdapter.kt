@@ -2,6 +2,7 @@ package io.github.mklkj.filmowy.ui.news
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -19,7 +20,7 @@ class NewsListAdapter @Inject constructor() : PagedListAdapter<NewsLead, Recycle
 
     lateinit var retryCallback: () -> Unit
 
-    lateinit var openArticleCallback: (NewsLead) -> Unit
+    lateinit var openArticleCallback: (NewsLead, ImageView, Int) -> Unit
 
     private fun hasExtraRow() = networkState != null && networkState != NetworkState.LOADED
 
@@ -72,17 +73,18 @@ class NewsListAdapter @Inject constructor() : PagedListAdapter<NewsLead, Recycle
         }
     }
 
-    class ViewHolder(private val binding: ItemNewsBinding, private val openArticleCallback: (NewsLead) -> Unit) :
+    class ViewHolder(private val binding: ItemNewsBinding, private val openArticleCallback: (NewsLead, ImageView, Int) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindTo(news: NewsLead?) {
             binding.item = news
-            binding.itemNewsContainer.setOnClickListener { news?.let(openArticleCallback) }
+            binding.itemNewsImage.transitionName = "news_image_$adapterPosition"
+            binding.itemNewsContainer.setOnClickListener { news?.let { openArticleCallback(it, binding.itemNewsImage, layoutPosition) } }
             binding.executePendingBindings()
         }
 
         companion object {
-            fun create(parent: ViewGroup, viewType: Int, callBack: (NewsLead) -> Unit): ViewHolder {
+            fun create(parent: ViewGroup, viewType: Int, callBack: (NewsLead, ImageView, Int) -> Unit): ViewHolder {
                 return ViewHolder(
                     DataBindingUtil.inflate(LayoutInflater.from(parent.context), viewType, parent, false),
                     callBack

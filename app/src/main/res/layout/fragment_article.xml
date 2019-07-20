@@ -23,6 +23,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/articleImage"
                 android:newsImage="@{article.newsImageUrl}"
                 android:imageWidth="@{640}"
                 android:layout_width="match_parent"
