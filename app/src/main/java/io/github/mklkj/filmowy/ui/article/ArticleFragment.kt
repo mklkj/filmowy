@@ -43,7 +43,7 @@ class ArticleFragment : DaggerFragment() {
             }
         }
 
-        vm.getArticle((args.article as NewsLead).id).observe(viewLifecycleOwner, Observer { binding.article = it })
+        vm.getArticle((args.article as NewsLead).id).observe(viewLifecycleOwner, Observer { if (it.content.isNotEmpty()) binding.article = it })
 
         return binding.root
     }

@@ -10,9 +10,9 @@ import io.github.mklkj.filmowy.api.getPersonFilmsImageUrl
 class ImageBindingAdapter(private val picasso: Picasso) {
 
     @BindingAdapter("android:newsImage", "android:imageWidth")
-    fun ImageView.newsImage(url: String, imageWidth: Int) {
+    fun ImageView.newsImage(url: String?, imageWidth: Int) {
         picasso
-            .load(url.getNewsImageUrl(imageWidth))
+            .load(url?.getNewsImageUrl(imageWidth))
             .placeholder(R.drawable.ic_placeholder)
             .into(this)
     }

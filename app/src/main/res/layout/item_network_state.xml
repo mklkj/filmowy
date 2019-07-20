@@ -2,7 +2,7 @@
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="state"
@@ -17,7 +17,6 @@
         tools:context=".ui.NetworkStateViewHolder">
 
         <TextView
-            android:id="@+id/errorMessageTextView"
             android:text="@{state.message}"
             android:visibility="@{state.message != null}"
             android:layout_width="wrap_content"
@@ -25,7 +24,6 @@
             android:layout_gravity="center_horizontal" />
 
         <ProgressBar
-            android:id="@+id/loadingProgressBar"
             android:visibility="@{state.status == state.component1().RUNNING}"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
