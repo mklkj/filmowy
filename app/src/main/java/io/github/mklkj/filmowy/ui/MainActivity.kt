@@ -10,8 +10,12 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.navigation.NavigationView
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.R
+import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
+
+    @Inject
+    lateinit var fragmentLifecycleLogger: FragmentLifecycleLogger
 
     private val navController by lazy { findNavController(R.id.navHostFragment) }
 
@@ -25,6 +29,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleLogger, true)
         setContentView(R.layout.activity_main)
 
         val appBarConfiguration = AppBarConfiguration(setOf(
