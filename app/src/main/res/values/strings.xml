@@ -3,4 +3,5 @@
 
     <string name="news_title">Newsy</string>
     <string name="retry">Ponów</string>
+    <string name="open_in_browser">Otwórz w przeglądarce</string>
 </resources>

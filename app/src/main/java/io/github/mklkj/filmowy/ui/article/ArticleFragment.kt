@@ -1,9 +1,9 @@
 package io.github.mklkj.filmowy.ui.article
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -32,6 +32,7 @@ class ArticleFragment : DaggerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        setHasOptionsMenu(true)
         val binding = DataBindingUtil.inflate<FragmentArticleBinding>(inflater, R.layout.fragment_article, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = vm
@@ -55,5 +56,21 @@ class ArticleFragment : DaggerFragment() {
         vm.getArticle((args.article as NewsLead).id).observe(viewLifecycleOwner, Observer { if (it.content.isNotEmpty()) binding.article = it })
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.article, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.article_open_in_browser -> {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://m.filmweb.pl/news/-${(args.article as NewsLead).id}")))
+                true
+            }
+            else -> false
+        }
+
     }
 }
