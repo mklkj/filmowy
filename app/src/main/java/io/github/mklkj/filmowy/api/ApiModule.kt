@@ -38,6 +38,8 @@ class ApiModule {
         .callTimeout(30, TimeUnit.SECONDS)
         .addInterceptor(SignatureInterceptor())
         .addInterceptor(ResponseInterceptor())
-        .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        .addNetworkInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BASIC
+        })
         .build()
 }

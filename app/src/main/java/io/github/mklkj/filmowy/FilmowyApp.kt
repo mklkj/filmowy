@@ -27,7 +27,7 @@ class FilmowyApp : DaggerApplication() {
             .bindAppComponent(appComponent)
             .bindingModule(BindingModule)
             .picasso(Picasso.Builder(applicationContext)
-                .loggingEnabled(BuildConfig.DEBUG)
+//                .loggingEnabled(BuildConfig.DEBUG)
                 .build())
             .build()
 
