@@ -12,6 +12,16 @@ class ResponseInterceptor : Interceptor {
 
         val parts = response.body?.string().orEmpty().split("\n")
 
+        val newBody = if (parts.size == 1) {
+            proceedSearchResponse(parts[0])
+        } else {
+            proceedCommonResponse(parts)
+        }
+
+        return response.newBuilder().body(newBody.toResponseBody(response.body?.contentType())).build()
+    }
+
+    private fun proceedCommonResponse(parts: List<String>): String {
         if ("ok" != parts[0]) {
             throw Exception(parts[1])
         }
@@ -23,14 +33,17 @@ class ResponseInterceptor : Interceptor {
             throw Exception("404")
         }
 
-        val newBody = content
+        return content
             .replace("exc NullPointerException", "[]")
             .run {
                 if (timeInfo.startsWith(" t:")) replace(timeInfo, "")
                 else this
             }
+    }
 
-        val body = newBody.toResponseBody(response.body?.contentType())
-        return response.newBuilder().body(body).build()
+    private fun proceedSearchResponse(response: String): String {
+        return response.split("\\a").joinToString(",", "[", "]") {
+            it.split("\\c").joinToString(",", "[", "]") { value -> "\"$value\"" }
+        }
     }
 }

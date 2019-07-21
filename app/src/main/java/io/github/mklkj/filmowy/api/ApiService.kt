@@ -9,4 +9,7 @@ interface ApiService {
 
     @GET("api")
     fun getWithMethod(@Query("methods") methods: String): Single<JsonArray>
+
+    @GET("search/live")
+    fun search(@Query("q") search: String): Single<JsonArray>
 }
