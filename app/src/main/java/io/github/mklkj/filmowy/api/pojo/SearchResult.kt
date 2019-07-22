@@ -1,6 +1,8 @@
 package io.github.mklkj.filmowy.api.pojo
 
-interface SearchResult {
+import java.io.Serializable
+
+interface SearchResult : Serializable {
 
     val type: Type
 

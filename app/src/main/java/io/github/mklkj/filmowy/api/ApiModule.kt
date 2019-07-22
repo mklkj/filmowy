@@ -25,7 +25,7 @@ class ApiModule {
     @Singleton
     @Provides
     fun provideRetrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl("https://ssl.filmweb.pl/")
+        .baseUrl("https://www.filmweb.pl/")
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))

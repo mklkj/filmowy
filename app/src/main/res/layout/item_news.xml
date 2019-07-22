@@ -20,12 +20,12 @@
 
         <ImageView
             android:id="@+id/itemNewsImage"
-            android:newsImage="@{item.newsImageUrl}"
-            android:imageWidth="@{640}"
             android:layout_width="match_parent"
             android:layout_height="170dp"
-            tools:src="@drawable/ic_placeholder"
-            tools:ignore="ContentDescription" />
+            android:imageWidth="@{640}"
+            android:newsImage="@{item.newsImageUrl}"
+            tools:ignore="ContentDescription"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <TextView
             android:id="@+id/itemNewsTitle"

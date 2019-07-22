@@ -28,8 +28,8 @@
                 android:imageWidth="@{640}"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
-                tools:src="@drawable/ic_placeholder"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <TextView
                 android:text="@{article.title}"

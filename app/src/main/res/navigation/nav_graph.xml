@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/newsFragment"
         android:name="io.github.mklkj.filmowy.ui.news.NewsFragment"
-        android:label="NewsFragment">
+        android:label="NewsFragment"
+        tools:layout="@layout/fragment_news">
         <action
             android:id="@+id/action_newsFragment_to_articleFragment"
             app:destination="@id/articleFragment"
@@ -22,23 +23,53 @@
     <fragment
         android:id="@+id/articleFragment"
         android:name="io.github.mklkj.filmowy.ui.article.ArticleFragment"
-        android:label="ArticleFragment">
+        android:label="ArticleFragment"
+        tools:layout="@layout/fragment_article">
         <argument
             android:name="article"
             app:argType="java.io.Serializable" />
         <argument
             android:name="position"
-            app:argType="integer"/>
+            app:argType="integer" />
     </fragment>
 
     <fragment
         android:id="@+id/filmFragment"
         android:name="io.github.mklkj.filmowy.ui.film.FilmFragment"
-        tools:layout="@layout/fragment_film"
-        android:label="FilmFragment" />
+        android:label="FilmFragment"
+        tools:layout="@layout/fragment_film">
+        <argument
+            android:name="film"
+            app:argType="java.io.Serializable" />
+    </fragment>
 
     <fragment
         android:id="@+id/personFragment"
         android:name="io.github.mklkj.filmowy.ui.person.PersonFragment"
-        android:label="PersonFragment" />
+        android:label="PersonFragment"
+        tools:layout="@layout/fragment_person">
+        <argument
+            android:name="person"
+            app:argType="java.io.Serializable" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="io.github.mklkj.filmowy.ui.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
+        <argument
+            android:name="query"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_searchFragment_to_filmFragment"
+            app:destination="@id/filmFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_personFragment"
+            app:destination="@id/personFragment" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_searchFragment"
+        app:destination="@id/searchFragment" />
 </navigation>

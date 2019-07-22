@@ -19,12 +19,12 @@ import javax.inject.Inject
 class NewsFragment : DaggerFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var vmFactory: ViewModelFactory
 
     @Inject
     lateinit var dataAdapter: NewsListAdapter
 
-    private val vm by lazy { ViewModelProviders.of(this, viewModelFactory).get(NewsViewModel::class.java) }
+    private val vm by lazy { ViewModelProviders.of(this, vmFactory).get(NewsViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

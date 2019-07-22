@@ -1,0 +1,42 @@
+<layout>
+
+    <data>
+
+        <import type="io.github.mklkj.filmowy.api.NetworkState" />
+
+        <variable
+            name="viewModel"
+            type="io.github.mklkj.filmowy.ui.search.SearchViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.search.SearchFragment">
+
+        <ProgressBar
+            android:visibility="@{viewModel.networkState == NetworkState.LOADING}"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{viewModel.networkState.message}"
+            android:visibility="@{viewModel.networkState.message != null}"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@tools:sample/lorem" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchRecyclerView"
+            android:visibility="@{viewModel.networkState.message == null}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_search_result" />
+
+    </LinearLayout>
+</layout>

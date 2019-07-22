@@ -1,6 +1,7 @@
 package io.github.mklkj.filmowy.api.interceptor
 
 import okhttp3.Interceptor
+import okhttp3.Request
 import okhttp3.Response
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -9,12 +10,22 @@ class SignatureInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
+
+        return chain.proceed(if (!request.url.queryParameter("methods").isNullOrBlank()) {
+            getSignedRequest(request)
+        } else {
+            request
+        })
+    }
+
+    private fun getSignedRequest(request: Request): Request {
         val url = request.url.newBuilder()
             .addQueryParameter("version", "1.0")
             .addQueryParameter("appId", "android")
             .addQueryParameter("signature", getMethodSignature(request.url.queryParameter("methods")))
             .build()
-        return chain.proceed(request.newBuilder().url(url.toString()).build())
+
+        return request.newBuilder().url(url.toString()).build()
     }
 
     private fun getMethodSignature(method: String?): String {

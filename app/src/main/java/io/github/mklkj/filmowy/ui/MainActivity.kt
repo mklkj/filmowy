@@ -1,7 +1,12 @@
 package io.github.mklkj.filmowy.ui
 
+import android.app.SearchManager
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -9,7 +14,9 @@ import androidx.navigation.ui.*
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.navigation.NavigationView
 import dagger.android.support.DaggerAppCompatActivity
+import io.github.mklkj.filmowy.NavGraphDirections
 import io.github.mklkj.filmowy.R
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -32,11 +39,11 @@ class MainActivity : DaggerAppCompatActivity() {
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleLogger, true)
         setContentView(R.layout.activity_main)
 
-        val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.newsFragment,
-            R.id.filmFragment,
-            R.id.personFragment
-        ), drawerLayout)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.newsFragment
+            ), drawerLayout
+        )
 
         toolbar.setupWithNavController(navController, appBarConfiguration)
         setSupportActionBar(toolbar)
@@ -51,5 +58,22 @@ class MainActivity : DaggerAppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.global, menu)
+
+        (menu.findItem(R.id.search).actionView as SearchView).apply {
+            setSearchableInfo((getSystemService(Context.SEARCH_SERVICE) as SearchManager).getSearchableInfo(componentName))
+        }
+
+        return true
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        if (Intent.ACTION_SEARCH == intent.action) {
+            navController.navigate(NavGraphDirections.actionGlobalSearchFragment(intent.getStringExtra(SearchManager.QUERY)))
+        }
     }
 }

@@ -9,16 +9,6 @@
             android:id="@+id/newsFragment"
             android:icon="@drawable/ic_newspaper"
             android:title="@string/news_title" />
-
-        <item
-            android:id="@+id/filmFragment"
-            android:icon="@drawable/ic_settings"
-            android:title="Film" />
-
-        <item
-            android:id="@+id/personFragment"
-            android:icon="@drawable/ic_settings"
-            android:title="Osoba" />
     </group>
 
 </menu>

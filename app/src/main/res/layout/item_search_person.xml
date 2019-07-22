@@ -1,0 +1,38 @@
+<layout>
+
+    <data>
+
+        <variable
+            name="person"
+            type="io.github.mklkj.filmowy.api.pojo.SearchResult.Person" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:personImage="@{person.poster}"
+            android:imageWidth="@{60}"
+            tools:src="@tools:sample/avatars"
+            tools:ignore="ContentDescription" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@{person.title}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@tools:sample/lorem" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
