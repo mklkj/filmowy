@@ -1,9 +1,9 @@
 package io.github.mklkj.filmowy.ui.film
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -26,6 +26,7 @@ class FilmFragment : DaggerFragment() {
     private val vm by lazy { ViewModelProviders.of(this, vmFactory).get(FilmViewModel::class.java) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        setHasOptionsMenu(true)
         val binding = DataBindingUtil.inflate<FragmentFilmBinding>(inflater, R.layout.fragment_film, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = vm
@@ -48,4 +49,23 @@ class FilmFragment : DaggerFragment() {
 
         return binding.root
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.film, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.film_open_in_browser -> {
+                (args.film as SearchResult.Film).run {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://m.filmweb.pl/film/${title.encode()}-$year-$id")))
+                }
+                true
+            }
+            else -> false
+        }
+    }
+
+    private fun String.encode() = replace(" ", "+").replace("?", "")
 }

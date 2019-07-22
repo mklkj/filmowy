@@ -71,6 +71,5 @@ class ArticleFragment : DaggerFragment() {
             }
             else -> false
         }
-
     }
 }
