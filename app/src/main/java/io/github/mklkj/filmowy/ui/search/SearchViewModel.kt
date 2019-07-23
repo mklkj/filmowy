@@ -1,7 +1,6 @@
 package io.github.mklkj.filmowy.ui.search
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.SearchResult
 import io.github.mklkj.filmowy.api.repository.SearchRepository
@@ -13,8 +12,6 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(private val searchRepository: SearchRepository) : BaseViewModel() {
-
-    val networkState = MutableLiveData(NetworkState.LOADING)
 
     fun getSearchResults(query: String): LiveData<List<SearchResult>> = searchRepository.search(query)
         .subscribeOn(Schedulers.io())

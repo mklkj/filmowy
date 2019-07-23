@@ -13,8 +13,6 @@ import javax.inject.Inject
 
 class PersonViewModel @Inject constructor(private val personRepository: PersonRepository) : BaseViewModel() {
 
-    val networkState = MutableLiveData(NetworkState.LOADING)
-
     fun getPersonInfo(id: Long) = personRepository.getPersonInfoFull(id)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

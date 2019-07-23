@@ -1,7 +1,6 @@
 package io.github.mklkj.filmowy.ui.article
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.News
 import io.github.mklkj.filmowy.api.repository.NewsRepository
@@ -14,8 +13,6 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class ArticleViewModel @Inject constructor(private val newsRepository: NewsRepository) : BaseViewModel() {
-
-    val networkState = MutableLiveData(NetworkState.LOADING)
 
     fun getArticle(id: Long): LiveData<News> = newsRepository.getNews(id)
         .subscribeOn(Schedulers.io())

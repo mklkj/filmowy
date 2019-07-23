@@ -13,10 +13,7 @@ import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class NewsDataSource(
-    private val repository: NewsRepository,
-    private val disposable: CompositeDisposable
-) : PageKeyedDataSource<Int, NewsLead>() {
+class NewsDataSource(private val repository: NewsRepository) : PageKeyedDataSource<Int, NewsLead>() {
 
     val networkState = MutableLiveData<NetworkState>()
 
@@ -24,15 +21,14 @@ class NewsDataSource(
 
     private var retryCompletable: Completable? = null
 
-    class Factory(
-        private val repository: NewsRepository,
-        private val disposable: CompositeDisposable
-    ) : DataSource.Factory<Int, NewsLead>() {
+    private val disposable = CompositeDisposable()
+
+    class Factory(private val repository: NewsRepository) : DataSource.Factory<Int, NewsLead>() {
 
         val newsDataSourceLiveData = MutableLiveData<NewsDataSource>()
 
         override fun create(): DataSource<Int, NewsLead> {
-            val newsDataSource = NewsDataSource(repository, disposable)
+            val newsDataSource = NewsDataSource(repository)
             newsDataSourceLiveData.postValue(newsDataSource)
             return newsDataSource
         }

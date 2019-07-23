@@ -1,14 +1,10 @@
 package io.github.mklkj.filmowy.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.disposables.CompositeDisposable
+import io.github.mklkj.filmowy.api.NetworkState
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected val disposable: CompositeDisposable = CompositeDisposable()
-
-    override fun onCleared() {
-        disposable.dispose()
-        super.onCleared()
-    }
+    open val networkState = MutableLiveData(NetworkState.LOADING)
 }

@@ -1,6 +1,5 @@
 package io.github.mklkj.filmowy.ui.film
 
-import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.repository.FilmRepository
@@ -12,8 +11,6 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class FilmViewModel @Inject constructor(private val filmRepository: FilmRepository) : BaseViewModel() {
-
-    val networkState = MutableLiveData(NetworkState.LOADING)
 
     fun getFullFilmInfo(id: Int) = filmRepository.getFilmInfoFull(id)
         .subscribeOn(Schedulers.io())
