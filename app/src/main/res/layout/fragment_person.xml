@@ -1,6 +1,12 @@
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout>
 
     <data>
+
+        <import type="io.github.mklkj.filmowy.api.NetworkState" />
+
+        <variable
+            name="viewModel"
+            type="io.github.mklkj.filmowy.ui.person.PersonViewModel" />
 
         <variable
             name="person"
@@ -8,13 +14,83 @@
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:personImage="@{person.imagePath}"
+            android:imageWidth="@{150}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+
         <TextView
-            android:text="@{person.name}"
+            android:text="@{`Imię: ` + person.name}"
             tools:text="@tools:sample/lorem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{`Prawdziwe imię: ` + person.realName}"
+            tools:text="@tools:sample/lorem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{`Miejsce urodzenia: ` + person.birthPlace}"
+            tools:text="@tools:sample/lorem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{`Data urodzenia: ` + person.birthDate}"
+            tools:text="@tools:sample/lorem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{`Data śmierci: ` + person.deathDate}"
+            tools:text="@tools:sample/lorem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{`Wzorst: ` + person.height}"
+            tools:text="@tools:sample/lorem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{`Średnia ocena: ` + person.avgRate}"
+            tools:text="@tools:sample/lorem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{`Liczba ocen: ` + person.votesCount}"
+            tools:text="@tools:sample/lorem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{(person.sex == 1) ? `Kobieta` : `Mężczyzna`}"
+            tools:text="@tools:sample/lorem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ProgressBar
+            android:visibility="@{viewModel.networkState == NetworkState.LOADING}"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{viewModel.networkState.message}"
+            android:visibility="@{viewModel.networkState.message != null}"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

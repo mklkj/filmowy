@@ -9,6 +9,7 @@ import dagger.multibindings.IntoMap
 import io.github.mklkj.filmowy.ui.article.ArticleViewModel
 import io.github.mklkj.filmowy.ui.film.FilmViewModel
 import io.github.mklkj.filmowy.ui.news.NewsViewModel
+import io.github.mklkj.filmowy.ui.person.PersonViewModel
 import io.github.mklkj.filmowy.ui.search.SearchViewModel
 
 @Suppress("unused")
@@ -24,6 +25,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ClassKey(NewsViewModel::class)
     abstract fun bindNewsViewModel(filmViewModel: NewsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ClassKey(PersonViewModel::class)
+    abstract fun bindPersonViewModel(personViewModel: PersonViewModel): ViewModel
 
     @Binds
     @IntoMap

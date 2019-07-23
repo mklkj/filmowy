@@ -74,7 +74,10 @@ fun JsonArray.mapPersonInfoFull(personId: Long): Person {
         personId = personId,
         name = get(0).asString,
         realName = getNullable(9)?.asString,
-        birthDate = getNullable(1)?.asString?.toLocalDate(),
+        birthDate = getNullable(1)?.asString?.let {
+            if (it.length == 4) it.toLocalDate("yyyy")
+            else it.toLocalDate("yyyy-MM-dd")
+        },
         birthPlace = getNullable(2)?.asString,
         deathDate = getNullable(10)?.asString?.toLocalDate(),
         votesCount = getNullable(3)?.asInt ?: 0,
