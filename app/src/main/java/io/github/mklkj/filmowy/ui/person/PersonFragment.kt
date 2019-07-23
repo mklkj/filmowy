@@ -1,9 +1,9 @@
 package io.github.mklkj.filmowy.ui.person
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -26,6 +26,7 @@ class PersonFragment : DaggerFragment() {
     private val vm by lazy { ViewModelProviders.of(this, vmFactory).get(PersonViewModel::class.java) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        setHasOptionsMenu(true)
         val binding = DataBindingUtil.inflate<FragmentPersonBinding>(inflater, R.layout.fragment_person, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             person = (args.person as SearchResult.Person).run {
@@ -50,5 +51,20 @@ class PersonFragment : DaggerFragment() {
         vm.getPersonInfo((args.person as SearchResult.Person).id.toLong()).observe(this, Observer { binding.person = it })
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.person, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.person_open_in_browser -> {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://m.filmweb.pl/person/-${(args.person as SearchResult.Person).id}")))
+                true
+            }
+            else -> false
+        }
     }
 }
