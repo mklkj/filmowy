@@ -12,10 +12,10 @@ import javax.inject.Inject
 
 class FilmViewModel @Inject constructor(private val filmRepository: FilmRepository) : BaseViewModel() {
 
-    fun getFullFilmInfo(id: Int) = filmRepository.getFilmInfoFull(id)
+    fun getFullFilmInfo(id: Long) = filmRepository.getFilmInfoFull(id)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .onErrorReturnItem(Film("", .0, 0, null, null, null, null))
+        .onErrorReturnItem(Film.get(0))
         .doOnError {
             Timber.e(it)
             networkState.postValue(NetworkState.error(it.message))

@@ -12,6 +12,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
+import io.github.mklkj.filmowy.api.pojo.Film
+import io.github.mklkj.filmowy.api.pojo.Person
 import io.github.mklkj.filmowy.databinding.FragmentSearchBinding
 import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
 import javax.inject.Inject
@@ -52,13 +54,13 @@ class SearchFragment : DaggerFragment() {
 
         dataAdapter.openFilmCallback = {
             binding.root.findNavController().navigate(
-                SearchFragmentDirections.actionSearchFragmentToFilmFragment(it)
+                SearchFragmentDirections.actionSearchFragmentToFilmFragment(Film.get(it.id.toLong(), it.title, it.poster))
             )
         }
 
         dataAdapter.openPersonCallback = {
             binding.root.findNavController().navigate(
-                SearchFragmentDirections.actionSearchFragmentToPersonFragment(it)
+                SearchFragmentDirections.actionSearchFragmentToPersonFragment(Person.get(it.id.toLong(), it.title, it.poster))
             )
         }
     }

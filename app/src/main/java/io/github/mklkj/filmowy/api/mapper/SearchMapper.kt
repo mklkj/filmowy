@@ -45,6 +45,7 @@ private fun JsonArray.mapCinemaResult() = SearchResult.Cinema(
     type = SearchResult.Type.CINEMA,
     id = get(1).asString.toInt(),
     title = get(2).asString,
+    poster = "", // TODO provide fallback
     city = get(3).asString,
     address = get(4).asString,
     coords = get(5).asString

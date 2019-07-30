@@ -38,6 +38,7 @@ fun JsonArray.mapFilmFullInfo(): Film {
     val videos = getNullable(12)?.asJsonArray
 
     return Film(
+        filmId = -1,
         title = get(0).asString,
         avgRate = get(2).asDouble,
         votesCount = get(3).asInt,
@@ -137,6 +138,7 @@ fun JsonArray.mapFilmsInfoShort(): List<Film> {
         if (it.isJsonNull) return@mapNotNull null
         val item = it.asJsonArray
         Film(
+            filmId = -1,
             title = item.get(0).asString,
             year = item.get(1).asInt,
             avgRate = item.getNullable(2)?.asDouble ?: .0,

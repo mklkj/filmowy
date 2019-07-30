@@ -72,4 +72,10 @@
     <action
         android:id="@+id/action_global_searchFragment"
         app:destination="@id/searchFragment" />
+    <action
+        android:id="@+id/action_global_filmFragment"
+        app:destination="@id/filmFragment" />
+    <action
+        android:id="@+id/action_global_personFragment"
+        app:destination="@id/personFragment" />
 </navigation>

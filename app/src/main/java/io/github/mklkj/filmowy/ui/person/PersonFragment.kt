@@ -11,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.pojo.Person
-import io.github.mklkj.filmowy.api.pojo.SearchResult
 import io.github.mklkj.filmowy.databinding.FragmentPersonBinding
 import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
 import javax.inject.Inject
@@ -29,26 +28,10 @@ class PersonFragment : DaggerFragment() {
         setHasOptionsMenu(true)
         val binding = DataBindingUtil.inflate<FragmentPersonBinding>(inflater, R.layout.fragment_person, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
-            person = (args.person as SearchResult.Person).run {
-                Person(
-                    name = title,
-                    imagePath = poster,
-                    votesCount = 0,
-                    avgRate = .0,
-                    personId = 0,
-                    sex = 0,
-                    height = null,
-                    filmKnownFor = null,
-                    hasBiography = false,
-                    deathDate = null,
-                    birthPlace = null,
-                    birthDate = null,
-                    realName = null
-                )
-            }
+            person = (args.person as Person)
         }
 
-        vm.getPersonInfo((args.person as SearchResult.Person).id.toLong()).observe(this, Observer { binding.person = it })
+        vm.getPersonInfo((args.person as Person).personId).observe(this, Observer { binding.person = it })
 
         return binding.root
     }
@@ -61,7 +44,7 @@ class PersonFragment : DaggerFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.person_open_in_browser -> {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://m.filmweb.pl/person/-${(args.person as SearchResult.Person).id}")))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://m.filmweb.pl/person/-${(args.person as Person).personId}")))
                 true
             }
             else -> false

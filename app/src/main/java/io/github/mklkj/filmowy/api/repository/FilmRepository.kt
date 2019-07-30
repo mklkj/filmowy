@@ -22,7 +22,7 @@ class FilmRepository @Inject constructor(private val api: ApiService) {
         return api.getWithMethod("getFilmImages".asMethod(filmId, page * 100, (page + 1) * 100)).map { it.mapFilmImages(filmId) }
     }
 
-    fun getFilmInfoFull(filmId: Int): Single<Film> {
+    fun getFilmInfoFull(filmId: Long): Single<Film> {
         return api.getWithMethod("getFilmInfoFull".asMethod(filmId)).map { it.mapFilmFullInfo() }
     }
 
