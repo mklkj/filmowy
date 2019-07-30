@@ -8,7 +8,6 @@ import io.github.mklkj.filmowy.api.toLiveData
 import io.github.mklkj.filmowy.viewmodel.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import org.threeten.bp.LocalDateTime
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -17,7 +16,7 @@ class ArticleViewModel @Inject constructor(private val newsRepository: NewsRepos
     fun getArticle(id: Long): LiveData<News> = newsRepository.getNews(id)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .onErrorReturnItem(News("", null, "", LocalDateTime.now(), null, 0, null, null))
+        .onErrorReturnItem(News.get(-1))
         .doOnError {
             Timber.e(it)
             networkState.postValue(NetworkState.error(it.message))

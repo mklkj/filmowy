@@ -34,11 +34,11 @@ fun JsonArray.mapFilmImages(filmId: Int): List<FilmImage> {
     }
 }
 
-fun JsonArray.mapFilmFullInfo(): Film {
+fun JsonArray.mapFilmFullInfo(id: Long): Film {
     val videos = getNullable(12)?.asJsonArray
 
     return Film(
-        filmId = -1,
+        filmId = id,
         title = get(0).asString,
         avgRate = get(2).asDouble,
         votesCount = get(3).asInt,

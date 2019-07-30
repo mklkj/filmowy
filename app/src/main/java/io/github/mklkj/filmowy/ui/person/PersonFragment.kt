@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
-import io.github.mklkj.filmowy.api.pojo.Person
 import io.github.mklkj.filmowy.databinding.FragmentPersonBinding
 import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
 import javax.inject.Inject
@@ -28,10 +27,10 @@ class PersonFragment : DaggerFragment() {
         setHasOptionsMenu(true)
         val binding = DataBindingUtil.inflate<FragmentPersonBinding>(inflater, R.layout.fragment_person, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
-            person = (args.person as Person)
+            person = args.person
         }
 
-        vm.getPersonInfo((args.person as Person).personId).observe(this, Observer { binding.person = it })
+        vm.getPersonInfo(args.person.personId).observe(this, Observer { binding.person = it })
 
         return binding.root
     }
@@ -44,7 +43,7 @@ class PersonFragment : DaggerFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.person_open_in_browser -> {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://m.filmweb.pl/person/-${(args.person as Person).personId}")))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://m.filmweb.pl/person/-${args.person.personId}")))
                 true
             }
             else -> false

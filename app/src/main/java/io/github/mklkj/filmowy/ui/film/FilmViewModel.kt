@@ -15,7 +15,7 @@ class FilmViewModel @Inject constructor(private val filmRepository: FilmReposito
     fun getFullFilmInfo(id: Long) = filmRepository.getFilmInfoFull(id)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .onErrorReturnItem(Film.get(0))
+        .onErrorReturnItem(Film.get(-1))
         .doOnError {
             Timber.e(it)
             networkState.postValue(NetworkState.error(it.message))

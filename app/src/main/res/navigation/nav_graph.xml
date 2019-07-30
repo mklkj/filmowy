@@ -27,7 +27,7 @@
         tools:layout="@layout/fragment_article">
         <argument
             android:name="article"
-            app:argType="java.io.Serializable" />
+            app:argType="io.github.mklkj.filmowy.api.pojo.News" />
         <argument
             android:name="position"
             app:argType="integer" />
@@ -40,7 +40,7 @@
         tools:layout="@layout/fragment_film">
         <argument
             android:name="film"
-            app:argType="java.io.Serializable" />
+            app:argType="io.github.mklkj.filmowy.api.pojo.Film" />
     </fragment>
 
     <fragment
@@ -50,7 +50,7 @@
         tools:layout="@layout/fragment_person">
         <argument
             android:name="person"
-            app:argType="java.io.Serializable" />
+            app:argType="io.github.mklkj.filmowy.api.pojo.Person" />
     </fragment>
 
     <fragment

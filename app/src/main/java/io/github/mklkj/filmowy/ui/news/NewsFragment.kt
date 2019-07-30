@@ -12,6 +12,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
+import io.github.mklkj.filmowy.api.pojo.News
 import io.github.mklkj.filmowy.databinding.FragmentNewsBinding
 import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
 import javax.inject.Inject
@@ -54,7 +55,8 @@ class NewsFragment : DaggerFragment() {
         dataAdapter.retryCallback = { vm.retry() }
         dataAdapter.openArticleCallback = { it, image, position ->
             binding.root.findNavController().navigate(
-                NewsFragmentDirections.actionNewsFragmentToArticleFragment(it, position), FragmentNavigatorExtras(
+                NewsFragmentDirections.actionNewsFragmentToArticleFragment(News.get(it.id, it.title, it.newsImageUrl), position),
+                FragmentNavigatorExtras(
                     image to image.transitionName
                 )
             )

@@ -21,8 +21,9 @@ fun JsonArray.mapNewsList(): List<NewsLead> {
     }
 }
 
-fun JsonArray.mapNews(): News {
+fun JsonArray.mapNews(id: Long): News {
     return News(
+        newsId = id,
         title = get(0).asString,
         lead = getNullable(1)?.asString,
         content = get(2).asString,

@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
-import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.databinding.FragmentFilmBinding
 import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
 import javax.inject.Inject
@@ -29,10 +28,12 @@ class FilmFragment : DaggerFragment() {
         val binding = DataBindingUtil.inflate<FragmentFilmBinding>(inflater, R.layout.fragment_film, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = vm
-            film = (args.film as Film)
+            film = args.film
         }
 
-        vm.getFullFilmInfo((args.film as Film).filmId).observe(this, Observer {
+        vm.getFullFilmInfo(args.film.filmId).observe(this, Observer {
+            args.film.title = it.title
+            args.film.year = it.year
             binding.film = it
         })
 
@@ -45,9 +46,9 @@ class FilmFragment : DaggerFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
+        return when (item.itemId) {
             R.id.film_open_in_browser -> {
-                (args.film as Film).run {
+                args.film.run {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://m.filmweb.pl/film/${title.encode()}-$year-$filmId")))
                 }
                 true

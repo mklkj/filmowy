@@ -18,7 +18,7 @@ class NewsRepository @Inject constructor(private val api: ApiService) {
     }
 
     fun getNews(id: Long): Single<News> {
-        return api.getWithMethod("getNews".asMethod((id))).map { it.mapNews() }
+        return api.getWithMethod("getNews".asMethod((id))).map { it.mapNews(id) }
     }
 
     fun getNewsComments(newsId: Long, page: Int): Single<List<NewsComment>> {

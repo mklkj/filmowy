@@ -4,10 +4,10 @@ import java.io.Serializable
 
 data class Film(
     val filmId: Long, // used only to navigate
-    val title: String,
+    var title: String,
     val avgRate: Double,
     val votesCount: Int,
-    val year: Int?,
+    var year: Int?,
     val duration: Int?,
     val imagePath: String?,
     val filmInfo: FilmInfo?
