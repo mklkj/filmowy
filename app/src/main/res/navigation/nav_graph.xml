@@ -34,6 +34,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/cinemaFragment"
+        android:name="io.github.mklkj.filmowy.ui.cinema.CinemaFragment"
+        android:label="CinemaFragment"
+        tools:layout="@layout/fragment_cinema" />
+
+    <fragment
         android:id="@+id/filmFragment"
         android:name="io.github.mklkj.filmowy.ui.film.FilmFragment"
         android:label="FilmFragment"
@@ -44,6 +50,18 @@
     </fragment>
 
     <fragment
+        android:id="@+id/gamesFragment"
+        android:name="io.github.mklkj.filmowy.ui.games.GamesFragment"
+        android:label="GamesFragment"
+        tools:layout="@layout/fragment_games" />
+
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="io.github.mklkj.filmowy.ui.movies.MoviesFragment"
+        android:label="MoviesFragment"
+        tools:layout="@layout/fragment_movies" />
+
+    <fragment
         android:id="@+id/personFragment"
         android:name="io.github.mklkj.filmowy.ui.person.PersonFragment"
         android:label="PersonFragment"
@@ -52,6 +70,12 @@
             android:name="person"
             app:argType="io.github.mklkj.filmowy.api.pojo.Person" />
     </fragment>
+
+    <fragment
+        android:id="@+id/rankingsFragment"
+        android:name="io.github.mklkj.filmowy.ui.rankings.RankingsFragment"
+        android:label="fragment_top"
+        tools:layout="@layout/fragment_rankings" />
 
     <fragment
         android:id="@+id/searchFragment"
@@ -68,6 +92,18 @@
             android:id="@+id/action_searchFragment_to_personFragment"
             app:destination="@id/personFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/seriesFragment"
+        android:name="io.github.mklkj.filmowy.ui.series.SeriesFragment"
+        android:label="fragment_series"
+        tools:layout="@layout/fragment_series" />
+
+    <fragment
+        android:id="@+id/tvFragment"
+        android:name="io.github.mklkj.filmowy.ui.tv.TvFragment"
+        android:label="fragment_tv"
+        tools:layout="@layout/fragment_tv" />
 
     <action
         android:id="@+id/action_global_searchFragment"

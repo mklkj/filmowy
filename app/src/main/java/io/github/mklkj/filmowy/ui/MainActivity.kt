@@ -60,7 +60,13 @@ class MainActivity : DaggerAppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.newsFragment
+                R.id.newsFragment,
+                R.id.moviesFragment,
+                R.id.seriesFragment,
+                R.id.gamesFragment,
+                R.id.rankingsFragment,
+                R.id.cinemaFragment,
+                R.id.tvFragment
             ), drawerLayout
         )
 

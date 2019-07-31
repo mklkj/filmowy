@@ -9,6 +9,41 @@
             android:id="@+id/newsFragment"
             android:icon="@drawable/ic_newspaper"
             android:title="@string/news_title" />
+
+        <item
+            android:id="@+id/moviesFragment"
+            android:icon="@drawable/ic_movie"
+            android:title="@string/movies_title" />
+
+        <item
+            android:id="@+id/seriesFragment"
+            android:icon="@drawable/ic_sofa"
+            android:title="@string/series_title" />
+
+        <item
+            android:id="@+id/gamesFragment"
+            android:icon="@drawable/ic_game"
+            android:title="@string/games_title" />
+
+        <item
+            android:id="@+id/rankingsFragment"
+            android:icon="@drawable/ic_podium"
+            android:title="@string/rankings_title" />
+
+        <item
+            android:id="@+id/cinemaFragment"
+            android:icon="@drawable/ic_cinema"
+            android:title="@string/cinema_title" />
+
+        <item
+            android:id="@+id/tvFragment"
+            android:icon="@drawable/ic_tv"
+            android:title="@string/tv_title" />
+
+        <item
+            android:id="@+id/myFragment"
+            android:icon="@drawable/ic_movie_roll"
+            android:title="@string/my_title" />
     </group>
 
 </menu>
