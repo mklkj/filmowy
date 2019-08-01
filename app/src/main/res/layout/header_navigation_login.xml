@@ -8,11 +8,13 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <Button
+        android:id="@+id/header_navigation_login"
         android:text="@string/login_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
+        android:id="@+id/header_navigation_login_fb"
         android:text="@string/login_in_facebook"
         android:backgroundTint="#3b579d"
         android:layout_width="match_parent"

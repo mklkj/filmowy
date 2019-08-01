@@ -8,6 +8,7 @@ import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
 import io.github.mklkj.filmowy.ui.article.ArticleViewModel
 import io.github.mklkj.filmowy.ui.film.FilmViewModel
+import io.github.mklkj.filmowy.ui.login.LoginViewModel
 import io.github.mklkj.filmowy.ui.news.NewsViewModel
 import io.github.mklkj.filmowy.ui.person.PersonViewModel
 import io.github.mklkj.filmowy.ui.search.SearchViewModel
@@ -35,6 +36,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ClassKey(FilmViewModel::class)
     abstract fun bindFilmViewModel(filmViewModel: FilmViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ClassKey(LoginViewModel::class)
+    abstract fun bindLoginViewModel(loginViewModel: LoginViewModel): ViewModel
 
     @Binds
     @IntoMap

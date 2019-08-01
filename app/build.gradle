@@ -80,6 +80,8 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp-urlconnection:$okhttp3"
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp3"
 
+    implementation "com.github.franmontiel:PersistentCookieJar:v1.0.1"
+
     implementation "com.squareup.picasso:picasso:2.71828"
 
     implementation "com.jakewharton.threetenabp:threetenabp:1.2.1"

@@ -56,6 +56,12 @@
         tools:layout="@layout/fragment_games" />
 
     <fragment
+        android:id="@+id/loginFragment"
+        android:name="io.github.mklkj.filmowy.ui.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
         android:id="@+id/moviesFragment"
         android:name="io.github.mklkj.filmowy.ui.movies.MoviesFragment"
         android:label="MoviesFragment"
@@ -104,6 +110,10 @@
         android:name="io.github.mklkj.filmowy.ui.tv.TvFragment"
         android:label="fragment_tv"
         tools:layout="@layout/fragment_tv" />
+
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment" />
 
     <action
         android:id="@+id/action_global_searchFragment"

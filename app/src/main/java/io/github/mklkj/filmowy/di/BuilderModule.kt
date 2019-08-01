@@ -7,6 +7,7 @@ import io.github.mklkj.filmowy.ui.article.ArticleFragment
 import io.github.mklkj.filmowy.ui.cinema.CinemaFragment
 import io.github.mklkj.filmowy.ui.film.FilmFragment
 import io.github.mklkj.filmowy.ui.games.GamesFragment
+import io.github.mklkj.filmowy.ui.login.LoginFragment
 import io.github.mklkj.filmowy.ui.movies.MoviesFragment
 import io.github.mklkj.filmowy.ui.news.NewsFragment
 import io.github.mklkj.filmowy.ui.person.PersonFragment
@@ -30,6 +31,9 @@ internal abstract class BuilderModule {
 
     @ContributesAndroidInjector
     abstract fun bindGamesFragment(): GamesFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindLoginFragment(): LoginFragment
 
     @ContributesAndroidInjector
     abstract fun bindFilmFragment(): FilmFragment

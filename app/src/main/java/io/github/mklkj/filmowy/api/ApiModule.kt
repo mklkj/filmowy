@@ -1,10 +1,15 @@
 package io.github.mklkj.filmowy.api
 
+import android.content.Context
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import io.github.mklkj.filmowy.api.interceptor.ResponseInterceptor
 import io.github.mklkj.filmowy.api.interceptor.SignatureInterceptor
+import okhttp3.CookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -34,12 +39,19 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun provideOkHttp(): OkHttpClient = OkHttpClient.Builder()
+    fun provideOkHttp(cookieJar: CookieJar): OkHttpClient = OkHttpClient.Builder()
+        .cookieJar(cookieJar)
         .callTimeout(30, TimeUnit.SECONDS)
         .addInterceptor(SignatureInterceptor())
         .addInterceptor(ResponseInterceptor())
         .addNetworkInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BASIC
+            level = HttpLoggingInterceptor.Level.BODY
         })
         .build()
+
+    @Singleton
+    @Provides
+    fun provideCookieJar(context: Context): CookieJar {
+        return PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context))
+    }
 }
