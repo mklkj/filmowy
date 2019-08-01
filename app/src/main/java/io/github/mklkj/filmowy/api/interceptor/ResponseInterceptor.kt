@@ -1,6 +1,7 @@
 package io.github.mklkj.filmowy.api.interceptor
 
 import io.github.mklkj.filmowy.api.exception.BadCredentials
+import io.github.mklkj.filmowy.api.exception.NotFoundException
 import io.github.mklkj.filmowy.api.safeSubstring
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -23,16 +24,14 @@ class ResponseInterceptor : Interceptor {
     }
 
     private fun proceedCommonResponse(parts: List<String>): String {
-        if (parts[1].contains("badCreadentials")) throw BadCredentials()
+        if (parts[1].contains("badCreadentials")) throw BadCredentials("Zła nazwa użytkownika lub hasło")
 
         if ("ok" != parts[0]) throw Exception(parts[1])
 
         val content = parts.drop(1).joinToString("\n")
         val timeInfo = content.safeSubstring(content.lastIndexOf(" "))
 
-        if (content.startsWith("null")) {
-            throw Exception("404")
-        }
+        if (content.startsWith("null")) throw NotFoundException("404")
 
         return content
             .replace("exc NullPointerException", "[]")

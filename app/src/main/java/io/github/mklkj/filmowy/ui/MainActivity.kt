@@ -10,9 +10,6 @@ import android.os.Bundle
 import android.provider.BaseColumns
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.cursoradapter.widget.CursorAdapter
@@ -26,14 +23,12 @@ import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.NavGraphDirections
 import io.github.mklkj.filmowy.R
-import io.github.mklkj.filmowy.api.getPersonFilmsImageUrl
-import io.github.mklkj.filmowy.api.getUserImageUrl
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.pojo.Person
 import io.github.mklkj.filmowy.api.pojo.SearchResult
 import io.github.mklkj.filmowy.api.pojo.SearchResult.Type.*
-import io.github.mklkj.filmowy.api.pojo.UserData
 import io.github.mklkj.filmowy.api.repository.SearchRepository
+import io.github.mklkj.filmowy.ui.login.NavigationLoginHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -49,10 +44,7 @@ class MainActivity : DaggerAppCompatActivity() {
     lateinit var searchRepository: SearchRepository
 
     @Inject
-    lateinit var userData: UserData
-
-    @Inject
-    lateinit var picasso: Picasso
+    lateinit var navigationLoginHelper: NavigationLoginHelper
 
     private val disposable = CompositeDisposable()
 
@@ -89,19 +81,7 @@ class MainActivity : DaggerAppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         navView.setupWithNavController(navController)
-        if (userData.userId != -1L) {
-            navView.inflateHeaderView(R.layout.header_navigation_user).run {
-                findViewById<TextView>(R.id.header_navigation_email).text = userData.nick
-                findViewById<TextView>(R.id.header_navigation_name).text = userData.name
-                picasso.load(userData.imagePath.getUserImageUrl(76)).into(findViewById<ImageView>(R.id.header_navigation_image))
-            }
-        } else {
-            navView.inflateHeaderView(R.layout.header_navigation_login).run {
-                findViewById<Button>(R.id.header_navigation_login).setOnClickListener {
-                    navController.navigate(NavGraphDirections.actionGlobalLoginFragment())
-                }
-            }
-        }
+        navigationLoginHelper.updateNavigationHeader(navView, navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {

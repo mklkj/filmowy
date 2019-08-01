@@ -112,6 +112,10 @@
         tools:layout="@layout/fragment_tv" />
 
     <action
+        android:id="@+id/action_global_newsFragment"
+        app:destination="@id/newsFragment" />
+
+    <action
         android:id="@+id/action_global_loginFragment"
         app:destination="@id/loginFragment" />
 
