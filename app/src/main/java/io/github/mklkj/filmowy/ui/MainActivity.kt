@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.provider.BaseColumns
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.cursoradapter.widget.CursorAdapter
@@ -72,9 +73,18 @@ class MainActivity : DaggerAppCompatActivity() {
 
         toolbar.setupWithNavController(navController, appBarConfiguration)
         setSupportActionBar(toolbar)
-        navView.setupWithNavController(navController)
         collapsingToolbarLayout.setupWithNavController(toolbar, navController, appBarConfiguration)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        navView.setupWithNavController(navController)
+        if (true) {
+            navView.inflateHeaderView(R.layout.header_navigation_user).run {
+                findViewById<TextView>(R.id.header_navigation_email).text = "user@host.com"
+                findViewById<TextView>(R.id.header_navigation_name).text = "Jan Kowalsky"
+            }
+        } else {
+            navView.inflateHeaderView(R.layout.header_navigation_login)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

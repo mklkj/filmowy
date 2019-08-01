@@ -14,4 +14,6 @@
     <string name="search_hint">Szukaj filmu, serialu…</string>
     <string name="search_title">Szukaj</string>
     <string name="my_title">Mój Filmweb</string>
+    <string name="login_in">Zaloguj się</string>
+    <string name="login_in_facebook">Zaloguj z Facebookiem</string>
 </resources>
