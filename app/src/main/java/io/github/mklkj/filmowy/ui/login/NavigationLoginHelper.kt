@@ -1,14 +1,13 @@
 package io.github.mklkj.filmowy.ui.login
 
 import android.content.SharedPreferences
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.NavController
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
-import io.github.mklkj.filmowy.NavGraphDirections
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.getUserImageUrl
 import io.github.mklkj.filmowy.api.pojo.UserData
@@ -19,9 +18,11 @@ class NavigationLoginHelper @Inject constructor(
     private val picasso: Picasso
 ) {
 
-    fun updateNavigationHeader(navView: NavigationView, navController: NavController) {
+    var onLoginButtonCallback: (View) -> Unit = {}
+
+    fun updateNavigationHeader(navView: NavigationView) {
         loadUserData().let {
-            if (it == null) inflateLoginView(navView, navController)
+            if (it == null) inflateLoginView(navView)
             else inflateUserView(navView)
         }
     }
@@ -37,12 +38,10 @@ class NavigationLoginHelper @Inject constructor(
         }
     }
 
-    private fun inflateLoginView(navView: NavigationView, navController: NavController) {
+    private fun inflateLoginView(navView: NavigationView) {
         navView.removeHeaderView(navView.getHeaderView(0))
         navView.inflateHeaderView(R.layout.header_navigation_login).run {
-            findViewById<Button>(R.id.header_navigation_login).setOnClickListener {
-                navController.navigate(NavGraphDirections.actionGlobalLoginFragment())
-            }
+            findViewById<Button>(R.id.header_navigation_login).setOnClickListener { onLoginButtonCallback(it) }
         }
     }
 

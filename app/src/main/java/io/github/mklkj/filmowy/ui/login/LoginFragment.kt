@@ -31,10 +31,8 @@ class LoginFragment : DaggerFragment() {
             viewModel = vm
             vm.user.observe(viewLifecycleOwner, Observer {
                 it?.let {
-                    activity?.run {
-                        navigationLoginHelper.updateNavigationHeader(findViewById(R.id.navView), findNavController())
-                        findNavController().navigate(NavGraphDirections.actionGlobalNewsFragment())
-                    }
+                    activity?.run { navigationLoginHelper.updateNavigationHeader(findViewById(R.id.navView)) }
+                    findNavController().navigate(NavGraphDirections.actionGlobalNewsFragment())
                 }
             })
         }.root

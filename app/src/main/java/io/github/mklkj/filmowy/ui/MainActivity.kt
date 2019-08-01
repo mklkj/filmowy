@@ -19,7 +19,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.navigation.NavigationView
-import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.NavGraphDirections
 import io.github.mklkj.filmowy.R
@@ -81,7 +80,11 @@ class MainActivity : DaggerAppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         navView.setupWithNavController(navController)
-        navigationLoginHelper.updateNavigationHeader(navView, navController)
+        navigationLoginHelper.onLoginButtonCallback = {
+            navController.navigate(NavGraphDirections.actionGlobalLoginFragment())
+            drawerLayout.closeDrawers()
+        }
+        navigationLoginHelper.updateNavigationHeader(navView)
     }
 
     override fun onSupportNavigateUp(): Boolean {
