@@ -11,8 +11,8 @@ import io.github.mklkj.filmowy.ui.login.LoginFragment
 import io.github.mklkj.filmowy.ui.movies.MoviesFragment
 import io.github.mklkj.filmowy.ui.news.NewsFragment
 import io.github.mklkj.filmowy.ui.person.PersonFragment
-import io.github.mklkj.filmowy.ui.search.SearchFragment
 import io.github.mklkj.filmowy.ui.rankings.RankingsFragment
+import io.github.mklkj.filmowy.ui.search.SearchFragment
 import io.github.mklkj.filmowy.ui.series.SeriesFragment
 import io.github.mklkj.filmowy.ui.tv.TvFragment
 

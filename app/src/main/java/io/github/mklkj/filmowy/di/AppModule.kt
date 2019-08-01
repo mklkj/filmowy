@@ -15,16 +15,16 @@ import javax.inject.Singleton
 @Module
 internal class AppModule {
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideContext(app: FilmowyApp): Context = app
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideSharedPref(context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideLoggedUser(preferences: SharedPreferences): UserData {
         if (preferences.contains(UserData.KEY)) {
             return Gson().fromJson(preferences.getString(UserData.KEY, ""), UserData::class.java)
@@ -32,8 +32,8 @@ internal class AppModule {
         return UserData(-1, "", "", "", 0, null)
     }
 
-    @Singleton
     @Provides
+    @Singleton
     fun providePicasso(context: Context): Picasso = Picasso.Builder(context)
         .loggingEnabled(BuildConfig.DEBUG)
         .build()

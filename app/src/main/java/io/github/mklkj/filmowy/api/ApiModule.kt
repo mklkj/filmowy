@@ -7,6 +7,7 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import io.github.mklkj.filmowy.BuildConfig
 import io.github.mklkj.filmowy.api.interceptor.ResponseInterceptor
 import io.github.mklkj.filmowy.api.interceptor.SignatureInterceptor
 import okhttp3.CookieJar
@@ -45,7 +46,7 @@ class ApiModule {
         .addInterceptor(SignatureInterceptor())
         .addInterceptor(ResponseInterceptor())
         .addNetworkInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            if (BuildConfig.DEBUG) level = HttpLoggingInterceptor.Level.BODY
         })
         .build()
 

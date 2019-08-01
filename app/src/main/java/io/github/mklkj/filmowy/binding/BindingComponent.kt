@@ -1,9 +1,9 @@
 package io.github.mklkj.filmowy.binding
 
 import androidx.databinding.DataBindingComponent
-import com.squareup.picasso.Picasso
 import dagger.BindsInstance
 import dagger.Component
+import io.github.mklkj.filmowy.FilmowyApp
 import io.github.mklkj.filmowy.binding.adapter.AttributeHelperBindingAdapter
 import io.github.mklkj.filmowy.binding.adapter.DateBindingAdapter
 import io.github.mklkj.filmowy.binding.adapter.ImageBindingAdapter
@@ -17,7 +17,7 @@ interface BindingComponent : DataBindingComponent {
     interface Builder {
 
         @BindsInstance
-        fun picasso(picasso: Picasso): Builder
+        fun application(application: FilmowyApp): Builder
 
         fun bindingModule(bindingModule: BindingModule): Builder
         fun bindAppComponent(appComponent: AppComponent): Builder
