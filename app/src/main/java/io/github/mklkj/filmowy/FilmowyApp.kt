@@ -1,6 +1,5 @@
 package io.github.mklkj.filmowy
 
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.android.AndroidInjector
@@ -17,7 +16,6 @@ class FilmowyApp : DaggerApplication() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         AndroidThreeTen.init(this)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {

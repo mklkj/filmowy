@@ -16,4 +16,8 @@
     <string name="my_title">Mój Filmweb</string>
     <string name="login_in">Zaloguj się</string>
     <string name="login_in_facebook">Zaloguj z Facebookiem</string>
+
+    <string name="login_header_default">Zaloguj się używając konta Filmweb</string>
+    <string name="login_nickname_hint">Nazwa użytkownika</string>
+    <string name="login_password_hint">Hasło</string>
 </resources>
