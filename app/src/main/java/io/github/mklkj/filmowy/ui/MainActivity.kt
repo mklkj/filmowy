@@ -8,16 +8,18 @@ import android.database.Cursor
 import android.database.MatrixCursor
 import android.os.Bundle
 import android.provider.BaseColumns
+import android.util.DisplayMetrics.DENSITY_DEFAULT
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.cursoradapter.widget.CursorAdapter
 import androidx.cursoradapter.widget.SimpleCursorAdapter
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.elevation.ElevationOverlayProvider
 import com.google.android.material.navigation.NavigationView
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.NavGraphDirections
@@ -53,9 +55,9 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private val drawerLayout by lazy { findViewById<DrawerLayout>(R.id.drawerLayout) }
 
-    private val toolbar by lazy { findViewById<Toolbar>(R.id.toolbar) }
-
     private val collapsingToolbarLayout by lazy { findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbarLayout) }
+
+    private val toolbar by lazy { findViewById<MaterialToolbar>(R.id.toolbar) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +79,9 @@ class MainActivity : DaggerAppCompatActivity() {
         toolbar.setupWithNavController(navController, appBarConfiguration)
         setSupportActionBar(toolbar)
         collapsingToolbarLayout.setupWithNavController(toolbar, navController, appBarConfiguration)
+        collapsingToolbarLayout.setBackgroundColor(
+            ElevationOverlayProvider(this).compositeOverlayWithThemeSurfaceColorIfNeeded(4f * resources.displayMetrics.densityDpi / DENSITY_DEFAULT)
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         navView.setupWithNavController(navController)
