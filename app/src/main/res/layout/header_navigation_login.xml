@@ -10,7 +10,7 @@
     <Button
         android:id="@+id/header_navigation_login"
         android:text="@string/login_in"
-        android:backgroundTint="@color/colorPrimaryDark"
+        android:backgroundTint="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
