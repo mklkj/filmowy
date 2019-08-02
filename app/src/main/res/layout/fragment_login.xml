@@ -10,6 +10,7 @@
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -17,17 +18,18 @@
 
         <ProgressBar
             android:visibility="@{viewModel.networkState == NetworkState.LOADING}"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:visibility="gone"/>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewModel.networkState != NetworkState.LOADING}"
             android:fillViewport="true"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            android:visibility="@{viewModel.networkState != NetworkState.LOADING}">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/loginFormContainer"
@@ -53,6 +55,51 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/loginFormSignIn"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:onClick="@{() -> viewModel.login()}"
+                    android:text="@string/login_in"
+                    android:textAppearance="?android:textAppearanceSmall"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/colorPrimaryDark"
+                    app:layout_constraintEnd_toEndOf="@id/loginFormPassLayout"
+                    app:layout_constraintTop_toBottomOf="@id/loginFormPassLayout" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/loginFormPassLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:hint="@string/login_password_hint"
+                    app:error="@{viewModel.networkState.message}"
+                    app:errorEnabled="true"
+                    app:layout_constraintBottom_toTopOf="@+id/loginFormSignIn"
+                    app:layout_constraintTop_toBottomOf="@+id/loginFormNameLayout"
+                    app:passwordToggleEnabled="true">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/loginFormPass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeActionLabel="@string/login_in"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:text="@={viewModel.password}"
+                        app:fontFamily="sans-serif" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/loginFormNameLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -66,69 +113,17 @@
                     android:hint="@string/login_nickname_hint"
                     app:errorEnabled="true"
                     app:layout_constraintBottom_toTopOf="@+id/loginFormPassLayout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/loginFormHeader">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:text="@={viewModel.email}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:text="@={viewModel.email}" />
 
                     <requestFocus />
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/loginFormPassLayout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginRight="24dp"
-                    android:hint="@string/login_password_hint"
-                    app:errorEnabled="true"
-                    app:error="@{viewModel.networkState.message}"
-                    app:layout_constraintBottom_toTopOf="@+id/loginFormHostLayout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/loginFormNameLayout"
-                    app:passwordToggleEnabled="true">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:text="@={viewModel.password}"
-                        android:id="@+id/loginFormPass"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeActionLabel="@string/login_in"
-                        android:imeOptions="actionDone"
-                        android:inputType="textPassword"
-                        android:maxLines="1"
-                        app:fontFamily="sans-serif" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.button.MaterialButton
-                    android:onClick="@{() -> viewModel.login()}"
-                    android:id="@+id/loginFormSignIn"
-                    style="@style/Widget.MaterialComponents.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginTop="48dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="@string/login_in"
-                    android:textAppearance="?android:textAppearanceSmall"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    app:backgroundTint="@color/colorPrimaryDark"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
