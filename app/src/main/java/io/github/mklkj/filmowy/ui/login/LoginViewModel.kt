@@ -12,9 +12,9 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(private val loginRepository: LoginRepository) : BaseViewModel() {
 
-    var email = MutableLiveData<String>()
+    var email = MutableLiveData("")
 
-    var password = MutableLiveData<String>()
+    var password = MutableLiveData("")
 
     val user = MutableLiveData<UserData>()
 
