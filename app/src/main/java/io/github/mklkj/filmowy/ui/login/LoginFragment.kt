@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
+import android.view.inputmethod.EditorInfo.IME_NULL
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -42,6 +44,9 @@ class LoginFragment : DaggerFragment() {
                     findNavController().navigate(NavGraphDirections.actionGlobalNewsFragment())
                 }
             })
+            loginFormPass.setOnEditorActionListener { _, id, _ ->
+                if (id == IME_ACTION_DONE || id == IME_NULL) loginFormSignIn.callOnClick() else false
+            }
         }.root
     }
 
