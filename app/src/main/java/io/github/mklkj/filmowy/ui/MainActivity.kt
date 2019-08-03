@@ -78,6 +78,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
         toolbar.setupWithNavController(navController, appBarConfiguration)
         setSupportActionBar(toolbar)
+        collapsingToolbarLayout.isTitleEnabled = false
         collapsingToolbarLayout.setupWithNavController(toolbar, navController, appBarConfiguration)
         collapsingToolbarLayout.setBackgroundColor(
             ElevationOverlayProvider(this).compositeOverlayWithThemeSurfaceColorIfNeeded(4f * resources.displayMetrics.densityDpi / DENSITY_DEFAULT)
