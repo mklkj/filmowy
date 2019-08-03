@@ -10,7 +10,7 @@ fun JsonArray.mapUserData(): UserData {
         nick = get(0).asString,
         imagePath = get(1).asString,
         name = get(2).asString,
-        gender = when(get(4).asString.toLowerCase()) {
+        gender = when(get(4).asString.toUpperCase()) {
             "M" -> 1
             "F" -> 2
             else -> 0
