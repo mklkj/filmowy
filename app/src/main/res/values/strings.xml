@@ -1,12 +1,15 @@
 <resources>
     <string name="app_name">Filmowy</string>
 
-    <string name="news_title">Newsy</string>
-    <string name="movies_title">Filmy</string>
-    <string name="series_title">Seriale</string>
-    <string name="games_title">Gry</string>
-    <string name="rankings_title">Rankingi</string>
+    <string name="article_title">Artykuł</string>
     <string name="cinema_title">Repertuar kin</string>
+    <string name="film_title">Film</string>
+    <string name="games_title">Gry</string>
+    <string name="movies_title">Filmy</string>
+    <string name="news_title">Newsy</string>
+    <string name="rankings_title">Rankingi</string>
+    <string name="person_title">Osoba</string>
+    <string name="series_title">Seriale</string>
     <string name="tv_title">Program TV</string>
 
     <string name="retry">Ponów</string>
