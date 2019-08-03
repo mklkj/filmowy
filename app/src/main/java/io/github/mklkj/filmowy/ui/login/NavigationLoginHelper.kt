@@ -9,7 +9,9 @@ import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.pojo.UserData
 import io.github.mklkj.filmowy.databinding.HeaderNavigationUserBinding
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class NavigationLoginHelper @Inject constructor(private val preferences: SharedPreferences) {
 
     var onUserClick: (UserData) -> Unit = {}
