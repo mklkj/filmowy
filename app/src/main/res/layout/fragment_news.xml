@@ -2,8 +2,6 @@
 
     <data>
 
-        <import type="io.github.mklkj.filmowy.api.NetworkState" />
-
         <variable
             name="viewModel"
             type="io.github.mklkj.filmowy.ui.news.NewsViewModel" />

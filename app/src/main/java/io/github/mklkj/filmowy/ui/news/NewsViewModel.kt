@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class NewsViewModel @Inject constructor(private val newsRepository: NewsRepository) : BaseViewModel() {
 
-    private val sourceFactory by lazy { NewsDataSource.Factory(newsRepository) }
+    private val sourceFactory by lazy { NewsDataSource.Factory(newsRepository, disposable) }
 
     val news: LiveData<PagedList<NewsLead>>
         get() = LivePagedListBuilder(
@@ -32,7 +32,7 @@ class NewsViewModel @Inject constructor(private val newsRepository: NewsReposito
         }
 
     override val networkState
-        get() = MutableLiveData<NetworkState>(Transformations.switchMap(sourceFactory.newsDataSourceLiveData) { it.networkState }.value)
+        get() = Transformations.switchMap(sourceFactory.newsDataSourceLiveData) { it.networkState } as MutableLiveData
 
     fun refresh() {
         sourceFactory.newsDataSourceLiveData.value?.invalidate()
