@@ -1,0 +1,46 @@
+<layout>
+
+    <data>
+
+        <variable
+            name="user"
+            type="io.github.mklkj.filmowy.api.pojo.UserData" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:userImage="@{user.imagePath}"
+            android:imageWidth="@{80}"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            tools:src="@drawable/ic_placeholder"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:text="@{user.name}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{user.nick}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{`Urodzony: ` + user.birthday}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{user.gender == 1 ? `Mężczyzna` : (user.gender == 2 ? `Kobieta` : `Nieznana`)}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</layout>

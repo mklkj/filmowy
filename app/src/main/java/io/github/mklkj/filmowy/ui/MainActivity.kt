@@ -86,11 +86,17 @@ class MainActivity : DaggerAppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         navView.setupWithNavController(navController)
-        navigationLoginHelper.onLoginButtonCallback = {
-            navController.navigate(NavGraphDirections.actionGlobalLoginFragment())
-            drawerLayout.closeDrawers()
+        navigationLoginHelper.apply {
+            onUserClick = {
+                navController.navigate(NavGraphDirections.actionGlobalProfileFragment(it))
+                drawerLayout.closeDrawers()
+            }
+            onLoginButtonCallback = {
+                navController.navigate(NavGraphDirections.actionGlobalLoginFragment())
+                drawerLayout.closeDrawers()
+            }
+            updateNavigationHeader(navView)
         }
-        navigationLoginHelper.updateNavigationHeader(navView)
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -78,6 +78,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/profileFragment"
+        android:name="io.github.mklkj.filmowy.ui.profile.ProfileFragment"
+        android:label="@string/profile_title"
+        tools:layout="@layout/fragment_profile">
+        <argument
+            android:name="user"
+            app:argType="io.github.mklkj.filmowy.api.pojo.UserData" />
+    </fragment>
+
+    <fragment
         android:id="@+id/rankingsFragment"
         android:name="io.github.mklkj.filmowy.ui.rankings.RankingsFragment"
         android:label="@string/rankings_title"
@@ -122,10 +132,16 @@
     <action
         android:id="@+id/action_global_searchFragment"
         app:destination="@id/searchFragment" />
+
     <action
         android:id="@+id/action_global_filmFragment"
         app:destination="@id/filmFragment" />
+
     <action
         android:id="@+id/action_global_personFragment"
         app:destination="@id/personFragment" />
+
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment" />
 </navigation>

@@ -12,6 +12,8 @@ import javax.inject.Inject
 
 class NavigationLoginHelper @Inject constructor(private val preferences: SharedPreferences) {
 
+    var onUserClick: (UserData) -> Unit = {}
+
     var onLoginButtonCallback: (View) -> Unit = {}
 
     fun updateNavigationHeader(navView: NavigationView) {
@@ -23,7 +25,11 @@ class NavigationLoginHelper @Inject constructor(private val preferences: SharedP
 
     private fun inflateUserView(navView: NavigationView) {
         navView.removeHeaderView(navView.getHeaderView(0))
-        HeaderNavigationUserBinding.bind(navView.inflateHeaderView(R.layout.header_navigation_user)).user = loadUserData()
+        HeaderNavigationUserBinding.bind(navView.inflateHeaderView(R.layout.header_navigation_user)).apply {
+            val userData = loadUserData()
+            user = userData
+            userHeader.setOnClickListener { userData?.let(onUserClick) }
+        }
     }
 
     private fun inflateLoginView(navView: NavigationView) {
