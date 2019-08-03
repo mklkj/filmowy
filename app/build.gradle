@@ -83,6 +83,7 @@ dependencies {
     implementation "com.github.franmontiel:PersistentCookieJar:v1.0.1"
 
     implementation "com.squareup.picasso:picasso:2.71828"
+    implementation "de.hdodenhof:circleimageview:3.0.0"
 
     implementation "com.jakewharton.threetenabp:threetenabp:1.2.1"
     testImplementation "org.threeten:threetenbp:$threetenbp"

@@ -6,6 +6,7 @@ import com.squareup.picasso.Picasso
 import io.github.mklkj.filmowy.api.getNewsImageUrl
 import io.github.mklkj.filmowy.api.getPersonFilmsImageUrl
 import io.github.mklkj.filmowy.api.getPersonImageUrl
+import io.github.mklkj.filmowy.api.getUserImageUrl
 
 class ImageBindingAdapter(private val picasso: Picasso) {
 
@@ -20,6 +21,13 @@ class ImageBindingAdapter(private val picasso: Picasso) {
     fun ImageView.personImage(url: String?, imageWidth: Int) {
         picasso
             .load(url?.getPersonImageUrl(imageWidth))
+            .into(this)
+    }
+
+    @BindingAdapter("android:userImage", "android:imageWidth")
+    fun ImageView.userImage(url: String?, imageWidth: Int) {
+        picasso
+            .load(url?.getUserImageUrl(imageWidth))
             .into(this)
     }
 
