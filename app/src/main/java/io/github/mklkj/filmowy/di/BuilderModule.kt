@@ -16,6 +16,7 @@ import io.github.mklkj.filmowy.ui.rankings.RankingsFragment
 import io.github.mklkj.filmowy.ui.search.SearchFragment
 import io.github.mklkj.filmowy.ui.series.SeriesFragment
 import io.github.mklkj.filmowy.ui.tv.TvFragment
+import io.github.mklkj.filmowy.ui.my.MyFragment
 
 @Module
 @Suppress("unused")
@@ -62,4 +63,7 @@ internal abstract class BuilderModule {
 
     @ContributesAndroidInjector
     abstract fun bindTvFragment(): TvFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindMyFragment(): MyFragment
 }

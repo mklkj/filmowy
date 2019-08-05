@@ -72,7 +72,8 @@ class MainActivity : DaggerAppCompatActivity() {
                 R.id.gamesFragment,
                 R.id.rankingsFragment,
                 R.id.cinemaFragment,
-                R.id.tvFragment
+                R.id.tvFragment,
+                R.id.myFragment
             ), drawerLayout
         )
 

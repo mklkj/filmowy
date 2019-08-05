@@ -12,6 +12,7 @@ import io.github.mklkj.filmowy.ui.login.LoginViewModel
 import io.github.mklkj.filmowy.ui.news.NewsViewModel
 import io.github.mklkj.filmowy.ui.person.PersonViewModel
 import io.github.mklkj.filmowy.ui.search.SearchViewModel
+import io.github.mklkj.filmowy.ui.my.MyViewModel
 
 @Suppress("unused")
 @Module
@@ -46,6 +47,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ClassKey(SearchViewModel::class)
     abstract fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ClassKey(MyViewModel::class)
+    abstract fun bindMyViewModel(myViewModel: MyViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

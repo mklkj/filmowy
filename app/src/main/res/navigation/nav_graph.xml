@@ -120,6 +120,11 @@
         android:name="io.github.mklkj.filmowy.ui.tv.TvFragment"
         android:label="@string/tv_title"
         tools:layout="@layout/fragment_tv" />
+    <fragment
+        android:id="@+id/myFragment"
+        android:name="io.github.mklkj.filmowy.ui.my.MyFragment"
+        android:label="Mój filmweb"
+        tools:layout="@layout/fragment_my" />
 
     <action
         android:id="@+id/action_global_newsFragment"
