@@ -15,4 +15,9 @@ class AttributeHelperBindingAdapter {
     fun TextView.setListAsText(list: List<String>?) {
         text = list?.joinToString { ", " }
     }
+
+    @BindingAdapter("android:text")
+    fun TextView.setLongAsText(long: Long?) {
+        text = long.toString()
+    }
 }

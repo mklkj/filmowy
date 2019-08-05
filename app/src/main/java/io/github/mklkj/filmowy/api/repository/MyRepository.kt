@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class MyRepository @Inject constructor(private val api: ApiService) {
 
-    fun getFriendVoteFilmEvents(): Single<List<FriendVoteFilmEvent>> {
-        return api.getWithMethod("getFriendVoteFilmEvents".asMethod(1)).map { it.mapFriendVoteFilmEvents() }
+    fun getFriendVoteFilmEvents(page: Int): Single<List<FriendVoteFilmEvent>> {
+        return api.getWithMethod("getFriendVoteFilmEvents".asMethod(page)).map { it.mapFriendVoteFilmEvents() }
     }
 }

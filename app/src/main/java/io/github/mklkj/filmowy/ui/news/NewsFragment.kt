@@ -35,8 +35,8 @@ class NewsFragment : DaggerFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return DataBindingUtil.inflate<FragmentNewsBinding>(inflater, R.layout.fragment_news, container, false).apply {
-            viewModel = vm
             lifecycleOwner = viewLifecycleOwner
+            viewModel = vm
             initializeAdapter(this)
         }.root
     }

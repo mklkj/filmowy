@@ -1,7 +1,8 @@
 package io.github.mklkj.filmowy.api.interceptor
 
-import io.github.mklkj.filmowy.api.exception.BadCredentials
+import io.github.mklkj.filmowy.api.exception.BadCredentialsException
 import io.github.mklkj.filmowy.api.exception.NotFoundException
+import io.github.mklkj.filmowy.api.exception.NotLoggedInException
 import io.github.mklkj.filmowy.api.safeSubstring
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -24,7 +25,8 @@ class ResponseInterceptor : Interceptor {
     }
 
     private fun proceedCommonResponse(parts: List<String>): String {
-        if (parts[1].contains("badCreadentials")) throw BadCredentials("Zła nazwa użytkownika lub hasło")
+        if (parts[1].contains("badCreadentials")) throw BadCredentialsException("Zła nazwa użytkownika lub hasło")
+        if (parts[1].contains("login_redirect")) throw NotLoggedInException("Musisz być zalogowany by zobaczyć tą stronę")
 
         if ("ok" != parts[0]) throw Exception(parts[1])
 

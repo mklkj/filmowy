@@ -16,7 +16,7 @@ class MyRepositoryTest : BaseApiTest() {
         server.enqueue(MockResponse().setBody(getResource("friend-vote-film-events.txt")!!))
         server.start()
 
-        val votes = myRepository.getFriendVoteFilmEvents().blockingGet()
+        val votes = myRepository.getFriendVoteFilmEvents(0).blockingGet()
         votes[0].run {
             assertEquals(831, filmId)
             assertEquals(-1, userId)

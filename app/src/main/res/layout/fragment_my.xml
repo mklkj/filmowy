@@ -2,18 +2,27 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="io.github.mklkj.filmowy.ui.my.MyViewModel" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context="io.github.mklkj.filmowy.ui.my.MyFragment"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mySwipeRefreshLayout"
+        app:onRefreshListener="@{() -> viewModel.refresh()}"
+        app:refreshing="@{viewModel.isRefresh}"
+        app:enabled="@{viewModel.refreshState.status != viewModel.networkState.component1().FAILED}"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:text="@string/my_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/myRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_friend_vote" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </layout>
