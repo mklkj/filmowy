@@ -4,7 +4,7 @@ import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.Person
 import io.github.mklkj.filmowy.api.repository.PersonRepository
 import io.github.mklkj.filmowy.api.toLiveData
-import io.github.mklkj.filmowy.viewmodel.BaseViewModel
+import io.github.mklkj.filmowy.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber

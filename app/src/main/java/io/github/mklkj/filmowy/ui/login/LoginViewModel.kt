@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.UserData
 import io.github.mklkj.filmowy.api.repository.LoginRepository
-import io.github.mklkj.filmowy.viewmodel.BaseViewModel
+import io.github.mklkj.filmowy.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber

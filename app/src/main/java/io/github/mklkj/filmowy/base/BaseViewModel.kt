@@ -1,4 +1,4 @@
-package io.github.mklkj.filmowy.viewmodel
+package io.github.mklkj.filmowy.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
