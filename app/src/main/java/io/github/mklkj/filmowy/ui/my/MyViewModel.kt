@@ -8,12 +8,21 @@ import androidx.paging.PagedList
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.FriendVoteFilmEvent
 import io.github.mklkj.filmowy.api.repository.MyRepository
+import io.github.mklkj.filmowy.base.BaseDataSource
 import io.github.mklkj.filmowy.viewmodel.BaseViewModel
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class MyViewModel @Inject constructor(private val myRepository: MyRepository) : BaseViewModel() {
 
-    private val sourceFactory by lazy { MyDataSource.Factory(myRepository, disposable) }
+    private val sourceFactory by lazy { BaseDataSource.Factory { MyDataSource(myRepository, disposable) } }
+
+    class MyDataSource(private val repo: MyRepository, disposable: CompositeDisposable) : BaseDataSource<FriendVoteFilmEvent>(disposable) {
+
+        override fun getFirstPageNumber() = 1
+
+        override fun getListByPageNumber(page: Int) = repo.getFriendVoteFilmEvents(page)
+    }
 
     val votes: LiveData<PagedList<FriendVoteFilmEvent>>
         get() = LivePagedListBuilder(
@@ -41,4 +50,3 @@ class MyViewModel @Inject constructor(private val myRepository: MyRepository) : 
         sourceFactory.dataSourceLiveData.value?.retry()
     }
 }
-

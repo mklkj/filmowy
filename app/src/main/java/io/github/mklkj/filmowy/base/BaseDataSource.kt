@@ -1,19 +1,20 @@
-package io.github.mklkj.filmowy.ui.news
+package io.github.mklkj.filmowy.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import io.github.mklkj.filmowy.api.NetworkState
-import io.github.mklkj.filmowy.api.pojo.NewsLead
-import io.github.mklkj.filmowy.api.repository.NewsRepository
+import io.github.mklkj.filmowy.api.NetworkState.Companion.LOADED
+import io.github.mklkj.filmowy.api.NetworkState.Companion.LOADING
 import io.reactivex.Completable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class NewsDataSource(private val repository: NewsRepository, private val disposable: CompositeDisposable) : PageKeyedDataSource<Int, NewsLead>() {
+abstract class BaseDataSource<T>(private val disposable: CompositeDisposable) : PageKeyedDataSource<Int, T>() {
 
     val networkState = MutableLiveData<NetworkState>()
 
@@ -21,14 +22,12 @@ class NewsDataSource(private val repository: NewsRepository, private val disposa
 
     private var retryCompletable: Completable? = null
 
-    class Factory(private val repository: NewsRepository, private val disposable: CompositeDisposable) : DataSource.Factory<Int, NewsLead>() {
+    class Factory<T, D : BaseDataSource<T>>(private val factory: () -> D) : DataSource.Factory<Int, T>() {
 
-        val newsDataSourceLiveData = MutableLiveData<NewsDataSource>()
+        val dataSourceLiveData = MutableLiveData<BaseDataSource<T>>()
 
-        override fun create(): DataSource<Int, NewsLead> {
-            val newsDataSource = NewsDataSource(repository, disposable)
-            newsDataSourceLiveData.postValue(newsDataSource)
-            return newsDataSource
+        override fun create() = factory().apply {
+            dataSourceLiveData.postValue(this)
         }
     }
 
@@ -39,27 +38,32 @@ class NewsDataSource(private val repository: NewsRepository, private val disposa
 
     fun retry() {
         retryCompletable?.let { completable ->
-            disposable.add(completable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ }, { throwable -> Timber.e(throwable) })
+            disposable.add(
+                completable
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ }, { throwable -> Timber.e(throwable) })
             )
         }
     }
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, NewsLead>) {
-        disposable.add(repository.getNewsList(0)
+    abstract fun getListByPageNumber(page: Int): Single<List<T>>
+
+    open fun getFirstPageNumber() = 0
+
+    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, T>) {
+        disposable.add(getListByPageNumber(getFirstPageNumber())
             .doOnSubscribe {
-                initialLoad.postValue(NetworkState.LOADING)
-                networkState.postValue(NetworkState.LOADING)
+                initialLoad.postValue(LOADING)
+                networkState.postValue(LOADING)
             }
             .subscribe({ news ->
                 setRetry(null)
-                NetworkState.LOADED.let {
+                LOADED.let {
                     initialLoad.postValue(it)
                     networkState.postValue(it)
                 }
-                callback.onResult(news, 0, 1)
+                callback.onResult(news, 0, getFirstPageNumber() + 1)
             }) { throwable ->
                 Timber.e(throwable)
 
@@ -71,12 +75,12 @@ class NewsDataSource(private val repository: NewsRepository, private val disposa
             })
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, NewsLead>) {
-        disposable.add(repository.getNewsList(params.key)
-            .doOnSubscribe { networkState.postValue(NetworkState.LOADING) }
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, T>) {
+        disposable.add(getListByPageNumber(params.key)
+            .doOnSubscribe { networkState.postValue(LOADING) }
             .subscribe({ news ->
                 setRetry(null)
-                networkState.postValue(NetworkState.LOADED)
+                networkState.postValue(LOADED)
                 callback.onResult(news, params.key + 1)
             }) { throwable ->
                 Timber.e(throwable)
@@ -86,7 +90,7 @@ class NewsDataSource(private val repository: NewsRepository, private val disposa
             })
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, NewsLead>) {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, T>) {
         // loading only to forward direction
     }
 }
