@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,10 +22,10 @@ class NewsFragment : DaggerFragment() {
     @Inject
     lateinit var vmFactory: ViewModelFactory
 
+    private val vm: NewsViewModel by viewModels { vmFactory }
+
     @Inject
     lateinit var dataAdapter: NewsListAdapter
-
-    private val vm by lazy { ViewModelProviders.of(this, vmFactory).get(NewsViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

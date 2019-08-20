@@ -10,8 +10,8 @@ import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
 import android.view.inputmethod.EditorInfo.IME_NULL
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.NavGraphDirections
@@ -26,10 +26,10 @@ class LoginFragment : DaggerFragment() {
     @Inject
     lateinit var vmFactory: ViewModelFactory
 
+    private val vm: LoginViewModel by viewModels { vmFactory }
+
     @Inject
     lateinit var navigationLoginHelper: NavigationLoginHelper
-
-    private val vm by lazy { ViewModelProviders.of(this, vmFactory).get(LoginViewModel::class.java) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return DataBindingUtil.inflate<FragmentLoginBinding>(inflater, R.layout.fragment_login, container, false).apply {

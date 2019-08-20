@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
@@ -19,10 +19,10 @@ class MyFragment : DaggerFragment() {
     @Inject
     lateinit var vmFactory: ViewModelFactory
 
+    private val vm: MyViewModel by viewModels { vmFactory }
+
     @Inject
     lateinit var dataAdapter: MyListAdapter
-
-    private val vm by lazy { ViewModelProviders.of(this, vmFactory).get(MyViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

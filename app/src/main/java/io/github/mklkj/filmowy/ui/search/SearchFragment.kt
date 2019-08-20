@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,12 +23,12 @@ class SearchFragment : DaggerFragment() {
     @Inject
     lateinit var vmFactory: ViewModelFactory
 
+    private val vm: SearchViewModel by viewModels { vmFactory }
+
     @Inject
     lateinit var dataAdapter: SearchResultsAdapter
 
-    private val vm by lazy { ViewModelProviders.of(this, vmFactory).get(SearchViewModel::class.java) }
-
-    private val args by navArgs<SearchFragmentArgs>()
+    private val args: SearchFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

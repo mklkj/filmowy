@@ -5,8 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
@@ -19,9 +19,9 @@ class PersonFragment : DaggerFragment() {
     @Inject
     lateinit var vmFactory: ViewModelFactory
 
-    private val args by navArgs<PersonFragmentArgs>()
+    private val vm: PersonViewModel by viewModels { vmFactory }
 
-    private val vm by lazy { ViewModelProviders.of(this, vmFactory).get(PersonViewModel::class.java) }
+    private val args: PersonFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)

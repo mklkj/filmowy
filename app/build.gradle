@@ -41,14 +41,14 @@ ext {
     retrofit = "2.6.0"
     threetenbp = "1.4.0"
     dagger = "2.24"
-    lifecycle = "2.2.0-alpha02"
+    lifecycle = "2.2.0-alpha03"
     paging = "2.1.0"
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation "androidx.core:core-ktx:1.2.0-alpha02"
+    implementation "androidx.core:core-ktx:1.2.0-alpha03"
     implementation "androidx.appcompat:appcompat:1.1.0-rc01"
     implementation "androidx.fragment:fragment:1.0.0"
     implementation "androidx.annotation:annotation:1.1.0"
@@ -97,5 +97,5 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger"
 
     testImplementation "junit:junit:4.12"
-    testImplementation "org.mockito:mockito-core:2.28.2"
+    testImplementation "org.mockito:mockito-core:3.0.6"
 }

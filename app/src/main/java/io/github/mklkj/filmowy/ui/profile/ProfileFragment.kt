@@ -12,7 +12,7 @@ import io.github.mklkj.filmowy.databinding.FragmentProfileBinding
 
 class ProfileFragment : DaggerFragment() {
 
-    private val args by navArgs<ProfileFragmentArgs>()
+    private val args: ProfileFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return DataBindingUtil.inflate<FragmentProfileBinding>(inflater, R.layout.fragment_profile, container, false).apply {

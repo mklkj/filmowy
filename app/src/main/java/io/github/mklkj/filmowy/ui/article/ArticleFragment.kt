@@ -5,8 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import dagger.android.support.DaggerFragment
@@ -20,9 +20,9 @@ class ArticleFragment : DaggerFragment() {
     @Inject
     lateinit var vmFactory: ViewModelFactory
 
-    private val vm by lazy { ViewModelProviders.of(this, vmFactory).get(ArticleViewModel::class.java) }
+    private val vm: ArticleViewModel by viewModels { vmFactory }
 
-    private val args by navArgs<ArticleFragmentArgs>()
+    private val args: ArticleFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
