@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import dagger.android.support.DaggerFragment
-import io.github.mklkj.filmowy.databinding.FragmentCinemaBinding
 import io.github.mklkj.filmowy.R
+import io.github.mklkj.filmowy.databinding.FragmentCinemaBinding
 
 class CinemaFragment : DaggerFragment() {
 

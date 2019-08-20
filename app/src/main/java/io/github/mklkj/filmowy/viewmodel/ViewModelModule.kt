@@ -9,10 +9,10 @@ import dagger.multibindings.IntoMap
 import io.github.mklkj.filmowy.ui.article.ArticleViewModel
 import io.github.mklkj.filmowy.ui.film.FilmViewModel
 import io.github.mklkj.filmowy.ui.login.LoginViewModel
+import io.github.mklkj.filmowy.ui.my.MyViewModel
 import io.github.mklkj.filmowy.ui.news.NewsViewModel
 import io.github.mklkj.filmowy.ui.person.PersonViewModel
 import io.github.mklkj.filmowy.ui.search.SearchViewModel
-import io.github.mklkj.filmowy.ui.my.MyViewModel
 
 @Suppress("unused")
 @Module

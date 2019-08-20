@@ -3,6 +3,7 @@ package io.github.mklkj.filmowy.ui.article
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Html
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -12,10 +13,14 @@ import androidx.transition.TransitionInflater
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.databinding.FragmentArticleBinding
+import io.github.mklkj.filmowy.ui.HtmlImageGetter
 import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
 class ArticleFragment : DaggerFragment() {
+
+    @Inject
+    lateinit var htmlImageGetter: HtmlImageGetter
 
     @Inject
     lateinit var vmFactory: ViewModelFactory
@@ -29,6 +34,7 @@ class ArticleFragment : DaggerFragment() {
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
+    @Suppress("DEPRECATION")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
         val binding = DataBindingUtil.inflate<FragmentArticleBinding>(inflater, R.layout.fragment_article, container, false).apply {
@@ -39,7 +45,11 @@ class ArticleFragment : DaggerFragment() {
 
         binding.articleImage.transitionName = "news_image_${args.position}"
 
-        vm.getArticle(args.article.newsId).observe(viewLifecycleOwner, Observer { if (it.content.isNotEmpty()) binding.article = it })
+        vm.getArticle(args.article).observe(viewLifecycleOwner, Observer {
+            binding.article = it
+            if (it.contentHtml.isNotEmpty()) binding.text = Html.fromHtml(it.contentHtml, htmlImageGetter.apply { textView = binding.content }, null)
+            else binding.content.text = it.content
+        })
 
         return binding.root
     }
@@ -52,7 +62,12 @@ class ArticleFragment : DaggerFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.article_open_in_browser -> {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://m.filmweb.pl/news/-${args.article.newsId}")))
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://m.filmweb.pl/news/${Uri.encode(args.article.title)}-${args.article.newsId}")
+                    )
+                )
                 true
             }
             else -> false

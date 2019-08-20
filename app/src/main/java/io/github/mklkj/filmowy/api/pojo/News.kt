@@ -15,14 +15,17 @@ data class News(
     val source: List<String>?,
     val author: List<String>?
 ) : Serializable {
+
+    var contentHtml: String = ""
+
     companion object {
-        fun get(id: Long, name: String = "", poster: String? = null) = News(
+        fun get(id: Long, name: String = "", poster: String? = null, publicationTime: LocalDateTime = now()) = News(
             newsId = id,
             title = name,
             newsImageUrl = poster,
             lead = null,
             content = "",
-            publicationTime = now(),
+            publicationTime = publicationTime,
             commentsCount = 0,
             source = null,
             author = null

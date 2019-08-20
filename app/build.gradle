@@ -34,6 +34,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 ext {
@@ -43,6 +47,7 @@ ext {
     dagger = "2.24"
     lifecycle = "2.2.0-alpha03"
     paging = "2.1.0"
+    jspoon = "1.3.2"
 }
 
 dependencies {
@@ -75,6 +80,9 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit"
     implementation "com.squareup.retrofit2:converter-scalars:$retrofit"
+
+    implementation "pl.droidsonroids:jspoon:$jspoon"
+    implementation "pl.droidsonroids.retrofit2:converter-jspoon:$jspoon"
 
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3"
     implementation "com.squareup.okhttp3:okhttp-urlconnection:$okhttp3"

@@ -38,6 +38,7 @@ abstract class BaseDataSource<T>(private val disposable: CompositeDisposable) : 
 
     fun retry() {
         retryCompletable?.let { completable ->
+            disposable.clear()
             disposable.add(
                 completable
                     .subscribeOn(Schedulers.io())

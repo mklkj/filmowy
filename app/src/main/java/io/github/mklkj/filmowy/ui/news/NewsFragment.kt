@@ -20,12 +20,12 @@ import javax.inject.Inject
 class NewsFragment : DaggerFragment() {
 
     @Inject
+    lateinit var dataAdapter: NewsListAdapter
+
+    @Inject
     lateinit var vmFactory: ViewModelFactory
 
     private val vm: NewsViewModel by viewModels { vmFactory }
-
-    @Inject
-    lateinit var dataAdapter: NewsListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +55,7 @@ class NewsFragment : DaggerFragment() {
         dataAdapter.retryCallback = { vm.retry() }
         dataAdapter.openArticleCallback = { it, image, position ->
             binding.root.findNavController().navigate(
-                NewsFragmentDirections.actionNewsFragmentToArticleFragment(News.get(it.id, it.title, it.newsImageUrl), position),
+                NewsFragmentDirections.actionNewsFragmentToArticleFragment(News.get(it.id, it.title, it.newsImageUrl, it.publicationTime), position),
                 FragmentNavigatorExtras(
                     image to image.transitionName
                 )

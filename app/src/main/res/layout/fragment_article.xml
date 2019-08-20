@@ -10,6 +10,10 @@
             type="io.github.mklkj.filmowy.api.pojo.News" />
 
         <variable
+            name="text"
+            type="android.text.Spanned" />
+
+        <variable
             name="viewModel"
             type="io.github.mklkj.filmowy.ui.article.ArticleViewModel" />
     </data>
@@ -74,7 +78,8 @@
                 tools:text="@tools:sample/lorem" />
 
             <TextView
-                android:text="@{article.content}"
+                android:id="@+id/content"
+                android:text="@{text}"
                 android:lineSpacingMultiplier="1.2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
