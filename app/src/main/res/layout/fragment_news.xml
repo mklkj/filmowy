@@ -1,4 +1,5 @@
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.news.NewsFragment">
 
     <data>
 
@@ -7,10 +8,8 @@
             type="io.github.mklkj.filmowy.ui.news.NewsViewModel" />
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:tools="http://schemas.android.com/tools"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context="io.github.mklkj.filmowy.ui.news.NewsFragment"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/newsSwipeRefreshLayout"
         app:onRefreshListener="@{() -> viewModel.refresh()}"
         app:refreshing="@{viewModel.isRefresh}"

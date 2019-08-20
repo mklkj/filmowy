@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.NetworkState
-import io.github.mklkj.filmowy.ui.NetworkStateViewHolder
+import io.github.mklkj.filmowy.databinding.ItemNetworkStateBinding
 
 abstract class BasePagedListAdapter<T, B : ViewDataBinding>(diffCallback: DiffUtil.ItemCallback<T>) :
     PagedListAdapter<T, RecyclerView.ViewHolder>(diffCallback) {
@@ -28,12 +28,15 @@ abstract class BasePagedListAdapter<T, B : ViewDataBinding>(diffCallback: DiffUt
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            R.layout.item_network_state -> NetworkStateViewHolder.create(parent, viewType, retryCallback)
+            R.layout.item_network_state -> NetworkStateViewHolder(
+                DataBindingUtil.inflate(LayoutInflater.from(parent.context), viewType, parent, false), retryCallback
+            )
             getListItemViewType() -> ViewHolder<B>(DataBindingUtil.inflate(LayoutInflater.from(parent.context), viewType, parent, false))
             else -> throw IllegalArgumentException("unknown view type")
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
             getListItemViewType() -> onBindListViewHolder(holder as ViewHolder<B>, position, getItem(position))
@@ -51,7 +54,7 @@ abstract class BasePagedListAdapter<T, B : ViewDataBinding>(diffCallback: DiffUt
     fun setNetworkState(newNetworkState: NetworkState?) {
         if (currentList?.size == 0) return
 
-        val previousState = this.networkStateValue
+        val previousState = networkStateValue
         val hadExtraRow = hasExtraRow()
         networkStateValue = newNetworkState
         val hasExtraRow = hasExtraRow()
@@ -64,4 +67,13 @@ abstract class BasePagedListAdapter<T, B : ViewDataBinding>(diffCallback: DiffUt
     }
 
     class ViewHolder<B : ViewDataBinding>(val binding: B) : RecyclerView.ViewHolder(binding.root)
+
+    class NetworkStateViewHolder(private val b: ItemNetworkStateBinding, private val retryCallback: () -> Unit) : RecyclerView.ViewHolder(b.root) {
+
+        fun bindTo(networkState: NetworkState?) {
+            b.state = networkState
+            b.retryLoadingButton.setOnClickListener { retryCallback() }
+            b.executePendingBindings()
+        }
+    }
 }

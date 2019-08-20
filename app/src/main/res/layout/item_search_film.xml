@@ -1,4 +1,5 @@
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.search.SearchResultsAdapter">
 
     <data>
 
@@ -8,7 +9,6 @@
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:orientation="horizontal"
         android:padding="16dp"
         android:layout_width="match_parent"

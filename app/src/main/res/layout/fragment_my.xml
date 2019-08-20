@@ -1,4 +1,5 @@
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.my.MyFragment">
 
     <data>
 
@@ -7,9 +8,7 @@
             type="io.github.mklkj.filmowy.ui.my.MyViewModel" />
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context="io.github.mklkj.filmowy.ui.my.MyFragment"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mySwipeRefreshLayout"
         app:onRefreshListener="@{() -> viewModel.refresh()}"

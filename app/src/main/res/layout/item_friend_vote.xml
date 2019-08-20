@@ -1,4 +1,5 @@
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.my.MyListAdapter">
 
     <data>
 

@@ -1,4 +1,5 @@
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.tv.TvFragment">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"

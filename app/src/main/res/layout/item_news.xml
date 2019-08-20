@@ -1,5 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.news.NewsListAdapter">
 
     <data>
 
@@ -12,7 +12,7 @@
             type="io.github.mklkj.filmowy.api.pojo.NewsLead" />
     </data>
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/itemNewsContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             android:layout_marginBottom="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="@tools:sample/lorem"/>
+            tools:text="@tools:sample/lorem" />
 
         <TextView
             android:id="@+id/itemNewsDate"
