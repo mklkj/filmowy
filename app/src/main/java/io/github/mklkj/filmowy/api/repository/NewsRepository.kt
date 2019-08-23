@@ -28,7 +28,10 @@ class NewsRepository @Inject constructor(
             // TODO: Add switch in settings
             if (preferences.getBoolean("USE_SCRAPPER", true)) scrapper.getArticle(title, id).map {
                 news.copy().apply {
-                    contentHtml = it.content.apply { select("script, svg").remove() }.html()
+                    contentHtml = it.content
+                        .apply { select("script, svg").remove() }
+                        .html()
+                        .replace("\"/", "\"https://m.filmweb.pl/")
                 }
             }
             else Single.just(news)

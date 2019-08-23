@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -47,6 +48,7 @@ class ArticleFragment : DaggerFragment() {
 
         vm.getArticle(args.article).observe(viewLifecycleOwner, Observer {
             binding.article = it
+            binding.content.movementMethod = LinkMovementMethod.getInstance()
             if (it.contentHtml.isNotEmpty()) binding.text = Html.fromHtml(it.contentHtml, htmlImageGetter.apply { textView = binding.content }, null)
             else binding.content.text = it.content
         })
