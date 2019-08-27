@@ -149,4 +149,7 @@
     <action
         android:id="@+id/action_global_profileFragment"
         app:destination="@id/profileFragment" />
+    <action
+        android:id="@+id/action_global_articleFragment"
+        app:destination="@id/articleFragment" />
 </navigation>

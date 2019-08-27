@@ -31,7 +31,7 @@ class NewsRepository @Inject constructor(
                     contentHtml = it.content
                         .apply { select("script, svg").remove() }
                         .html()
-                        .replace("\"/", "\"https://m.filmweb.pl/")
+                        .replace("\"/", "\"app://io.github.mklkj.filmowy/")
                 }
             }
             else Single.just(news)

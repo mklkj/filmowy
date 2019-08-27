@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.database.MatrixCursor
+import android.net.Uri
 import android.os.Bundle
 import android.provider.BaseColumns
 import android.util.DisplayMetrics.DENSITY_DEFAULT
@@ -25,6 +26,7 @@ import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.NavGraphDirections
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.pojo.Film
+import io.github.mklkj.filmowy.api.pojo.News
 import io.github.mklkj.filmowy.api.pojo.Person
 import io.github.mklkj.filmowy.api.pojo.SearchResult
 import io.github.mklkj.filmowy.api.pojo.SearchResult.Type.*
@@ -147,8 +149,8 @@ class MainActivity : DaggerAppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        if (Intent.ACTION_SEARCH == intent.action) {
-            if (intent.data != null) {
+        when (intent.action) {
+            Intent.ACTION_SEARCH -> if (intent.data != null) {
                 intent.data!!.lastPathSegment!!.toLong().also {
                     when (SearchResult.Type.getByName(intent.data!!.pathSegments[0])) {
                         FILM, SERIES -> navController.navigate(NavGraphDirections.actionGlobalFilmFragment(Film.get(it)))
@@ -160,6 +162,16 @@ class MainActivity : DaggerAppCompatActivity() {
                 }
             } else {
                 navController.navigate(NavGraphDirections.actionGlobalSearchFragment(intent.getStringExtra(QUERY)))
+            }
+            Intent.ACTION_VIEW -> if (intent.data != null) {
+                intent.data!!.pathSegments.also {
+                    when(it[0]) {
+                        "news" -> navController.navigate(NavGraphDirections.actionGlobalArticleFragment(News.get(it.last().split("-").last().toLong()), -1))
+                        "film", "serial" -> navController.navigate(NavGraphDirections.actionGlobalFilmFragment(Film.get(it.last().split("-").last().toLong())))
+                        "person" -> navController.navigate(NavGraphDirections.actionGlobalPersonFragment(Person.get(it.last().split("-").last().toLong())))
+                        else -> startActivity(Intent(Intent.ACTION_VIEW).apply { data = Uri.parse("https://m.filmweb.pl/${intent.data?.path}") })
+                    }
+                }
             }
         }
     }
