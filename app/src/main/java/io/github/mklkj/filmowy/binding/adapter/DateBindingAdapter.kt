@@ -5,8 +5,9 @@ import androidx.databinding.BindingAdapter
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
+import javax.inject.Inject
 
-class DateBindingAdapter {
+class DateBindingAdapter @Inject constructor() {
 
     @BindingAdapter("android:text", "android:format")
     fun TextView.formatDateTime(dateTime: LocalDateTime, format: String) {

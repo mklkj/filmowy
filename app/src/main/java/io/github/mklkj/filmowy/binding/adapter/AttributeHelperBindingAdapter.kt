@@ -3,8 +3,9 @@ package io.github.mklkj.filmowy.binding.adapter
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import javax.inject.Inject
 
-class AttributeHelperBindingAdapter {
+class AttributeHelperBindingAdapter @Inject constructor() {
 
     @BindingAdapter("android:visibility")
     fun View.setVisibility(value: Boolean) {

@@ -1,4 +1,7 @@
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout2"
     tools:context=".ui.film.FilmFragment">
 
     <data>
@@ -12,61 +15,188 @@
             type="io.github.mklkj.filmowy.api.pojo.Film" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:text="@{`Tytuł: ` + film.title + `, oryginalny: ` + film.filmInfo.originalTitle}"
-            android:layout_marginBottom="10dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
-            tools:text="Tytuł"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:text="@{`Ocena: ` + Double.toString(film.avgRate)}"
-            android:layout_marginBottom="10dp"
-            tools:text="Ocena"
+            <ImageView
+                android:id="@+id/poster"
+                android:layout_width="100dp"
+                android:layout_height="143dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:filmImage="@{film.imagePath}"
+                android:imageWidth="@{100}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/layout"
+                tools:ignore="ContentDescription"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{film.title}"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/poster"
+                app:layout_constraintTop_toTopOf="@+id/poster"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@{`(` + Integer.toString(film.year) + `)`}"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintStart_toEndOf="@+id/title"
+                tools:text="2019" />
+
+            <TextView
+                android:id="@+id/originalTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@{film.filmInfo.originalTitle}"
+                android:textColor="?android:textColorSecondary"
+                android:visibility='@{film.filmInfo.originalTitle != ""}'
+                app:layout_constraintStart_toEndOf="@+id/poster"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:id="@+id/duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:duration="@{film.duration}"
+                android:textColor="?android:textColorTertiary"
+                android:visibility="@{film.duration != 0}"
+                app:layout_constraintStart_toEndOf="@+id/poster"
+                app:layout_constraintTop_toBottomOf="@+id/originalTitle"
+                tools:text="1 godz. 50 min." />
+
+            <TextView
+                android:id="@+id/synopis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{film.filmInfo.synopsis}"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/poster"
+                app:layout_constraintTop_toBottomOf="@+id/duration"
+                tools:text="@tools:sample/lorem" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="@{`Liczba głosów: ` + Integer.toString(film.votesCount)}"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            tools:text="Liczba głosów"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="@{`Rok: ` + Integer.toString(film.year)}"
-            android:layout_marginBottom="10dp"
-            tools:text="Rok"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="@{`Czas trwania: ` + Integer.toString(film.duration)}"
-            android:layout_marginBottom="10dp"
-            tools:text="Czas trwania"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="@{`Synopis: ` + film.filmInfo.synopsis}"
-            android:layout_marginBottom="10dp"
-            tools:text="Synopis"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="500dp"
             android:layout_height="wrap_content"
-            android:filmImage="@{film.imagePath}"
-            android:imageWidth="@{500}"
-            android:layout_gravity="center_horizontal"
-            android:contentDescription="@string/app_name"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:avg="@{film.avgRate}"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="7,5" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{film.votesCount + ` ocen`}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="46 ocen" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/materialCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/wantSee"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_margin="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Widziałem/-am, moja ocena:" />
+
+                        <RatingBar
+                            android:layout_margin="8dp"
+                            android:id="@+id/ratingBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:numStars="10"
+                            android:stepSize="1.0" />
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:id="@+id/wantSee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Chcę zobaczyć"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:id="@+id/noInterested"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Nie interesuje mnie"
+                    app:layout_constraintEnd_toEndOf="@+id/materialCardView"
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
     </LinearLayout>
 </layout>

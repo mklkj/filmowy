@@ -23,14 +23,6 @@ object BindingModule {
 
     @Provides
     @DataBinding
-    fun provideDateBindingAdapter() = DateBindingAdapter()
-
-    @Provides
-    @DataBinding
-    fun provideBooleanBindingAdapter() = AttributeHelperBindingAdapter()
-
-    @Provides
-    @DataBinding
     fun providePicasso(context: Context): Picasso = Picasso.Builder(context)
         .loggingEnabled(BuildConfig.DEBUG)
         .build()

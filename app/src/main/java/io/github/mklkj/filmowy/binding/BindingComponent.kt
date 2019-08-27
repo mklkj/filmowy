@@ -6,6 +6,7 @@ import dagger.Component
 import io.github.mklkj.filmowy.FilmowyApp
 import io.github.mklkj.filmowy.binding.adapter.AttributeHelperBindingAdapter
 import io.github.mklkj.filmowy.binding.adapter.DateBindingAdapter
+import io.github.mklkj.filmowy.binding.adapter.FilmInfoAdapter
 import io.github.mklkj.filmowy.binding.adapter.ImageBindingAdapter
 import io.github.mklkj.filmowy.di.AppComponent
 
@@ -29,4 +30,6 @@ interface BindingComponent : DataBindingComponent {
     override fun getDateBindingAdapter(): DateBindingAdapter
 
     override fun getAttributeHelperBindingAdapter(): AttributeHelperBindingAdapter
+
+    override fun getFilmInfoAdapter(): FilmInfoAdapter
 }
