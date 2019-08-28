@@ -3,8 +3,6 @@ package io.github.mklkj.filmowy.ui.article
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.Html
-import android.text.method.LinkMovementMethod
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -32,6 +30,7 @@ class ArticleFragment : DaggerFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        vm.loadArticle(args.article)
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
@@ -45,13 +44,7 @@ class ArticleFragment : DaggerFragment() {
         }
 
         binding.articleImage.transitionName = "news_image_${args.position}"
-
-        vm.getArticle(args.article).observe(viewLifecycleOwner, Observer {
-            binding.article = it
-            binding.content.movementMethod = LinkMovementMethod.getInstance()
-            if (it.contentHtml.isNotEmpty()) binding.text = Html.fromHtml(it.contentHtml, htmlImageGetter.apply { textView = binding.content }, null)
-            else binding.content.text = it.content
-        })
+        vm.article.observe(viewLifecycleOwner, Observer { binding.article = it })
 
         return binding.root
     }

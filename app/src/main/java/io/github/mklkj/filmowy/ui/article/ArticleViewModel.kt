@@ -1,6 +1,5 @@
 package io.github.mklkj.filmowy.ui.article
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.News
@@ -15,7 +14,7 @@ class ArticleViewModel @Inject constructor(private val newsRepository: NewsRepos
 
     val article = MutableLiveData<News>()
 
-    fun getArticle(news: News): LiveData<News> {
+    fun loadArticle(news: News) {
         disposable.add(newsRepository.getArticle(news.newsId, news.title)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -27,6 +26,5 @@ class ArticleViewModel @Inject constructor(private val newsRepository: NewsRepos
                 Timber.e(it)
                 networkState.postValue(NetworkState.error(it.message))
             })
-        return article
     }
 }

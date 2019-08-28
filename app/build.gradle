@@ -64,6 +64,8 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
     implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle"
+    // TODO https://proandroiddev.com/saving-ui-state-with-viewmodel-savedstate-and-dagger-f77bcaeb8b08
+//    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-alpha03"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
