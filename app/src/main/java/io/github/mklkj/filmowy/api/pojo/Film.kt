@@ -7,6 +7,7 @@ data class Film(
     var title: String,
     val avgRate: Double,
     val votesCount: Int,
+    val wantSee: Int,
     var year: Int?,
     val duration: Int?,
     val imagePath: String?,
@@ -21,6 +22,7 @@ data class Film(
             duration = null,
             filmInfo = null,
             votesCount = 0,
+            wantSee = 0,
             year = null
         )
     }

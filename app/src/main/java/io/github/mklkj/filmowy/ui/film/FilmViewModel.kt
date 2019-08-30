@@ -1,9 +1,9 @@
 package io.github.mklkj.filmowy.ui.film
 
+import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.repository.FilmRepository
-import io.github.mklkj.filmowy.api.toLiveData
 import io.github.mklkj.filmowy.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -12,18 +12,19 @@ import javax.inject.Inject
 
 class FilmViewModel @Inject constructor(private val filmRepository: FilmRepository) : BaseViewModel() {
 
-    fun getFullFilmInfo(id: Long) = filmRepository.getFilmInfoFull(id)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .onErrorReturnItem(Film.get(-1))
-        .doOnError {
-            Timber.e(it)
-            networkState.postValue(NetworkState.error(it.message))
-        }
-        .doOnSuccess {
-            if (!it.title.isBlank()) networkState.postValue(NetworkState.LOADED)
-            else networkState.postValue(NetworkState.error("Wystąpił błąd podczas ładowania filmu :("))
-        }
-        .toFlowable()
-        .toLiveData()
+    val film = MutableLiveData<Film>()
+
+    fun loadFilmInfo(id: Long) {
+        disposable.add(filmRepository.getFilmInfoFull(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { networkState.postValue(NetworkState.LOADING) }
+            .subscribe({
+                film.postValue(it)
+                networkState.postValue(NetworkState.LOADED)
+            }) {
+                Timber.e(it)
+                networkState.postValue(NetworkState.error(it.message))
+            })
+    }
 }

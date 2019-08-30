@@ -1,5 +1,7 @@
 package io.github.mklkj.filmowy.api.pojo
 
+import org.threeten.bp.LocalDate
+
 data class FilmInfo(
     val originalTitle: String,
     val genres: String,
@@ -17,9 +19,9 @@ data class FilmInfo(
     val filmType: Int,
     val seasonsCount: Int,
     val episodesCount: Int,
-    val countriesString: String,
-    val synopsis: String,
+    val countriesString: String?,
+    val synopsis: String?,
     val recommends: Boolean,
-    val premiereWorldPublic: Int?,
-    val premiereCountryPublic: Int?
+    val premiereWorldPublic: LocalDate?,
+    val premiereCountryPublic: LocalDate?
 )

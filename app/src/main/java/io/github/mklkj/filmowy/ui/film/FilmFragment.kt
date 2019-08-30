@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -19,25 +18,28 @@ class FilmFragment : DaggerFragment() {
     @Inject
     lateinit var vmFactory: ViewModelFactory
 
-    private val vm: FilmViewModel by viewModels { vmFactory }
+    private val viewModel: FilmViewModel by viewModels { vmFactory }
 
     private val args: FilmFragmentArgs by navArgs()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.loadFilmInfo(args.film.filmId)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
-        val binding = DataBindingUtil.inflate<FragmentFilmBinding>(inflater, R.layout.fragment_film, container, false).apply {
+        return FragmentFilmBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
-            viewModel = vm
+            vm = viewModel
             film = args.film
-        }
 
-        vm.getFullFilmInfo(args.film.filmId).observe(this, Observer {
-            args.film.title = it.title
-            args.film.year = it.year
-            binding.film = it
-        })
-
-        return binding.root
+            viewModel.film.observe(viewLifecycleOwner, Observer {
+                args.film.title = it.title
+                args.film.year = it.year
+                film = it
+            })
+        }.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

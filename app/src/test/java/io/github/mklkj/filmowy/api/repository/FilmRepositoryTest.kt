@@ -6,6 +6,7 @@ import okhttp3.mockwebserver.MockResponse
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import retrofit2.create
 
@@ -43,8 +44,9 @@ class FilmRepositoryTest : BaseApiTest() {
         val info = filmRepository.getFilmInfoFull(2).blockingGet()
         info.run {
             assertEquals("Paragraf 187", title)
-            assertEquals(7.32431, avgRate, .0)
-            assertEquals(7758, votesCount)
+            assertEquals(7.32363, avgRate, .0)
+            assertEquals(7796, votesCount)
+            assertEquals(4136, wantSee)
             assertEquals(1997, year)
             assertEquals(120, duration)
             assertEquals("/00/01/1/7003079.2.jpg", imagePath)
@@ -69,8 +71,8 @@ class FilmRepositoryTest : BaseApiTest() {
                 assertEquals("USA", countriesString)
                 assertEquals("Napadnięty nauczyciel postanawia wrócić do pracy w innej szkole, aby walczyć z agresją i przemocą.", synopsis)
                 assertEquals(false, recommends)
-                assertEquals(null, premiereWorldPublic)
-                assertEquals(null, premiereCountryPublic)
+                assertEquals(LocalDate.of(1997, 7, 30), premiereWorldPublic)
+                assertEquals(LocalDate.of(1998, 2, 27), premiereCountryPublic)
             }
         }
     }

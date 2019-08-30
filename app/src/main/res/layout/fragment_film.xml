@@ -7,7 +7,7 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="vm"
             type="io.github.mklkj.filmowy.ui.film.FilmViewModel" />
 
         <variable
