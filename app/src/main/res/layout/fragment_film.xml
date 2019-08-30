@@ -75,6 +75,8 @@
                 tools:text="@tools:sample/lorem" />
 
             <TextView
+                android:drawableStart="@drawable/ic_access_time"
+                android:drawablePadding="4dip"
                 android:id="@+id/duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,6 +96,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:lineSpacingMultiplier="1.2"
                 android:text="@{film.filmInfo.synopsis}"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toEndOf="parent"
