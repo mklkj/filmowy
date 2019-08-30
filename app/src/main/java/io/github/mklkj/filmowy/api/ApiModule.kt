@@ -10,6 +10,7 @@ import dagger.Provides
 import io.github.mklkj.filmowy.BuildConfig
 import io.github.mklkj.filmowy.api.interceptor.ResponseInterceptor
 import io.github.mklkj.filmowy.api.interceptor.SignatureInterceptor
+import io.github.mklkj.filmowy.api.interceptor.UserAgentInterceptor
 import okhttp3.CookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -49,13 +50,14 @@ class ApiModule {
     @Singleton
     @Provides
     fun provideScrapperService(cookieJar: CookieJar): ScrapperService = Retrofit.Builder()
-        .baseUrl("https://www.filmweb.pl/")
+        .baseUrl("https://m.filmweb.pl/")
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(JspoonConverterFactory.create())
         .client(OkHttpClient.Builder()
             .cookieJar(cookieJar)
             .followRedirects(true)
             .callTimeout(30, TimeUnit.SECONDS)
+            .addInterceptor(UserAgentInterceptor())
             .addNetworkInterceptor(HttpLoggingInterceptor().apply {
                 if (BuildConfig.DEBUG) level = HttpLoggingInterceptor.Level.BODY
             }).build())

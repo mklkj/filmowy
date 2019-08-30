@@ -20,7 +20,7 @@ class SignatureInterceptor : Interceptor {
 
     private fun getSignedRequest(request: Request): Request {
         val url = request.url.newBuilder()
-            .addQueryParameter("version", "1.0")
+            .addQueryParameter("version", "2.8")
             .addQueryParameter("appId", "android")
             .addQueryParameter("signature", getMethodSignature(request.url.queryParameter("methods")))
             .build()
