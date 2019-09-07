@@ -12,7 +12,7 @@ import retrofit2.create
 
 class FilmRepositoryTest : BaseApiTest() {
 
-    private val filmRepository by lazy { FilmRepository(getRetrofit().create()) }
+    private val filmRepository by lazy { FilmRepository(getRetrofit().create(), getRetrofitScrapper().create()) }
 
     @Test
     fun getFilmDescription() {
@@ -199,6 +199,31 @@ class FilmRepositoryTest : BaseApiTest() {
             assertEquals(LocalDateTime.of(2019, 6, 29, 17, 55, 0), dateTime)
             assertEquals(61600719, id)
             assertEquals("film SF", description)
+        }
+    }
+
+    @Test
+    fun getFilmSeasonEpisodes() {
+        server.enqueue(MockResponse().setBody(getResource("film-season-episodes.html")!!))
+        server.start()
+
+        val episodes = filmRepository.getFilmSeasonEpisodes(1, 1).blockingGet()
+        assertEquals(2, episodes.size)
+        episodes[0].run {
+            assertEquals(1659645, id)
+            assertEquals(4, season)
+            assertEquals(1, number)
+            assertEquals(LocalDate.of(2014, 9, 23), date)
+            assertEquals("Panopticon", title)
+            assertEquals(8.1, avgRate)
+        }
+        episodes[1].run {
+            assertEquals(2135567, id)
+            assertEquals(4, season)
+            assertEquals(2, number)
+            assertEquals(LocalDate.of(2019, 9, 8), date)
+            assertEquals("The Loop", title)
+            assertEquals(null, avgRate)
         }
     }
 }

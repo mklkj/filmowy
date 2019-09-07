@@ -3,6 +3,7 @@ package io.github.mklkj.filmowy.api.mapper
 import com.google.gson.JsonArray
 import io.github.mklkj.filmowy.api.getNullable
 import io.github.mklkj.filmowy.api.pojo.*
+import io.github.mklkj.filmowy.api.scrapper.response.FilmSeasonEpisodesResponse
 import io.github.mklkj.filmowy.api.toLocalDate
 import io.github.mklkj.filmowy.api.toLocalDateTime
 
@@ -162,6 +163,22 @@ fun JsonArray.mapFilmsNearestBroadcasts(): List<FilmNearestBroadcast> {
             dateTime = (item.get(3).asString + " " + item.get(2).asString).toLocalDateTime("yyyy-MM-dd HH:mm"),
             id = item.get(4).asLong,
             description = item.get(5).asString
+        )
+    }
+}
+
+fun FilmSeasonEpisodesResponse.mapFilmSeasonEpisodes(): List<FilmEpisode> {
+    return episodes.map {
+        FilmEpisode(
+            id = it.id,
+            season = it.season,
+            number = it.number,
+            date = it.timestamp.toLocalDate(),
+            title = it.title,
+            avgRate = it.averageRate.run {
+                if (this == "brak głosów") null
+                else removeSuffix(" średnia ocena").replace(",", ".").toDouble()
+            }
         )
     }
 }

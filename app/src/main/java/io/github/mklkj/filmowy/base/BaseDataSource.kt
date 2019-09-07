@@ -32,8 +32,8 @@ abstract class BaseDataSource<T>(private val disposable: CompositeDisposable) : 
     }
 
     private fun setRetry(action: Action?) {
-        if (action == null) retryCompletable = null
-        else retryCompletable = Completable.fromAction(action)
+        retryCompletable = if (action == null) null
+        else Completable.fromAction(action)
     }
 
     fun retry() {

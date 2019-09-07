@@ -78,11 +78,14 @@ fun String.getPersonFilmsImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.p
         else -> replace("2.jpg", "3.jpg")
     })
 
-fun Long.toLocalDateTime(): LocalDateTime = Instant
-    .ofEpochMilli(this)
+fun Long.toLocalDateTime(): LocalDateTime = ofEpochMilli(this)
     .atZone(ZoneId.systemDefault())
     .withZoneSameInstant(ZoneOffset.UTC)
     .toLocalDateTime()
+
+fun Long.toLocalDate(): LocalDate = ofEpochMilli(this)
+    .atZone(ZoneId.systemDefault())
+    .toLocalDate()
 
 fun <T> LiveData<T>.toFlowable(owner: LifecycleOwner): Flowable<T> =
     Flowable.fromPublisher(LiveDataReactiveStreams.toPublisher(owner, this))

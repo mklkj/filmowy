@@ -1,6 +1,7 @@
 package io.github.mklkj.filmowy.api.repository
 
 import io.github.mklkj.filmowy.api.ApiService
+import io.github.mklkj.filmowy.api.ScrapperService
 import io.github.mklkj.filmowy.api.asMethod
 import io.github.mklkj.filmowy.api.asVarargMethod
 import io.github.mklkj.filmowy.api.mapper.*
@@ -8,7 +9,7 @@ import io.github.mklkj.filmowy.api.pojo.*
 import io.reactivex.Single
 import javax.inject.Inject
 
-class FilmRepository @Inject constructor(private val api: ApiService) {
+class FilmRepository @Inject constructor(private val api: ApiService, private val scrapper: ScrapperService) {
 
     fun getFilmDescription(filmId: Int): Single<FilmDescription> {
         return api.getWithMethod("getFilmDescription".asMethod(filmId)).map { it.mapFilmDescription() }
@@ -52,5 +53,9 @@ class FilmRepository @Inject constructor(private val api: ApiService) {
 
     fun getFilmsNearestBroadcasts(filmId: Int, page: Int): Single<List<FilmNearestBroadcast>> {
         return api.getWithMethod("getFilmsNearestBroadcasts".asVarargMethod(filmId, page * 100, (page + 1) * 100)).map { it.mapFilmsNearestBroadcasts() }
+    }
+
+    fun getFilmSeasonEpisodes(filmId: Long, season: Int): Single<List<FilmEpisode>> {
+        return scrapper.getSeasonEpisodes(filmId, season).map { it.mapFilmSeasonEpisodes() }
     }
 }
