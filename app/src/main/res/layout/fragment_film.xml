@@ -109,8 +109,8 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/seasonsButton"
             android:visibility="@{film.filmInfo.seasonsCount != 0}"
-            android:text="@{`Sezony: ` + film.filmInfo.seasonsCount}"
-            tools:text="Sezony: 5"
+            android:text="@{`Sezony: ` + film.filmInfo.seasonsCount + `, odcinki: ` + film.filmInfo.episodesCount}"
+            tools:text="Sezony: 5, odcinki: 25"
             android:layout_marginVertical="8dp"
             android:layout_marginHorizontal="8dp"
             android:layout_width="match_parent"
