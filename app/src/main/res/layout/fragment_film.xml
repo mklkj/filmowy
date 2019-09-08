@@ -106,6 +106,16 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/seasonsButton"
+            android:visibility="@{film.filmInfo.seasonsCount != 0}"
+            android:text="@{`Sezony: ` + film.filmInfo.seasonsCount}"
+            tools:text="Sezony: 5"
+            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

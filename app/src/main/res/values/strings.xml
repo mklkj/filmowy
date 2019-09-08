@@ -6,6 +6,7 @@
     <string name="film_title">Film</string>
     <string name="games_title">Gry</string>
     <string name="movies_title">Filmy</string>
+    <string name="episodes_fragment">Odcinki</string>
     <string name="news_title">Newsy</string>
     <string name="rankings_title">Rankingi</string>
     <string name="person_title">Osoba</string>

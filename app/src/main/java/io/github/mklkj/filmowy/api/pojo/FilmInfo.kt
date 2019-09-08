@@ -1,6 +1,7 @@
 package io.github.mklkj.filmowy.api.pojo
 
 import org.threeten.bp.LocalDate
+import java.io.Serializable
 
 data class FilmInfo(
     val originalTitle: String,
@@ -24,4 +25,4 @@ data class FilmInfo(
     val recommends: Boolean,
     val premiereWorldPublic: LocalDate?,
     val premiereCountryPublic: LocalDate?
-)
+) : Serializable

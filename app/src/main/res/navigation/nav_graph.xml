@@ -47,6 +47,23 @@
         <argument
             android:name="film"
             app:argType="io.github.mklkj.filmowy.api.pojo.Film" />
+        <action
+            android:id="@+id/action_filmFragment_to_episodesFragment"
+            app:destination="@id/episodesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/episodesFragment"
+        android:name="io.github.mklkj.filmowy.ui.film.episodes.EpisodesFragment"
+        android:label="@string/episodes_fragment"
+        tools:layout="@layout/fragment_episodes">
+        <argument
+            android:name="film"
+            app:argType="io.github.mklkj.filmowy.api.pojo.Film" />
+        <argument
+            android:name="seasonsCount"
+            app:argType="integer"
+            android:defaultValue="1" />
     </fragment>
 
     <fragment

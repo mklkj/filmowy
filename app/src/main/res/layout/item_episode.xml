@@ -1,0 +1,36 @@
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="episode"
+            type="io.github.mklkj.filmowy.api.pojo.FilmEpisode" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="@{episode.number + ` - ` + episode.title}"
+            tools:text="@tools:sample/lorem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{episode.date}"
+            android:format="@{`yyyy-MM-dd`}"
+            tools:text="2019-09-08"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="@{`Średnia ocena: ` + episode.avgRate}"
+            tools:text="Średnia ocena: 8,9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</layout>

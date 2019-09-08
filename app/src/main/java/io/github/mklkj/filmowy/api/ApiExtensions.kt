@@ -5,6 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import com.google.gson.JsonArray
+import io.github.mklkj.filmowy.api.pojo.Film
 import io.reactivex.Flowable
 import org.threeten.bp.*
 import org.threeten.bp.Instant.ofEpochMilli
@@ -77,6 +78,10 @@ fun String.getPersonFilmsImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.p
         in 201..370 -> replace("2.jpg", "5.jpg")
         else -> replace("2.jpg", "3.jpg")
     })
+
+fun Film.toUrl() = "https://m.filmweb.pl/film/${title.encodeFilmName()}-$year-$filmId"
+
+private fun String.encodeFilmName() = replace(" ", "+").replace("?", "")
 
 fun Long.toLocalDateTime(): LocalDateTime = ofEpochMilli(this)
     .atZone(ZoneId.systemDefault())
