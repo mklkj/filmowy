@@ -28,13 +28,13 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun provideApiService(cookieJar: CookieJar): ApiService = Retrofit.Builder()
+    fun provideApiService(okHttpClient: OkHttpClient, cookieJar: CookieJar): ApiService = Retrofit.Builder()
         .baseUrl("https://www.filmweb.pl/")
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
         .client(
-            OkHttpClient.Builder()
+            okHttpClient.newBuilder()
                 .cookieJar(cookieJar)
                 .followRedirects(true)
                 .callTimeout(30, TimeUnit.SECONDS)
@@ -49,20 +49,26 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun provideScrapperService(cookieJar: CookieJar): ScrapperService = Retrofit.Builder()
+    fun provideScrapperService(okHttpClient: OkHttpClient, cookieJar: CookieJar): ScrapperService = Retrofit.Builder()
         .baseUrl("https://m.filmweb.pl/")
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(JspoonConverterFactory.create())
-        .client(OkHttpClient.Builder()
-            .cookieJar(cookieJar)
-            .followRedirects(true)
-            .callTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(UserAgentInterceptor())
-            .addNetworkInterceptor(HttpLoggingInterceptor().apply {
-                if (BuildConfig.DEBUG) level = HttpLoggingInterceptor.Level.BODY
-            }).build())
+        .client(
+            okHttpClient.newBuilder()
+                .cookieJar(cookieJar)
+                .followRedirects(true)
+                .callTimeout(30, TimeUnit.SECONDS)
+                .addInterceptor(UserAgentInterceptor())
+                .addNetworkInterceptor(HttpLoggingInterceptor().apply {
+                    if (BuildConfig.DEBUG) level = HttpLoggingInterceptor.Level.BODY
+                }).build()
+        )
         .build()
         .create()
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient() = OkHttpClient()
 
     @Singleton
     @Provides
