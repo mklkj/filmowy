@@ -90,6 +90,7 @@ fun Long.toLocalDateTime(): LocalDateTime = ofEpochMilli(this)
 
 fun Long.toLocalDate(): LocalDate = ofEpochMilli(this)
     .atZone(ZoneId.systemDefault())
+    .withZoneSameInstant(ZoneId.of("Europe/Warsaw"))
     .toLocalDate()
 
 fun <T> LiveData<T>.toFlowable(owner: LifecycleOwner): Flowable<T> =
