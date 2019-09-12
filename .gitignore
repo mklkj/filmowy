@@ -81,3 +81,4 @@ lint/tmp/
 # lint/reports/
 .idea/navEditor.xml
 .idea/uiDesigner.xml
+.idea/$PRODUCT_WORKSPACE_FILE$

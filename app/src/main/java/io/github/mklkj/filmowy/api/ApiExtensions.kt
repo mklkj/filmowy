@@ -7,15 +7,18 @@ import androidx.lifecycle.LiveDataReactiveStreams
 import com.google.gson.JsonArray
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.reactivex.Flowable
-import org.threeten.bp.*
 import org.threeten.bp.Instant.ofEpochMilli
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.ZoneId
+import org.threeten.bp.ZoneOffset
 import java.text.SimpleDateFormat
 
 fun JsonArray.getNullable(index: Int) = elementAtOrNull(index).let { if (it?.isJsonNull == true) null else it }
 
 @SuppressLint("SimpleDateFormat")
 private fun String.toZonedTime(format: String) =
-    ofEpochMilli(SimpleDateFormat(format).parse(this).time).atZone(ZoneId.systemDefault())
+    ofEpochMilli(SimpleDateFormat(format).parse(this)!!.time).atZone(ZoneId.systemDefault())
 
 fun String.toLocalDate(format: String = "yyyy-MM-dd"): LocalDate = toZonedTime(format).toLocalDate()
 
@@ -70,14 +73,14 @@ fun String.getPersonImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/p" 
 })
 
 fun String.getPersonFilmsImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/po" + when (width) {
-        in 0..38 -> replace("2.jpg", "0.jpg")
-        in 39..70 -> replace("2.jpg", "4.jpg")
-        in 71..90 -> replace("2.jpg", "1.jpg")
-        in 91..140 -> this
-        in 141..200 -> replace("2.jpg", "6.jpg")
-        in 201..370 -> replace("2.jpg", "5.jpg")
-        else -> replace("2.jpg", "3.jpg")
-    })
+    in 0..38 -> replace("2.jpg", "0.jpg")
+    in 39..70 -> replace("2.jpg", "4.jpg")
+    in 71..90 -> replace("2.jpg", "1.jpg")
+    in 91..140 -> this
+    in 141..200 -> replace("2.jpg", "6.jpg")
+    in 201..370 -> replace("2.jpg", "5.jpg")
+    else -> replace("2.jpg", "3.jpg")
+})
 
 fun Film.toUrl() = "https://m.filmweb.pl/film/${title.encodeFilmName()}-$year-$filmId"
 

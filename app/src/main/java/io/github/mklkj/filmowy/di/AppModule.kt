@@ -2,7 +2,7 @@ package io.github.mklkj.filmowy.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides

@@ -161,7 +161,7 @@ class MainActivity : DaggerAppCompatActivity() {
                     }
                 }
             } else {
-                navController.navigate(NavGraphDirections.actionGlobalSearchFragment(intent.getStringExtra(QUERY)))
+                intent.getStringExtra(QUERY)?.let { navController.navigate(NavGraphDirections.actionGlobalSearchFragment(it)) }
             }
             Intent.ACTION_VIEW -> if (intent.data != null) {
                 intent.data!!.pathSegments.also {

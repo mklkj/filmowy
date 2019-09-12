@@ -26,6 +26,7 @@ class HtmlImageGetter @Inject constructor(private val context: Context?, private
         }
     }
 
+    @Suppress("DEPRECATION")
     private inner class BitmapDrawablePlaceHolder(private val textView: TextView) : BitmapDrawable(), Target {
 
         private var drawable: Drawable? = null
