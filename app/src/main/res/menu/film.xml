@@ -6,6 +6,6 @@
         android:id="@+id/film_open_in_browser"
         android:title="@string/open_in_browser"
         android:icon="@drawable/ic_open_in_browser"
-        app:showAsAction="always" />
+        app:showAsAction="never" />
 
 </menu>
