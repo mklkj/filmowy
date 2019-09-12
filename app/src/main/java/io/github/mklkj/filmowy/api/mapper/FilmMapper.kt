@@ -6,6 +6,7 @@ import io.github.mklkj.filmowy.api.pojo.*
 import io.github.mklkj.filmowy.api.scrapper.response.FilmSeasonEpisodesResponse
 import io.github.mklkj.filmowy.api.toLocalDate
 import io.github.mklkj.filmowy.api.toLocalDateTime
+import timber.log.Timber
 
 fun JsonArray.mapFilmDescription(): FilmDescription {
     return FilmDescription(
@@ -68,7 +69,17 @@ fun JsonArray.mapFilmFullInfo(id: Long): Film {
             countriesString = getNullable(18)?.asString,
             synopsis = getNullable(19)?.asString,
             recommends = getNullable(23)?.asInt ?: 0 > 0,
-            premiereWorldPublic = getNullable(28)?.asString?.toLocalDate("yyyy-MM-dd"),
+            premiereWorldPublic = getNullable(28)?.asString?.let {
+                when(it.length) {
+                    10 -> it.toLocalDate("yyyy-MM-dd")
+                    7 -> it.toLocalDate("yyyy-MM")
+                    4 -> it.toLocalDate("yyyy")
+                    else -> {
+                        Timber.e("$it date can't be parsed")
+                        null
+                    }
+                }
+            },
             premiereCountryPublic = getNullable(29)?.asString?.toLocalDate("yyyy-MM-dd")
         )
     )
