@@ -1,8 +1,6 @@
 package io.github.mklkj.filmowy.ui
 
-import android.app.SearchManager.*
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.DisplayMetrics.DENSITY_DEFAULT
 import android.view.Menu
@@ -17,12 +15,8 @@ import com.google.android.material.navigation.NavigationView
 import dagger.android.support.DaggerAppCompatActivity
 import io.github.mklkj.filmowy.NavGraphDirections
 import io.github.mklkj.filmowy.R
-import io.github.mklkj.filmowy.api.pojo.Film
-import io.github.mklkj.filmowy.api.pojo.News
-import io.github.mklkj.filmowy.api.pojo.Person
-import io.github.mklkj.filmowy.api.pojo.SearchResult
-import io.github.mklkj.filmowy.api.pojo.SearchResult.Type.*
 import io.github.mklkj.filmowy.ui.login.NavigationLoginHelper
+import io.github.mklkj.filmowy.utils.FilmwebLinkHandler
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -35,6 +29,9 @@ class MainActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var navigationLoginHelper: NavigationLoginHelper
+
+    @Inject
+    lateinit var linkHandler: FilmwebLinkHandler
 
     private val navController by lazy { findNavController(R.id.navHostFragment) }
 
@@ -97,39 +94,13 @@ class MainActivity : DaggerAppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.global, menu)
-
         searchProvider.initSearch(menu, this)
-
         return true
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        when (intent.action) {
-            Intent.ACTION_SEARCH -> if (intent.data != null) {
-                intent.data!!.lastPathSegment!!.toLong().also {
-                    when (SearchResult.Type.getByName(intent.data!!.pathSegments[0])) {
-                        FILM, SERIES -> navController.navigate(NavGraphDirections.actionGlobalFilmFragment(Film.get(it)))
-                        GAME -> TODO()
-                        PERSON -> navController.navigate(NavGraphDirections.actionGlobalPersonFragment(Person.get(it)))
-                        CHANNEL -> TODO()
-                        CINEMA -> TODO()
-                    }
-                }
-            } else {
-                intent.getStringExtra(QUERY)?.let { navController.navigate(NavGraphDirections.actionGlobalSearchFragment(it)) }
-            }
-            Intent.ACTION_VIEW -> if (intent.data != null) {
-                intent.data!!.pathSegments.also {
-                    when(it[0]) {
-                        "news" -> navController.navigate(NavGraphDirections.actionGlobalArticleFragment(News.get(it.last().split("-").last().toLong()), -1))
-                        "film", "serial" -> navController.navigate(NavGraphDirections.actionGlobalFilmFragment(Film.get(it.last().split("-").last().toLong())))
-                        "person" -> navController.navigate(NavGraphDirections.actionGlobalPersonFragment(Person.get(it.last().split("-").last().toLong())))
-                        else -> startActivity(Intent(Intent.ACTION_VIEW).apply { data = Uri.parse("https://m.filmweb.pl/${intent.data?.path}") })
-                    }
-                }
-            }
-        }
+        linkHandler.parseIntent(intent, navController)
     }
 
     override fun onDestroy() {
