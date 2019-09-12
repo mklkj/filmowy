@@ -1,20 +1,12 @@
 package io.github.mklkj.filmowy.ui
 
-import android.app.SearchManager
 import android.app.SearchManager.*
-import android.content.Context
 import android.content.Intent
-import android.database.Cursor
-import android.database.MatrixCursor
 import android.net.Uri
 import android.os.Bundle
-import android.provider.BaseColumns
 import android.util.DisplayMetrics.DENSITY_DEFAULT
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.widget.SearchView
-import androidx.cursoradapter.widget.CursorAdapter
-import androidx.cursoradapter.widget.SimpleCursorAdapter
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
@@ -30,12 +22,7 @@ import io.github.mklkj.filmowy.api.pojo.News
 import io.github.mklkj.filmowy.api.pojo.Person
 import io.github.mklkj.filmowy.api.pojo.SearchResult
 import io.github.mklkj.filmowy.api.pojo.SearchResult.Type.*
-import io.github.mklkj.filmowy.api.repository.SearchRepository
 import io.github.mklkj.filmowy.ui.login.NavigationLoginHelper
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -44,12 +31,10 @@ class MainActivity : DaggerAppCompatActivity() {
     lateinit var fragmentLifecycleLogger: FragmentLifecycleLogger
 
     @Inject
-    lateinit var searchRepository: SearchRepository
+    lateinit var searchProvider: SearchProvider
 
     @Inject
     lateinit var navigationLoginHelper: NavigationLoginHelper
-
-    private val disposable = CompositeDisposable()
 
     private val navController by lazy { findNavController(R.id.navHostFragment) }
 
@@ -113,38 +98,9 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.global, menu)
 
-        val adapter = SimpleCursorAdapter(
-            this, android.R.layout.simple_list_item_1, null,
-            arrayOf(SUGGEST_COLUMN_TEXT_1), intArrayOf(android.R.id.text1), CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER
-        )
-
-        (menu.findItem(R.id.search).actionView as SearchView).run {
-            setSearchableInfo((getSystemService(Context.SEARCH_SERVICE) as SearchManager).getSearchableInfo(componentName))
-            suggestionsAdapter = adapter
-            setOnQueryTextListener(adapter)
-        }
+        searchProvider.initSearch(menu, this)
 
         return true
-    }
-
-    private fun SearchView.setOnQueryTextListener(adapter: CursorAdapter) {
-        setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String) = false
-            override fun onQueryTextChange(query: String): Boolean {
-                if (query.length < 2) return false
-                disposable.apply {
-                    clear()
-                    add(searchRepository.search(query)
-                        .subscribeOn(Schedulers.io())
-                        .map { list -> list.map { query to it } }
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                            adapter.swapCursor(createCursorFromResult(it))
-                        }) { Timber.d(it) })
-                }
-                return true
-            }
-        })
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -176,23 +132,8 @@ class MainActivity : DaggerAppCompatActivity() {
         }
     }
 
-    private fun createCursorFromResult(list: List<Pair<String, SearchResult>>): Cursor {
-        return MatrixCursor(
-            arrayOf(
-                BaseColumns._ID,
-                SUGGEST_COLUMN_TEXT_1,
-                SUGGEST_COLUMN_INTENT_DATA_ID,
-                SUGGEST_COLUMN_INTENT_DATA
-            )
-        ).apply {
-            list.mapIndexed { index, (_, result) ->
-                addRow(arrayOf(index, result.title, result.id, result.type))
-            }
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
-        disposable.dispose()
+        searchProvider.dispose()
     }
 }
