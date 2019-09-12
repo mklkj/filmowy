@@ -4,6 +4,7 @@ import com.google.gson.JsonArray
 import io.github.mklkj.filmowy.api.getNullable
 import io.github.mklkj.filmowy.api.pojo.*
 import io.github.mklkj.filmowy.api.scrapper.response.FilmSeasonEpisodesResponse
+import io.github.mklkj.filmowy.api.scrapper.response.ForumThreadsList
 import io.github.mklkj.filmowy.api.toLocalDate
 import io.github.mklkj.filmowy.api.toLocalDateTime
 import timber.log.Timber
@@ -190,6 +191,28 @@ fun FilmSeasonEpisodesResponse.mapFilmSeasonEpisodes(): List<FilmEpisode> {
                 if (this == "brak głosów") null
                 else removeSuffix(" średnia ocena").replace(",", ".").toDouble()
             }
+        )
+    }
+}
+
+fun ForumThreadsList.mapFilmForumThreadList(): List<FilmForumThread> {
+    return threadList.map {
+        FilmForumThread(
+            topic = it.topic,
+            author = it.authorName,
+            authorId = it.authorId,
+            authorProfileUrl = it.authorProfileUrl,
+            authorAvatarUrl = it.authorAvatarUrl,
+            content = it.content,
+            date = it.date.toLocalDateTime("dd/MM/yyyy HH:mm"),
+            rating = it.rating,
+            url = it.topicUrl,
+            thumbsUp = it.thumbsUp.let { count -> if (count.isEmpty()) "0" else count }.toInt(),
+            topicAnswers = it.topicAnswers,
+            lastReplayUser = it.lastReplayUser,
+            lastReplayUserId = it.lastReplayUserId,
+            lastReplayUrl = it.lastReplayUrl.trim(),
+            lastReplayDate = it.lastReplayDate.ifBlank { null }?.toLocalDateTime("dd/MM/yyyy HH:mm")
         )
     }
 }

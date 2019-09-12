@@ -2,9 +2,11 @@ package io.github.mklkj.filmowy.api
 
 import io.github.mklkj.filmowy.api.scrapper.response.ArticleResponse
 import io.github.mklkj.filmowy.api.scrapper.response.FilmSeasonEpisodesResponse
+import io.github.mklkj.filmowy.api.scrapper.response.ForumThreadsList
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ScrapperService {
 
@@ -13,4 +15,8 @@ interface ScrapperService {
 
     @GET("ajax/film/{id}/season/{season}/episodes")
     fun getSeasonEpisodes(@Path("id") filmId: Long, @Path("season") season: Int): Single<FilmSeasonEpisodesResponse>
+
+//    @Headers("X-Requested-With: XMLHttpRequest")
+    @GET("film/{name}-{id}/discussion")
+    fun getForumThreads(@Path("name") filmName: String, @Path("id") filmId: Long, @Query("page") page: Int = 1): Single<ForumThreadsList>
 }
