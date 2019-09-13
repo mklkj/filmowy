@@ -17,7 +17,7 @@ class ForumRepositoryTest : BaseApiTest() {
         server.enqueue(MockResponse().setBody(getResource("film-forum-thread-list.html")!!))
         server.start()
 
-        val threads = forumRepository.getForumThreadList("film", "co", 1).blockingGet()
+        val threads = forumRepository.getForumThreadList("https://filmweb/film/tytul-2019-123456", 1).blockingGet()
         assertEquals(3, threads.size)
         with(threads[0]) {
             assertEquals("Historia rodziny", topic)
