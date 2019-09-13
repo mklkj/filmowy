@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_filmFragment_to_episodesFragment"
             app:destination="@id/episodesFragment" />
+        <action
+            android:id="@+id/action_filmFragment_to_forumFragment"
+            app:destination="@id/forumFragment" />
     </fragment>
 
     <fragment
@@ -64,6 +67,31 @@
             android:name="seasonsCount"
             app:argType="integer"
             android:defaultValue="1" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/forumFragment"
+        android:name="io.github.mklkj.filmowy.ui.forum.ForumFragment"
+        android:label="@string/forum_title"
+        tools:layout="@layout/fragment_forum">
+        <argument
+            android:name="type"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_forumFragment_to_threadFragment"
+            app:destination="@id/threadFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/threadFragment"
+        android:name="io.github.mklkj.filmowy.ui.forum.thread.ThreadFragment"
+        android:label="@string/thread_title">
+        <argument
+            android:name="url"
+            app:argType="string" />
     </fragment>
 
     <fragment

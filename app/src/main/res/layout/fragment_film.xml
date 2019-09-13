@@ -222,5 +222,13 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/forumButton"
+            android:text="@string/forum_title"
+            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 </layout>

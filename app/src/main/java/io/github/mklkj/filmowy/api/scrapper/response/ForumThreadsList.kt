@@ -30,8 +30,8 @@ class ForumThreadsList {
         @Selector(".cap", attr = "title")
         var date: String = ""
 
-        @Selector(".topicInfo ul li:nth-child(3)", defValue = "0", regex = "na: ([0-9]*)")
-        var rating: Int = 0
+        @Selector(".topicInfo ul li:nth-child(3)", defValue = "0")
+        var rating: String = ""
 
         @Selector("p.text")
         var content: String = ""

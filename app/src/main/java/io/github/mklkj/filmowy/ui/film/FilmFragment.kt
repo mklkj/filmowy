@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
+import io.github.mklkj.filmowy.api.encodeName
 import io.github.mklkj.filmowy.api.toUrl
 import io.github.mklkj.filmowy.databinding.FragmentFilmBinding
 import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
@@ -43,6 +44,9 @@ class FilmFragment : DaggerFragment() {
 
                 seasonsButton.setOnClickListener { _ ->
                     findNavController().navigate(FilmFragmentDirections.actionFilmFragmentToEpisodesFragment(it, it.filmInfo?.seasonsCount ?: 1))
+                }
+                forumButton.setOnClickListener { _ ->
+                    findNavController().navigate(FilmFragmentDirections.actionFilmFragmentToForumFragment("film", it.encodeName()))
                 }
             })
         }.root

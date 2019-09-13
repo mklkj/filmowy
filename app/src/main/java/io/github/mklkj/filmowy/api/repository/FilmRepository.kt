@@ -58,8 +58,4 @@ class FilmRepository @Inject constructor(private val api: ApiService, private va
     fun getFilmSeasonEpisodes(filmId: Long, season: Int): Single<List<FilmEpisode>> {
         return scrapper.getSeasonEpisodes(filmId, season).map { it.mapFilmSeasonEpisodes() }
     }
-
-    fun getFilmForumThreadList(filmId: Long, filmName: String, page: Int = 1): Single<List<FilmForumThread>> {
-        return scrapper.getForumThreads(filmName, filmId, page).map { it.mapFilmForumThreadList() }
-    }
 }

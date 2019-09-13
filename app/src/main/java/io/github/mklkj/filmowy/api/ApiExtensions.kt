@@ -82,7 +82,9 @@ fun String.getPersonFilmsImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.p
     else -> replace("2.jpg", "3.jpg")
 })
 
-fun Film.toUrl() = "https://m.filmweb.pl/film/${title.encodeFilmName()}-$year-$filmId"
+fun Film.encodeName() = "${title.encodeFilmName()}-$year-$filmId"
+
+fun Film.toUrl() = "https://m.filmweb.pl/film/${encodeName()}"
 
 private fun String.encodeFilmName() = replace(" ", "+").replace("?", "")
 

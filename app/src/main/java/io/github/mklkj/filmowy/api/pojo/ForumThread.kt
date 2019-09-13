@@ -2,7 +2,7 @@ package io.github.mklkj.filmowy.api.pojo
 
 import org.threeten.bp.LocalDateTime
 
-data class FilmForumThread(
+data class ForumThread(
     val topic: String,
     val url: String,
     val authorId: Int,

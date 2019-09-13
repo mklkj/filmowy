@@ -1,0 +1,26 @@
+<layout xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.forum.ForumFragment">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="io.github.mklkj.filmowy.ui.forum.ForumViewModel" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/forumSwipeRefreshLayout"
+        app:onRefreshListener="@{() -> vm.refresh()}"
+        app:refreshing="@{safeUnbox(vm.isRefresh)}"
+        app:enabled="@{vm.refreshState.status != vm.networkState.component1().FAILED}"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/forumRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_forum_thread" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>

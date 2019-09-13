@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/person_open_in_browser"
+        android:id="@+id/thread_open_in_browser"
         android:title="@string/open_in_browser"
         app:showAsAction="never" />
 

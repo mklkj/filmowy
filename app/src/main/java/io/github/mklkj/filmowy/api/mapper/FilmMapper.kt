@@ -195,9 +195,9 @@ fun FilmSeasonEpisodesResponse.mapFilmSeasonEpisodes(): List<FilmEpisode> {
     }
 }
 
-fun ForumThreadsList.mapFilmForumThreadList(): List<FilmForumThread> {
+fun ForumThreadsList.mapFilmForumThreadList(): List<ForumThread> {
     return threadList.map {
-        FilmForumThread(
+        ForumThread(
             topic = it.topic,
             author = it.authorName,
             authorId = it.authorId,
@@ -205,7 +205,7 @@ fun ForumThreadsList.mapFilmForumThreadList(): List<FilmForumThread> {
             authorAvatarUrl = it.authorAvatarUrl,
             content = it.content,
             date = it.date.toLocalDateTime("dd/MM/yyyy HH:mm"),
-            rating = it.rating,
+            rating = it.rating.substringAfter(": ").ifBlank { null }?.toInt() ?: 0,
             url = it.topicUrl,
             thumbsUp = it.thumbsUp.let { count -> if (count.isEmpty()) "0" else count }.toInt(),
             topicAnswers = it.topicAnswers,

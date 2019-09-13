@@ -17,6 +17,6 @@ interface ScrapperService {
     fun getSeasonEpisodes(@Path("id") filmId: Long, @Path("season") season: Int): Single<FilmSeasonEpisodesResponse>
 
 //    @Headers("X-Requested-With: XMLHttpRequest")
-    @GET("film/{name}-{id}/discussion")
-    fun getForumThreads(@Path("name") filmName: String, @Path("id") filmId: Long, @Query("page") page: Int = 1): Single<ForumThreadsList>
+    @GET("{type}/{name}/discussion")
+    fun getForumThreads(@Path("type") type: String, @Path("name") name: String, @Query("page") page: Int = 1): Single<ForumThreadsList>
 }

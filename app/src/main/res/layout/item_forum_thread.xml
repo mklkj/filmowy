@@ -1,0 +1,34 @@
+<layout xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.forum.ForumListAdapter">
+
+    <data>
+
+        <variable
+            name="item"
+            type="io.github.mklkj.filmowy.api.pojo.ForumThread" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/threadLayout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@{item.topic}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{item.author}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@{item.content}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</layout>

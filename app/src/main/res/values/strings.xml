@@ -25,4 +25,6 @@
     <string name="login_header_default">Zaloguj się używając konta Filmweb</string>
     <string name="login_nickname_hint">Nazwa użytkownika</string>
     <string name="login_password_hint">Hasło</string>
+    <string name="forum_title">Forum</string>
+    <string name="thread_title">Wątek</string>
 </resources>

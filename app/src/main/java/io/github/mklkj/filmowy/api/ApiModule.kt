@@ -50,7 +50,7 @@ class ApiModule {
     @Singleton
     @Provides
     fun provideScrapperService(okHttpClient: OkHttpClient, cookieJar: CookieJar): ScrapperService = Retrofit.Builder()
-        .baseUrl("https://m.filmweb.pl/")
+        .baseUrl("https://www.filmweb.pl/")
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(JspoonConverterFactory.create())
         .client(
