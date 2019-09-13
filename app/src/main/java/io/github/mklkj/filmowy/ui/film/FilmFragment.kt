@@ -46,7 +46,7 @@ class FilmFragment : DaggerFragment() {
                     findNavController().navigate(FilmFragmentDirections.actionFilmFragmentToEpisodesFragment(it, it.filmInfo?.seasonsCount ?: 1))
                 }
                 forumButton.setOnClickListener { _ ->
-                    findNavController().navigate(FilmFragmentDirections.actionFilmFragmentToForumFragment("film", it.encodeName()))
+                    findNavController().navigate(FilmFragmentDirections.actionFilmFragmentToForumFragment(it.filmInfo?.forumUrl ?: ""))
                 }
             })
         }.root

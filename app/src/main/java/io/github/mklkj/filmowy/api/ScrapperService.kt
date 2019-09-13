@@ -7,6 +7,7 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface ScrapperService {
 
@@ -17,6 +18,7 @@ interface ScrapperService {
     fun getSeasonEpisodes(@Path("id") filmId: Long, @Path("season") season: Int): Single<FilmSeasonEpisodesResponse>
 
 //    @Headers("X-Requested-With: XMLHttpRequest")
-    @GET("{type}/{name}/discussion")
-    fun getForumThreads(@Path("type") type: String, @Path("name") name: String, @Query("page") page: Int = 1): Single<ForumThreadsList>
+//    @GET("{type}/{name}/discussion")
+    @GET
+    fun getForumThreads(@Url url: String, @Query("page") page: Int = 1): Single<ForumThreadsList>
 }

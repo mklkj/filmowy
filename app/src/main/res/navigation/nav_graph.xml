@@ -75,10 +75,7 @@
         android:label="@string/forum_title"
         tools:layout="@layout/fragment_forum">
         <argument
-            android:name="type"
-            app:argType="string" />
-        <argument
-            android:name="name"
+            android:name="url"
             app:argType="string" />
         <action
             android:id="@+id/action_forumFragment_to_threadFragment"

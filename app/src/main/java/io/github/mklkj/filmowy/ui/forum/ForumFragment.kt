@@ -30,8 +30,7 @@ class ForumFragment : DaggerFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         with(viewModel) {
-            dataSource.type = args.type
-            dataSource.name = args.name
+            dataSource.url = args.url
             threads.observe(this@ForumFragment, Observer { dataAdapter.submitList(it) })
             networkState.observe(this@ForumFragment, Observer { dataAdapter.setNetworkState(it) })
         }
@@ -66,7 +65,7 @@ class ForumFragment : DaggerFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.forum_open_in_browser -> {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://m.filmweb.pl/${args.type}/${args.name}/discussion")))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(args.url)))
                 true
             }
             else -> false

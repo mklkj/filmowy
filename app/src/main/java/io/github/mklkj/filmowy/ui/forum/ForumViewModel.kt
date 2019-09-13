@@ -22,12 +22,10 @@ class ForumViewModel @Inject constructor(private val forumRepository: ForumRepos
     class ForumDataSource(private val forumRepository: ForumRepository, disposable: CompositeDisposable) :
         BaseDataSource<ForumThread>(disposable) {
 
-        lateinit var type: String
-
-        lateinit var name: String
+        lateinit var url: String
 
         override fun getFirstPageNumber() = 1
 
-        override fun getListByPageNumber(page: Int): Single<List<ForumThread>> = forumRepository.getForumThreadList(type, name, page)
+        override fun getListByPageNumber(page: Int): Single<List<ForumThread>> = forumRepository.getForumThreadList(url, page)
     }
 }
