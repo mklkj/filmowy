@@ -15,9 +15,11 @@ class ForumViewModel @Inject constructor(private val forumRepository: ForumRepos
 
     val dataSource by lazy { ForumDataSource(forumRepository, disposable) }
 
+    var pageSize = 30
+
     override val sourceFactory by lazy { BaseDataSource.Factory { dataSource } }
 
-    val threads: LiveData<PagedList<ForumThread>> = getPagedList(30)
+    val threads: LiveData<PagedList<ForumThread>> = getPagedList(pageSize)
 
     class ForumDataSource(private val forumRepository: ForumRepository, disposable: CompositeDisposable) :
         BaseDataSource<ForumThread>(disposable) {

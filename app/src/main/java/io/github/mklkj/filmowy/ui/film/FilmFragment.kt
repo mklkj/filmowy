@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
-import io.github.mklkj.filmowy.api.encodeName
 import io.github.mklkj.filmowy.api.toUrl
 import io.github.mklkj.filmowy.databinding.FragmentFilmBinding
 import io.github.mklkj.filmowy.viewmodel.ViewModelFactory

@@ -41,6 +41,11 @@
             android:title="@string/tv_title" />
 
         <item
+            android:id="@+id/forumFragment"
+            android:icon="@drawable/ic_forum"
+            android:title="@string/forum_title" />
+
+        <item
             android:id="@+id/myFragment"
             android:icon="@drawable/ic_movie_roll"
             android:title="@string/my_title" />

@@ -52,7 +52,7 @@
             app:destination="@id/episodesFragment" />
         <action
             android:id="@+id/action_filmFragment_to_forumFragment"
-            app:destination="@id/forumFragment" />
+            app:destination="@id/forumTabFragment" />
     </fragment>
 
     <fragment
@@ -67,19 +67,6 @@
             android:name="seasonsCount"
             app:argType="integer"
             android:defaultValue="1" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/forumFragment"
-        android:name="io.github.mklkj.filmowy.ui.forum.ForumFragment"
-        android:label="@string/forum_title"
-        tools:layout="@layout/fragment_forum">
-        <argument
-            android:name="url"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_forumFragment_to_threadFragment"
-            app:destination="@id/threadFragment" />
     </fragment>
 
     <fragment
@@ -162,6 +149,34 @@
         android:name="io.github.mklkj.filmowy.ui.tv.TvFragment"
         android:label="@string/tv_title"
         tools:layout="@layout/fragment_tv" />
+
+    <fragment
+        android:id="@+id/forumFragment"
+        android:name="io.github.mklkj.filmowy.ui.forum.ForumFragment"
+        android:label="@string/forum_title"
+        tools:layout="@layout/fragment_forum" >
+        <action
+            android:id="@+id/action_forumFragment_to_threadFragment2"
+            app:destination="@id/threadFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/forumTabFragment"
+        android:name="io.github.mklkj.filmowy.ui.forum.ForumTabFragment"
+        android:label="@string/forum_title"
+        tools:layout="@layout/fragment_forum_tab">
+        <argument
+            android:name="url"
+            app:argType="string" />
+        <argument
+            android:name="pageSize"
+            app:argType="integer"
+            android:defaultValue="30" />
+        <action
+            android:id="@+id/action_forumFragment_to_threadFragment"
+            app:destination="@id/threadFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/myFragment"
         android:name="io.github.mklkj.filmowy.ui.my.MyFragment"
