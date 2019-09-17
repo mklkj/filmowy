@@ -6,8 +6,6 @@ import dagger.Module
 import dagger.Provides
 import io.github.mklkj.filmowy.BuildConfig
 import io.github.mklkj.filmowy.FilmowyApp
-import io.github.mklkj.filmowy.binding.adapter.AttributeHelperBindingAdapter
-import io.github.mklkj.filmowy.binding.adapter.DateBindingAdapter
 import io.github.mklkj.filmowy.binding.adapter.ImageBindingAdapter
 
 @Module

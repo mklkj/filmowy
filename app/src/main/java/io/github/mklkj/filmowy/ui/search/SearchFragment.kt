@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
@@ -53,13 +53,13 @@ class SearchFragment : DaggerFragment() {
         }
 
         dataAdapter.openFilmCallback = {
-            binding.root.findNavController().navigate(
+            findNavController().navigate(
                 SearchFragmentDirections.actionSearchFragmentToFilmFragment(Film.get(it.id.toLong(), it.title, it.poster))
             )
         }
 
         dataAdapter.openPersonCallback = {
-            binding.root.findNavController().navigate(
+            findNavController().navigate(
                 SearchFragmentDirections.actionSearchFragmentToPersonFragment(Person.get(it.id.toLong(), it.title, it.poster))
             )
         }

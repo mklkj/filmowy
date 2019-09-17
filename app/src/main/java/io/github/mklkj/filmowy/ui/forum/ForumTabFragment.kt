@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
@@ -54,7 +54,7 @@ class ForumTabFragment : DaggerFragment() {
 
         dataAdapter.retryCallback = { viewModel.retry() }
         dataAdapter.openThreadCallback = {
-            binding.root.findNavController().navigate(
+            findNavController().navigate(
                 when (parentFragment) {
                     is ForumFragment -> ForumFragmentDirections.actionForumFragmentToThreadFragment2(it.url)
                     else -> ForumTabFragmentDirections.actionForumFragmentToThreadFragment(it.url)

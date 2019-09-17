@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
@@ -54,7 +54,7 @@ class NewsFragment : DaggerFragment() {
 
         dataAdapter.retryCallback = { vm.retry() }
         dataAdapter.openArticleCallback = { it, image, position ->
-            binding.root.findNavController().navigate(
+            findNavController().navigate(
                 NewsFragmentDirections.actionNewsFragmentToArticleFragment(News.get(it.id, it.title, it.newsImageUrl, it.publicationTime), position),
                 FragmentNavigatorExtras(
                     image to image.transitionName
