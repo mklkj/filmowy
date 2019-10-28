@@ -30,7 +30,7 @@ class PersonFragment : DaggerFragment() {
             person = args.person
         }
 
-        vm.getPersonInfo(args.person.personId).observe(this, Observer { binding.person = it })
+        vm.getPersonInfo(args.person.personId).observe(viewLifecycleOwner, Observer { binding.person = it })
 
         return binding.root
     }
