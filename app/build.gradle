@@ -111,5 +111,5 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger"
 
     testImplementation "junit:junit:4.12"
-    testImplementation "org.mockito:mockito-core:3.1.1"
+    testImplementation "org.mockito:mockito-core:3.1.9"
 }
