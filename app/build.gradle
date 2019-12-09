@@ -45,7 +45,7 @@ ext {
     retrofit = "2.6.2"
     threetenbp = "1.4.0"
     dagger = "2.25.2"
-    lifecycle = "2.2.0-rc02"
+    lifecycle = "2.2.0-rc03"
     paging = "2.1.0"
     jspoon = "1.3.2"
 }
@@ -53,12 +53,12 @@ ext {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation "androidx.core:core-ktx:1.2.0-beta02"
+    implementation "androidx.core:core-ktx:1.2.0-rc01"
     implementation "androidx.appcompat:appcompat:1.1.0"
     implementation "androidx.fragment:fragment:1.1.0"
     implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.annotation:annotation:1.1.0"
-    implementation "androidx.recyclerview:recyclerview:1.0.0"
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.constraintlayout:constraintlayout:1.1.3"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
@@ -68,7 +68,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifecycle"
     // TODO https://proandroiddev.com/saving-ui-state-with-viewmodel-savedstate-and-dagger-f77bcaeb8b08
 //    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-alpha03"
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle"
+    kapt "androidx.lifecycle:lifecycle-common-java8:$lifecycle"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
@@ -79,7 +79,7 @@ dependencies {
     androidTestImplementation "androidx.test:runner:1.2.0"
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
 
-    implementation "com.google.android.material:material:1.2.0-alpha01"
+    implementation "com.google.android.material:material:1.2.0-alpha02"
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
