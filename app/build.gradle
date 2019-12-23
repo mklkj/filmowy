@@ -46,7 +46,7 @@ ext {
     threetenbp = "1.4.0"
     dagger = "2.25.2"
     lifecycle = "2.2.0-rc03"
-    paging = "2.1.0"
+    paging = "2.1.1"
     jspoon = "1.3.2"
 }
 
