@@ -4,54 +4,54 @@ import pl.droidsonroids.jspoon.annotation.Selector
 
 class ForumThreadsList {
 
-    @Selector(".forumMain .topics-list > li")
+    @Selector(".forumSection__list > li")
     var threadList: List<ForumThread> = emptyList()
 
     class ForumThread {
 
-        @Selector("h3")
+        @Selector(".forumSection__topicTitle")
         var topic: String = ""
 
-        @Selector("h3 a", attr = "href")
+        @Selector(".forumSection__itemLink", attr = "href")
         var topicUrl: String = ""
 
-        @Selector(".userNameLink", attr = "rel", defValue = "0")
+        @Selector(".forumSection__authorName", attr = "rel", defValue = "0")
         var authorId: Int = 0
 
-        @Selector(".userNameLink")
+        @Selector(".forumSection__authorName")
         var authorName: String = ""
 
-        @Selector(".userNameLink", attr = "href")
+        @Selector(".avatar__link", attr = "href")
         var authorProfileUrl: String = ""
 
-        @Selector(".userImg img", attr = "src")
+        @Selector(".avatar__link .avatar__image", attr = "data-src")
         var authorAvatarUrl: String = ""
 
-        @Selector(".cap", attr = "title")
+        @Selector(".forumSection__date")
         var date: String = ""
 
-        @Selector(".topicInfo ul li:nth-child(3)", defValue = "0")
+        @Selector(".forumSection__starsNo", defValue = "0")
         var rating: String = ""
 
-        @Selector("p.text")
+        @Selector(".forumSection__topicText")
         var content: String = ""
 
-        @Selector(".plusCount")
+        @Selector(".plusMinusWidget__count")
         var thumbsUp: String = "0"
 
-        @Selector(".topicAnswers a", regex = "([0-9]+) ", defValue = "0")
+        @Selector(".forumSection__commentsCount", defValue = "0")
         var topicAnswers: Int = 0
 
-        @Selector(".topicAnswers + li a:last-child", attr = "href", defValue = "")
+        @Selector(".forumSection__lastLink", attr = "href", defValue = "")
         var lastReplayUrl: String = ""
 
-        @Selector(".userLink")
+        @Selector(".forumSection__lastWho")
         var lastReplayUser: String = ""
 
-        @Selector(".userLink", attr = "rel", defValue = "0")
+        @Selector(".forumSection__lastWho .userLink", attr = "rel", defValue = "0")
         var lastReplayUserId: Int = 0
 
-        @Selector(".topicAnswers + li a:last-child span", attr = "title", defValue = "")
+        @Selector(".forumSection__lastDate", attr = "datetime", defValue = "")
         var lastReplayDate: String = ""
     }
 }

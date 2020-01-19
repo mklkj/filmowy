@@ -205,7 +205,7 @@ fun ForumThreadsList.mapFilmForumThreadList(): List<ForumThread> {
             authorProfileUrl = it.authorProfileUrl,
             authorAvatarUrl = it.authorAvatarUrl,
             content = it.content,
-            date = it.date.toLocalDateTime("dd/MM/yyyy HH:mm"),
+            date = it.date.toLocalDateTime("yyyy-MM-dd HH:mm:ss"),
             rating = it.rating.substringAfter(": ").ifBlank { null }?.toInt() ?: 0,
             url = it.topicUrl,
             thumbsUp = it.thumbsUp.let { count -> if (count.isEmpty()) "0" else count }.toInt(),
@@ -213,7 +213,7 @@ fun ForumThreadsList.mapFilmForumThreadList(): List<ForumThread> {
             lastReplayUser = it.lastReplayUser,
             lastReplayUserId = it.lastReplayUserId,
             lastReplayUrl = it.lastReplayUrl.trim(),
-            lastReplayDate = it.lastReplayDate.ifBlank { null }?.toLocalDateTime("dd/MM/yyyy HH:mm")
+            lastReplayDate = it.lastReplayDate.ifBlank { null }?.toLocalDateTime("yyyy-MM-dd HH:mm:ss")
         )
     }
 }
