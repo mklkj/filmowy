@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="org.threeten.bp.LocalDate" />
+
         <variable
             name="episode"
             type="io.github.mklkj.filmowy.api.pojo.FilmEpisode" />
@@ -42,6 +44,7 @@
                 android:layout_marginTop="4dp"
                 android:format="@{`dd.MM.yyyy`}"
                 android:text="@{episode.premiereDate}"
+                android:textColor="?android:textColorTertiary"
                 tools:text="2019-09-08" />
 
             <TextView
@@ -54,6 +57,7 @@
                 android:gravity="center"
                 android:text="@{episode.avgRate}"
                 android:textSize="16sp"
+                android:visibility="@{!episode.premiereDate.isAfter(LocalDate.now())}"
                 tools:text="8,9" />
         </LinearLayout>
 
