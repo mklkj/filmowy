@@ -41,12 +41,12 @@ android {
 }
 
 ext {
-    okhttp3 = "4.2.2"
-    retrofit = "2.6.2"
-    threetenbp = "1.4.0"
-    dagger = "2.25.2"
+    okhttp3 = "4.3.1"
+    retrofit = "2.7.1"
+    threetenbp = "1.4.1"
+    dagger = "2.25.4"
     lifecycle = "2.2.0-rc03"
-    paging = "2.1.0"
+    paging = "2.1.1"
     jspoon = "1.3.2"
 }
 
@@ -79,7 +79,7 @@ dependencies {
     androidTestImplementation "androidx.test:runner:1.2.0"
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
 
-    implementation "com.google.android.material:material:1.2.0-alpha02"
+    implementation "com.google.android.material:material:1.2.0-alpha03"
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
@@ -110,6 +110,6 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger"
     kapt "com.google.dagger:dagger-android-processor:$dagger"
 
-    testImplementation "junit:junit:4.12"
-    testImplementation "org.mockito:mockito-core:3.2.0"
+    testImplementation "junit:junit:4.13"
+    testImplementation "org.mockito:mockito-core:3.2.4"
 }
