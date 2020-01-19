@@ -14,8 +14,8 @@ interface ScrapperService {
     @GET("news/{slug}-{id}")
     fun getArticle(@Path("slug") slug: String, @Path("id") id: Long): Single<ArticleResponse>
 
-    @GET("ajax/film/{id}/season/{season}/episodes")
-    fun getSeasonEpisodes(@Path("id") filmId: Long, @Path("season") season: Int): Single<FilmSeasonEpisodesResponse>
+    @GET("serial/{name}/episode/{season}/list")
+    fun getSeasonEpisodes(@Path("name") name: String, @Path("season") season: Int): Single<FilmSeasonEpisodesResponse>
 
 //    @Headers("X-Requested-With: XMLHttpRequest")
 //    @GET("{type}/{name}/discussion")

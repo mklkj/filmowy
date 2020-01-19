@@ -4,9 +4,10 @@ import org.threeten.bp.LocalDate
 
 data class FilmEpisode(
     val id: Int,
+    val image: String,
     val season: Int,
     val number: Int,
-    val date: LocalDate,
+    val premiereDate: LocalDate,
     val title: String,
     val avgRate: Double?
 )

@@ -183,9 +183,10 @@ fun FilmSeasonEpisodesResponse.mapFilmSeasonEpisodes(): List<FilmEpisode> {
     return episodes.map {
         FilmEpisode(
             id = it.id,
+            image = it.image,
             season = it.season,
             number = it.number,
-            date = it.timestamp.toLocalDate(),
+            premiereDate = it.premiereDate.toLocalDate("yyyy-MM-dd"),
             title = it.title,
             avgRate = it.averageRate.run {
                 if (this == "brak głosów") null

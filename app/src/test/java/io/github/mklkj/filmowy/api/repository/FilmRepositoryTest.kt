@@ -207,23 +207,23 @@ class FilmRepositoryTest : BaseApiTest() {
         server.enqueue(MockResponse().setBody(getResource("film-season-episodes.html")!!))
         server.start()
 
-        val episodes = filmRepository.getFilmSeasonEpisodes(1, 1).blockingGet()
+        val episodes = filmRepository.getFilmSeasonEpisodes("Nazwa", 1).blockingGet()
         assertEquals(2, episodes.size)
         episodes[0].run {
             assertEquals(1659645, id)
             assertEquals(4, season)
             assertEquals(1, number)
-            assertEquals(LocalDate.of(2014, 9, 23), date)
+            assertEquals(LocalDate.of(2014, 9, 23), premiereDate)
             assertEquals("Panopticon", title)
             assertEquals(8.1, avgRate)
         }
         episodes[1].run {
-            assertEquals(2135567, id)
+            assertEquals(1703094, id)
             assertEquals(4, season)
             assertEquals(2, number)
-            assertEquals(LocalDate.of(2019, 9, 8), date)
-            assertEquals("The Loop", title)
-            assertEquals(null, avgRate)
+            assertEquals(LocalDate.of(2014, 9, 30), premiereDate)
+            assertEquals("Nautilus", title)
+            assertEquals(8.1, avgRate)
         }
     }
 }

@@ -55,7 +55,7 @@ class FilmRepository @Inject constructor(private val api: ApiService, private va
         return api.getWithMethod("getFilmsNearestBroadcasts".asVarargMethod(filmId, page * 100, (page + 1) * 100)).map { it.mapFilmsNearestBroadcasts() }
     }
 
-    fun getFilmSeasonEpisodes(filmId: Long, season: Int): Single<List<FilmEpisode>> {
-        return scrapper.getSeasonEpisodes(filmId, season).map { it.mapFilmSeasonEpisodes() }
+    fun getFilmSeasonEpisodes(url: String, season: Int): Single<List<FilmEpisode>> {
+        return scrapper.getSeasonEpisodes(url, season).map { it.mapFilmSeasonEpisodes() }
     }
 }

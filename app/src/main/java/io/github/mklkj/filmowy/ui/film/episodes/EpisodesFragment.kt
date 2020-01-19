@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
+import io.github.mklkj.filmowy.api.encodeName
 import io.github.mklkj.filmowy.api.toUrl
 import io.github.mklkj.filmowy.databinding.FragmentEpisodesBinding
 import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
@@ -29,7 +30,7 @@ class EpisodesFragment : DaggerFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.loadEpisodes(args.film.filmId, args.seasonsCount) // TODO
+        viewModel.loadEpisodes(args.film.encodeName(), args.seasonsCount) // TODO
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,7 +40,7 @@ class EpisodesFragment : DaggerFragment() {
             vm = viewModel
 
             viewModel.episodes.observe(viewLifecycleOwner, Observer { dataAdapter.submitList(it) })
-            episodesSwipeRefreshLayout.setOnRefreshListener { viewModel.loadEpisodes(args.film.filmId, args.seasonsCount) } // TODO
+            episodesSwipeRefreshLayout.setOnRefreshListener { viewModel.loadEpisodes(args.film.encodeName(), args.seasonsCount) } // TODO
             with(episodesRecyclerView) {
                 layoutManager = LinearLayoutManager(context)
                 adapter = dataAdapter

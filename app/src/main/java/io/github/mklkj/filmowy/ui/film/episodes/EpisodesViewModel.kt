@@ -14,8 +14,8 @@ class EpisodesViewModel @Inject constructor(private val filmRepository: FilmRepo
 
     val episodes = MutableLiveData<List<FilmEpisode>>()
 
-    fun loadEpisodes(id: Long, season: Int) {
-        disposable.add(filmRepository.getFilmSeasonEpisodes(id, season)
+    fun loadEpisodes(name: String, season: Int) {
+        disposable.add(filmRepository.getFilmSeasonEpisodes(name, season)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { networkState.postValue(NetworkState.LOADING) }

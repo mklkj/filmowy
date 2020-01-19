@@ -4,27 +4,33 @@ import pl.droidsonroids.jspoon.annotation.Selector
 
 class FilmSeasonEpisodesResponse {
 
-    @Selector(".episode")
+    @Selector(".episodePreview")
     var episodes: List<Episode> = emptyList()
 
     class Episode {
 
-        @Selector(".episode", attr = "data-id")
+        @Selector(".episodePreview", attr = "data-id")
         var id: Int = 0
 
-        @Selector(".episode", attr = "data-season")
+        @Selector(".episodePreview", attr = "data-season-number")
         var season: Int = 0
 
-        @Selector(".episode__title", regex = "([0-9]*) -")
+        @Selector(".episodePreview", attr = "data-image")
+        var image: String = ""
+
+        @Selector("span[itemprop]")
         var number: Int = 0
 
-        @Selector(".episode", attr = "data-date")
-        var timestamp: Long = 0
+        @Selector(".episodePreview", attr = "data-air-date")
+        var airDate: String = ""
 
-        @Selector(".episode__title", regex = "- (.*)")
+        @Selector(".episodePreview", attr = "data-premiere")
+        var premiereDate: String = ""
+
+        @Selector(".episodePreview__title")
         var title: String = ""
 
-        @Selector(".episode__communityRate")
-        var averageRate: String = "-1.0"
+        @Selector(".episodePreview__rate")
+        var averageRate: String = "-1,0"
     }
 }

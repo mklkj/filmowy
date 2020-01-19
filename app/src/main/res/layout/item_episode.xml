@@ -20,7 +20,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="@{episode.date}"
+            android:text="@{episode.premiereDate}"
             android:format="@{`yyyy-MM-dd`}"
             tools:text="2019-09-08"
             android:layout_width="wrap_content"
