@@ -1,4 +1,4 @@
-package io.github.mklkj.filmowy.ui.film.episodes
+package io.github.mklkj.filmowy.ui.film.episodes.tab
 
 import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
@@ -10,7 +10,7 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
-class EpisodesViewModel @Inject constructor(private val filmRepository: FilmRepository) : BaseViewModel() {
+class EpisodesTabViewModel @Inject constructor(private val filmRepository: FilmRepository) : BaseViewModel() {
 
     val episodes = MutableLiveData<List<FilmEpisode>>()
 

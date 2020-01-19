@@ -1,4 +1,4 @@
-package io.github.mklkj.filmowy.ui.film.episodes
+package io.github.mklkj.filmowy.ui.film.episodes.tab
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,12 +9,18 @@ import io.github.mklkj.filmowy.api.pojo.FilmEpisode
 import io.github.mklkj.filmowy.databinding.ItemEpisodeBinding
 import javax.inject.Inject
 
-class EpisodesListAdapter @Inject constructor() : ListAdapter<FilmEpisode, EpisodesListAdapter.ViewHolder>(diffCallback) {
+class EpisodesTabListAdapter @Inject constructor() : ListAdapter<FilmEpisode, EpisodesTabListAdapter.ViewHolder>(
+    diffCallback
+) {
 
     class ViewHolder(val binding: ItemEpisodeBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemEpisodeBinding.inflate(LayoutInflater.from(parent.context)))
+        return ViewHolder(
+            ItemEpisodeBinding.inflate(
+                LayoutInflater.from(parent.context)
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

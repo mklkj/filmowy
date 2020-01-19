@@ -1,0 +1,25 @@
+<layout xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.film.episodes.tab.EpisodesTabFragment">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="io.github.mklkj.filmowy.ui.film.episodes.tab.EpisodesTabViewModel" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/episodesSwipeRefreshLayout"
+        app:refreshing="@{vm.networkState.status == vm.networkState.component1().RUNNING}"
+        app:enabled="@{vm.networkState.status != vm.networkState.component1().FAILED}"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/episodesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_episode" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>

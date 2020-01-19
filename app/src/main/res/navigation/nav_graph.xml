@@ -63,8 +63,18 @@
         <argument
             android:name="film"
             app:argType="io.github.mklkj.filmowy.api.pojo.Film" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/episodesTabFragment"
+        android:name="io.github.mklkj.filmowy.ui.film.episodes.tab.EpisodesTabFragment"
+        android:label="fragment_episodes_tab"
+        tools:layout="@layout/fragment_episodes_tab">
         <argument
-            android:name="seasonsCount"
+            android:name="film"
+            app:argType="io.github.mklkj.filmowy.api.pojo.Film" />
+        <argument
+            android:name="seasonNumber"
             app:argType="integer"
             android:defaultValue="1" />
     </fragment>
