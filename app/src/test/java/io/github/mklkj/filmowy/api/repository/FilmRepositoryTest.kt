@@ -215,7 +215,7 @@ class FilmRepositoryTest : BaseApiTest() {
             assertEquals(1, number)
             assertEquals(LocalDate.of(2014, 9, 23), premiereDate)
             assertEquals("Panopticon", title)
-            assertEquals(8.1, avgRate)
+            assertEquals("8,1", avgRate)
         }
         episodes[1].run {
             assertEquals(1703094, id)
@@ -223,7 +223,7 @@ class FilmRepositoryTest : BaseApiTest() {
             assertEquals(2, number)
             assertEquals(LocalDate.of(2014, 9, 30), premiereDate)
             assertEquals("Nautilus", title)
-            assertEquals(8.1, avgRate)
+            assertEquals("8,1", avgRate)
         }
     }
 }
