@@ -15,6 +15,7 @@ class EpisodesFragment : DaggerFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return FragmentEpisodesBinding.inflate(inflater, container, false).apply {
             viewPager.adapter = EpisodesPagerAdapter(childFragmentManager, args.film)
+            viewPager.currentItem = args.film.filmInfo?.seasonsCount ?: 1 - 1
             tabLayout.setupWithViewPager(viewPager)
         }.root
     }
