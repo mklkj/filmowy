@@ -18,6 +18,11 @@ class AttributeHelperBindingAdapter @Inject constructor(private val htmlImageGet
     }
 
     @BindingAdapter("android:text")
+    fun TextView.setDoubleAsText(content: Double) {
+        text = content.toString()
+    }
+
+    @BindingAdapter("android:text")
     fun TextView.setListAsText(list: List<String>?) {
         text = list?.joinToString(", ")
     }

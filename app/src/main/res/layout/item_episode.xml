@@ -30,21 +30,31 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@{episode.number + ` - ` + episode.title}"
-                tools:text="@tools:sample/lorem" />
+                android:textStyle="bold"
+                tools:text="@tools:sample/lorem/random" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:format="@{`yyyy-MM-dd`}"
+                android:layout_marginTop="4dp"
+                android:format="@{`dd.MM.yyyy`}"
                 android:text="@{episode.premiereDate}"
                 tools:text="2019-09-08" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{`Średnia ocena: ` + episode.avgRate}"
-                tools:text="Średnia ocena: 8,9" />
+                android:layout_marginTop="4dp"
+                android:drawableStart="@drawable/ic_star_border_black_24dp"
+                android:drawablePadding="4dip"
+                android:drawableTint="@color/colorPrimary"
+                android:gravity="center"
+                android:text="@{episode.avgRate}"
+                android:textSize="16sp"
+                tools:text="8,9" />
         </LinearLayout>
 
     </LinearLayout>
