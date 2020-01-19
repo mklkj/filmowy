@@ -30,7 +30,7 @@ class FilmSeasonEpisodesResponse {
         @Selector(".episodePreview__title")
         var title: String = ""
 
-        @Selector(".episodePreview__rate")
-        var averageRate: String = "-1,0"
+        @Selector(".episodePreview__rate, .episodePreview__noVote")
+        var averageRate: String = "0"
     }
 }

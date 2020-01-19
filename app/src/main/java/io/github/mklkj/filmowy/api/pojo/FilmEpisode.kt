@@ -9,5 +9,5 @@ data class FilmEpisode(
     val number: Int,
     val premiereDate: LocalDate,
     val title: String,
-    val avgRate: Double?
+    val avgRate: String
 )
