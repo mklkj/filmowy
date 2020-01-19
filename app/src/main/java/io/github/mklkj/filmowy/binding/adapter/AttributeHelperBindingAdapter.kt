@@ -19,7 +19,7 @@ class AttributeHelperBindingAdapter @Inject constructor(private val htmlImageGet
 
     @BindingAdapter("android:text")
     fun TextView.setDoubleAsText(content: Double) {
-        text = content.toString()
+        text = content.toString().replace(".", ",")
     }
 
     @BindingAdapter("android:text")

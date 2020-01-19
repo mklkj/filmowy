@@ -21,6 +21,6 @@ class FilmInfoAdapter @Inject constructor() {
 
     @BindingAdapter("android:avg")
     fun TextView.setAverage(avg: Double) {
-        text = (round(avg * 100) / 100).toString()
+        text = (round(avg * 100) / 100).toString().replace(".", ",")
     }
 }
