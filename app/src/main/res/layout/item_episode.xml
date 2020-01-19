@@ -1,4 +1,5 @@
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -7,30 +8,44 @@
             type="io.github.mklkj.filmowy.api.pojo.FilmEpisode" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:padding="8dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-        <TextView
-            android:text="@{episode.number + ` - ` + episode.title}"
-            tools:text="@tools:sample/lorem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="90dp"
+            android:image="@{episode.image}"
+            tools:ignore="ContentDescription"
+            tools:src="@tools:sample/avatars" />
 
-        <TextView
-            android:text="@{episode.premiereDate}"
-            android:format="@{`yyyy-MM-dd`}"
-            tools:text="2019-09-08"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:text="@{`Średnia ocena: ` + episode.avgRate}"
-            tools:text="Średnia ocena: 8,9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{episode.number + ` - ` + episode.title}"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format="@{`yyyy-MM-dd`}"
+                android:text="@{episode.premiereDate}"
+                tools:text="2019-09-08" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Średnia ocena: ` + episode.avgRate}"
+                tools:text="Średnia ocena: 8,9" />
+        </LinearLayout>
 
     </LinearLayout>
 </layout>

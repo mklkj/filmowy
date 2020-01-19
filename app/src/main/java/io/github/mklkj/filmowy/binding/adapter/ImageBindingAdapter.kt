@@ -3,12 +3,16 @@ package io.github.mklkj.filmowy.binding.adapter
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
-import io.github.mklkj.filmowy.api.getNewsImageUrl
-import io.github.mklkj.filmowy.api.getPersonFilmsImageUrl
-import io.github.mklkj.filmowy.api.getPersonImageUrl
-import io.github.mklkj.filmowy.api.getUserImageUrl
+import io.github.mklkj.filmowy.api.*
 
 class ImageBindingAdapter(private val picasso: Picasso) {
+
+    @BindingAdapter("android:image")
+    fun ImageView.image(url: String?) {
+        picasso
+            .load(url)
+            .into(this)
+    }
 
     @BindingAdapter("android:newsImage", "android:imageWidth")
     fun ImageView.newsImage(url: String?, imageWidth: Int) {
@@ -28,6 +32,13 @@ class ImageBindingAdapter(private val picasso: Picasso) {
     fun ImageView.userImage(url: String?, imageWidth: Int) {
         picasso
             .load(url?.getUserImageUrl(imageWidth))
+            .into(this)
+    }
+
+    @BindingAdapter("android:episodeImage", "android:imageWidth")
+    fun ImageView.episodeImage(url: String?, imageWidth: Int) {
+        picasso
+            .load(url?.getFilmImageUrl(imageWidth))
             .into(this)
     }
 

@@ -9,18 +9,12 @@ import io.github.mklkj.filmowy.api.pojo.FilmEpisode
 import io.github.mklkj.filmowy.databinding.ItemEpisodeBinding
 import javax.inject.Inject
 
-class EpisodesTabListAdapter @Inject constructor() : ListAdapter<FilmEpisode, EpisodesTabListAdapter.ViewHolder>(
-    diffCallback
-) {
+class EpisodesTabListAdapter @Inject constructor() : ListAdapter<FilmEpisode, EpisodesTabListAdapter.ViewHolder>(diffCallback) {
 
     class ViewHolder(val binding: ItemEpisodeBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            ItemEpisodeBinding.inflate(
-                LayoutInflater.from(parent.context)
-            )
-        )
+        return ViewHolder(ItemEpisodeBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
