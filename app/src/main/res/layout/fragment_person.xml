@@ -1,4 +1,5 @@
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.person.PersonFragment">
 
     <data>
@@ -15,84 +16,130 @@
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:personImage="@{person.imagePath}"
-            android:imageWidth="@{150}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:text="@{`Imię: ` + person.name}"
-            tools:text="@tools:sample/lorem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="@{`Prawdziwe imię: ` + person.realName}"
-            tools:text="@tools:sample/lorem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="@{`Miejsce urodzenia: ` + person.birthPlace}"
-            tools:text="@tools:sample/lorem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="@{`Data urodzenia: ` + person.birthDate}"
-            tools:text="@tools:sample/lorem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="@{`Data śmierci: ` + person.deathDate}"
-            tools:text="@tools:sample/lorem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="@{`Wzorst: ` + person.height}"
-            tools:text="@tools:sample/lorem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="@{`Średnia ocena: ` + person.avgRate}"
-            tools:text="@tools:sample/lorem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="@{`Liczba ocen: ` + person.votesCount}"
-            tools:text="@tools:sample/lorem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="@{(person.sex == 1) ? `Kobieta` : `Mężczyzna`}"
-            tools:text="@tools:sample/lorem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <ProgressBar
-            android:visibility="@{viewModel.networkState == NetworkState.LOADING}"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:visibility="@{viewModel.networkState == NetworkState.LOADING}"
+            tools:visibility="gone" />
 
         <TextView
-            android:text="@{viewModel.networkState.message}"
-            android:visibility="@{viewModel.networkState.message != null}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:text="@{viewModel.networkState.message}"
+            android:visibility="@{viewModel.networkState.message != null}"
+            tools:visibility="gone" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/poster"
+                android:layout_width="100dp"
+                android:layout_height="143dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:imageWidth="@{100}"
+                android:personImage="@{person.imagePath}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/layout"
+                tools:ignore="ContentDescription"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{person.name}"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/poster"
+                app:layout_constraintTop_toTopOf="@+id/poster"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:id="@+id/originalTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@{person.realName}"
+                android:textColor="?android:textColorSecondary"
+                android:visibility='@{person.realName != ""}'
+                app:layout_constraintStart_toEndOf="@+id/poster"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:id="@+id/birthDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{`data urodzenia: ` + person.birthDate}"
+                android:textColor="?android:textColorTertiary"
+                app:layout_constraintStart_toEndOf="@+id/poster"
+                app:layout_constraintTop_toBottomOf="@+id/originalTitle"
+                tools:text="data urodzenia: 4 sierpnia 1900" />
+
+            <TextView
+                android:id="@+id/deathDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{`data śmierci: ` + person.deathDate}"
+                android:textColor="?android:textColorTertiary"
+                android:visibility="@{person.deathDate != null}"
+                app:layout_constraintStart_toEndOf="@+id/poster"
+                app:layout_constraintTop_toBottomOf="@+id/birthDate"
+                tools:text="data śmierci: 4 sierpnia 1990" />
+
+            <TextView
+                android:id="@+id/birthPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{`miejsce urodzenia: ` + person.birthPlace}"
+                android:textColor="?android:textColorTertiary"
+                app:layout_constraintStart_toEndOf="@+id/poster"
+                app:layout_constraintTop_toBottomOf="@+id/deathDate"
+                tools:text="miejsce urodzenia: Wolbórz, województwo łódzkie, Polska, Europa" />
+
+            <TextView
+                android:id="@+id/height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{`wzrost: ` + person.height + ` cm`}"
+                android:textColor="?android:textColorTertiary"
+                android:visibility="@{person.height != null}"
+                app:layout_constraintStart_toEndOf="@+id/poster"
+                app:layout_constraintTop_toBottomOf="@+id/birthPlace"
+                tools:text="wzrost: 179 cm" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@{`Średnia ocena: ` + person.avgRate}"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{`Liczba ocen: ` + person.votesCount}"
+            tools:text="@tools:sample/lorem" />
 
     </LinearLayout>
 </layout>
