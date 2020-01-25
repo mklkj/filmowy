@@ -16,7 +16,7 @@
 
         <ImageView
             android:layout_width="90dp"
-            android:layout_height="wrap_content"
+            android:layout_height="128dp"
             android:filmImage="@{item.poster}"
             android:imageWidth="@{90}"
             tools:ignore="ContentDescription"

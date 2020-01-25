@@ -41,7 +41,8 @@ interface SearchResult : Serializable {
         override val type: Type,
         override val id: Int,
         override val title: String,
-        override val poster: String
+        override val poster: String,
+        val gender: String
     ) : SearchResult
 
     data class Channel(

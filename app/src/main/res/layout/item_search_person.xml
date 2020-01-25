@@ -9,28 +9,39 @@
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="90dp"
+            android:layout_height="128dp"
+            android:imageWidth="@{90}"
             android:personImage="@{person.poster}"
-            android:imageWidth="@{60}"
-            tools:src="@tools:sample/avatars"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            tools:src="@tools:sample/avatars" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical">
 
             <TextView
-                android:text="@{person.title}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{person.title}"
+                android:textColor="?android:textColorSecondary"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{person.gender}"
+                android:textColor="?android:textColorTertiary"
+                android:textSize="12sp"
                 tools:text="@tools:sample/lorem" />
         </LinearLayout>
 

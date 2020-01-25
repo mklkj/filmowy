@@ -31,7 +31,12 @@ private fun JsonArray.mapPersonResult() = SearchResult.Person(
     type = SearchResult.Type.PERSON,
     id = get(1).asString.toInt(),
     title = get(3).asString,
-    poster = get(2).asString
+    poster = get(2).asString,
+    gender = when (get(4).asString) {
+        "1" -> "Aktorka"
+        "2" -> "Aktor"
+        else -> "Aktorzyna"
+    }
 )
 
 private fun JsonArray.mapChannelResult() = SearchResult.Channel(
