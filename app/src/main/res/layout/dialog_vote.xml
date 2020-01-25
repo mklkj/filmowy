@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialogRatingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="12dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="12dp"
+        android:textSize="16sp"
+        tools:text="@string/user_rating" />
+
+    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        android:id="@+id/dialogRatingBar"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:isIndicator="false"
+        android:numStars="10"
+        android:stepSize="1.0"
+        tools:rating="5" />
+</LinearLayout>

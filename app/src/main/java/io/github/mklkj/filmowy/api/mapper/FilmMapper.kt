@@ -188,7 +188,8 @@ fun FilmSeasonEpisodesResponse.mapFilmSeasonEpisodes(): List<FilmEpisode> {
             number = it.number,
             premiereDate = it.premiereDate.toLocalDate("yyyy-MM-dd"),
             title = it.title,
-            avgRate = it.averageRate
+            avgRate = it.averageRate,
+            rate = -1
         )
     }
 }

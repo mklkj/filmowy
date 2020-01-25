@@ -16,12 +16,58 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <ImageView
-            android:layout_width="160dp"
-            android:layout_height="90dp"
-            android:image="@{episode.image}"
-            tools:ignore="ContentDescription"
-            tools:src="@tools:sample/avatars" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="90dp"
+                android:image="@{episode.image}"
+                tools:ignore="ContentDescription"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/rateNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:number="@{episode.rate}"
+                android:padding="6dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:visibility="@{episode.rate > 0}"
+                tools:text="8"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/rateWatched"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:contentDescription="@string/watched"
+                android:padding="6dp"
+                android:src="@drawable/ic_check_black_24dp"
+                android:tint="@color/colorPrimaryDark"
+                android:visibility="@{episode.rate == 0}"
+                tools:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/noRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:contentDescription="@string/vote"
+                android:padding="6dp"
+                android:src="@drawable/ic_star_border_black_24dp"
+                android:tint="?android:textColorPrimary"
+                android:visibility="@{-1 == episode.rate &amp;&amp; !episode.premiereDate.isAfter(LocalDate.now())}"
+                tools:visibility="gone" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

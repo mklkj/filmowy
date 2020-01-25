@@ -186,7 +186,7 @@
                             android:layout_margin="8dp"
                             android:text="Widziałem/-am, moja ocena:" />
 
-                        <RatingBar
+                        <me.zhanghai.android.materialratingbar.MaterialRatingBar
                             android:id="@+id/ratingBar"
                             style="?android:attr/ratingBarStyleIndicator"
                             android:layout_width="wrap_content"

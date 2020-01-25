@@ -22,6 +22,11 @@ class AttributeHelperBindingAdapter @Inject constructor(private val htmlImageGet
         text = content.toString().replace(".", ",")
     }
 
+    @BindingAdapter("android:number")
+    fun TextView.setIntAsText(content: Int) {
+        text = content.toString()
+    }
+
     @BindingAdapter("android:text")
     fun TextView.setListAsText(list: List<String>?) {
         text = list?.joinToString(", ")

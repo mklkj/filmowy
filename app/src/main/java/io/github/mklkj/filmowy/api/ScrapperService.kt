@@ -3,11 +3,9 @@ package io.github.mklkj.filmowy.api
 import io.github.mklkj.filmowy.api.scrapper.response.ArticleResponse
 import io.github.mklkj.filmowy.api.scrapper.response.FilmSeasonEpisodesResponse
 import io.github.mklkj.filmowy.api.scrapper.response.ForumThreadsList
+import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
-import retrofit2.http.Url
+import retrofit2.http.*
 
 interface ScrapperService {
 
@@ -16,6 +14,10 @@ interface ScrapperService {
 
     @GET("serial/{name}/episode/{season}/list")
     fun getSeasonEpisodes(@Path("name") name: String, @Path("season") season: Int): Single<FilmSeasonEpisodesResponse>
+
+    @FormUrlEncoded
+    @POST("episode/vote")
+    fun voteForEpisode(@Header("X-Artuser-Token") token: String, @Field("id") id: Int, @Field("rate") rate: Int): Completable
 
 //    @Headers("X-Requested-With: XMLHttpRequest")
 //    @GET("{type}/{name}/discussion")

@@ -12,8 +12,14 @@ class ResponseInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val response = chain.proceed(chain.request())
+        val body = response.body?.string().orEmpty()
 
-        val parts = response.body?.string().orEmpty().split("\n")
+        // check for json response
+        if (body.startsWith("{")) {
+            return response.newBuilder().body(body.toResponseBody(response.body?.contentType())).build() // TODO: simplify this
+        }
+
+        val parts = body.split("\n")
 
         val newBody = if (parts.size == 1) {
             proceedSearchResponse(parts[0])

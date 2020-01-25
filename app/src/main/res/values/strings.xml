@@ -27,4 +27,7 @@
     <string name="login_password_hint">Hasło</string>
     <string name="forum_title">Forum</string>
     <string name="thread_title">Wątek</string>
+    <string name="watched">Obejrzany</string>
+    <string name="vote">Oceń</string>
+    <string name="user_rating">Twoja ocena w gwiazdkach to: %d</string>
 </resources>
