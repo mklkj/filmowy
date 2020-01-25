@@ -7,75 +7,80 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.text.Html
 import android.widget.TextView
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
-import io.github.mklkj.filmowy.R
-import timber.log.Timber
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.Request
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SizeReadyCallback
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import javax.inject.Inject
-import kotlin.math.min
 
-class HtmlImageGetter @Inject constructor(private val context: Context?, private val picasso: Picasso) : Html.ImageGetter {
+class HtmlImageGetter @Inject constructor(private val context: Context) : Html.ImageGetter {
 
     lateinit var textView: TextView
 
     override fun getDrawable(source: String?): Drawable {
-        return BitmapDrawablePlaceHolder(textView).also {
-            picasso.load(source)
-                .error(context!!.getDrawable(R.drawable.ic_placeholder)!!)
+        return BitmapDrawablePlaceholder().let {
+            Glide.with(context)
+                .asBitmap()
+                .load(source)
+                .apply(RequestOptions().centerInside())
                 .into(it)
         }
     }
 
-    @Suppress("DEPRECATION")
-    private inner class BitmapDrawablePlaceHolder(private val textView: TextView) : BitmapDrawable(), Target {
+    private inner class BitmapDrawablePlaceholder internal constructor() :
+        BitmapDrawable(context.resources, Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)), Target<Bitmap> {
 
         private var drawable: Drawable? = null
-            set(value) {
-                if (value != null) {
-                    field = value
-                    checkBounds()
-                }
-            }
 
         override fun draw(canvas: Canvas) {
             if (drawable != null) {
-                checkBounds()
                 drawable!!.draw(canvas)
             }
         }
 
-        private fun checkBounds() {
-            val defaultProportion = drawable!!.intrinsicWidth.toFloat() / drawable!!.intrinsicHeight.toFloat()
-            val width = min(textView.width, drawable!!.intrinsicWidth)
-            val height = (width.toFloat() / defaultProportion).toInt()
-
-            if (bounds.right != textView.width || bounds.bottom != height) {
-                setBounds(0, 0, textView.width, height) //set to full width
-
-                val halfOfPlaceHolderWidth = (bounds.right.toFloat() / 2f).toInt()
-                val halfOfImageWidth = (width.toFloat() / 2f).toInt()
-
-                drawable!!.setBounds(
-                    halfOfPlaceHolderWidth - halfOfImageWidth, //centering an image
-                    0,
-                    halfOfPlaceHolderWidth + halfOfImageWidth,
-                    height
-                )
-
-                textView.text = textView.text //refresh text
+        private fun setImageDrawable(drawable: Drawable) {
+            this.drawable = drawable
+            val drawableWidth = drawable.intrinsicWidth
+            val drawableHeight = drawable.intrinsicHeight
+            val maxWidth = textView.measuredWidth
+            if (drawableWidth > maxWidth) {
+                val calculatedHeight = maxWidth * drawableHeight / drawableWidth
+                drawable.setBounds(0, 0, maxWidth, calculatedHeight)
+                setBounds(0, 0, maxWidth, calculatedHeight)
+            } else {
+                drawable.setBounds(0, 0, drawableWidth, drawableHeight)
+                setBounds(0, 0, drawableWidth, drawableHeight)
             }
+            textView.text = textView.text
         }
 
-        override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
-            drawable = BitmapDrawable(context?.resources, bitmap)
+        override fun onLoadStarted(placeholderDrawable: Drawable?) {
+            placeholderDrawable?.let { setImageDrawable(it) }
         }
 
-        override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-            drawable = placeHolderDrawable
+        override fun onLoadFailed(errorDrawable: Drawable?) {
+            errorDrawable?.let { setImageDrawable(it) }
         }
 
-        override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-            Timber.e(e)
+        override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
+            setImageDrawable(BitmapDrawable(context.resources, bitmap))
         }
+
+        override fun onLoadCleared(placeholderDrawable: Drawable?) {
+            placeholderDrawable?.let { setImageDrawable(it) }
+        }
+
+        override fun getSize(cb: SizeReadyCallback) {
+            textView.post { cb.onSizeReady(textView.width, textView.height) }
+        }
+
+        override fun removeCallback(cb: SizeReadyCallback) {}
+        override fun setRequest(request: Request?) {}
+        override fun getRequest(): Request? = null
+        override fun onStart() {}
+        override fun onStop() {}
+        override fun onDestroy() {}
     }
 }

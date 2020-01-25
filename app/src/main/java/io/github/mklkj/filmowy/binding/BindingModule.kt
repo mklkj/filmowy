@@ -1,10 +1,8 @@
 package io.github.mklkj.filmowy.binding
 
 import android.content.Context
-import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
-import io.github.mklkj.filmowy.BuildConfig
 import io.github.mklkj.filmowy.FilmowyApp
 import io.github.mklkj.filmowy.binding.adapter.ImageBindingAdapter
 
@@ -17,11 +15,5 @@ object BindingModule {
 
     @Provides
     @DataBinding
-    fun provideImageBindingAdapter(picasso: Picasso) = ImageBindingAdapter(picasso)
-
-    @Provides
-    @DataBinding
-    fun providePicasso(context: Context): Picasso = Picasso.Builder(context)
-        .loggingEnabled(BuildConfig.DEBUG)
-        .build()
+    fun provideImageBindingAdapter() = ImageBindingAdapter()
 }

@@ -21,7 +21,9 @@ interface BindingComponent : DataBindingComponent {
         fun application(application: FilmowyApp): Builder
 
         fun bindingModule(bindingModule: BindingModule): Builder
+
         fun bindAppComponent(appComponent: AppComponent): Builder
+
         fun build(): BindingComponent
     }
 

@@ -9,34 +9,48 @@
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:filmImage="@{item.poster}"
-            android:imageWidth="@{60}"
-            tools:src="@tools:sample/avatars"
-            tools:ignore="ContentDescription" />
+            android:imageWidth="@{90}"
+            tools:ignore="ContentDescription"
+            tools:src="@tools:sample/avatars" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical">
 
             <TextView
-                android:text="@{item.title}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{item.title + ` (` + item.year + `)`}"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="16sp"
                 tools:text="@tools:sample/lorem" />
 
             <TextView
-                android:text="@{item.description}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{item.originalTitle}"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="14sp"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{item.description}"
+                android:textColor="?android:textColorTertiary"
+                android:textSize="12sp"
                 tools:text="@tools:sample/lorem" />
         </LinearLayout>
 

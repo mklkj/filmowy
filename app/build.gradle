@@ -48,6 +48,7 @@ ext {
     lifecycle = "2.2.0-rc03"
     paging = "2.1.1"
     jspoon = "1.3.2"
+    glide = "4.11.0"
 }
 
 dependencies {
@@ -95,9 +96,9 @@ dependencies {
 
     implementation "com.github.franmontiel:PersistentCookieJar:v1.0.1"
 
-    implementation "com.squareup.picasso:picasso:2.71828"
+    implementation "com.github.bumptech.glide:glide:$glide"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide"
     implementation "de.hdodenhof:circleimageview:3.0.2"
-
 
     implementation "com.jakewharton.threetenabp:threetenabp:1.2.2"
     testImplementation "org.threeten:threetenbp:$threetenbp"
