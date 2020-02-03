@@ -44,7 +44,7 @@ ext {
     okhttp3 = "4.3.1"
     retrofit = "2.7.1"
     threetenbp = "1.4.1"
-    dagger = "2.25.4"
+    dagger = "2.26"
     lifecycle = "2.2.0-rc03"
     paging = "2.1.1"
     jspoon = "1.3.2"
