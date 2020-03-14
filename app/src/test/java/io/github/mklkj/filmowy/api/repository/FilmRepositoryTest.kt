@@ -2,6 +2,7 @@ package io.github.mklkj.filmowy.api.repository
 
 import io.github.mklkj.filmowy.api.BaseApiTest
 import io.github.mklkj.filmowy.api.pojo.FilmPerson
+import okhttp3.JavaNetCookieJar
 import okhttp3.mockwebserver.MockResponse
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -9,10 +10,11 @@ import org.junit.Test
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import retrofit2.create
+import java.net.CookieManager
 
 class FilmRepositoryTest : BaseApiTest() {
 
-    private val filmRepository by lazy { FilmRepository(getRetrofit().create(), getRetrofitScrapper().create()) }
+    private val filmRepository by lazy { FilmRepository(getRetrofit().create(), getRetrofitScrapper().create(), JavaNetCookieJar(CookieManager())) }
 
     @Test
     fun getFilmDescription() {
