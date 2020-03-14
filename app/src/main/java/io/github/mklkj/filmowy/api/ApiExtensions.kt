@@ -41,7 +41,7 @@ fun String.getFilmImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/ph" +
     else -> replace("0.jpg", "1.jpg")
 })
 
-fun String.getNewsImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/an" + when (width) {
+fun String.getNewsImageUrl(width: Int = 90) = when (width) {
     in 0..90 -> this
     in 91..230 -> replace("1.jpg", "5.jpg")
     in 231..250 -> replace("1.jpg", "3.jpg")
@@ -55,7 +55,7 @@ fun String.getNewsImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/an" +
     in 1201..1360 -> replace("1.jpg", "13.jpg")
 
     else -> replace("0.jpg", "1.jpg")
-})
+}
 
 fun String.getUserImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/u" + when (width) {
     in 0..75 -> replace("0.jpg", "3.jpg")
