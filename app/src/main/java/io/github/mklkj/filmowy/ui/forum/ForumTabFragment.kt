@@ -3,22 +3,21 @@ package io.github.mklkj.filmowy.ui.forum
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
+import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentForumTabBinding
-import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
-class ForumTabFragment : DaggerFragment() {
-
-    @Inject
-    lateinit var vmFactory: ViewModelFactory
+class ForumTabFragment : BaseFragment<FragmentForumTabBinding>(R.layout.fragment_forum_tab) {
 
     private val viewModel: ForumViewModel by viewModels { vmFactory }
 
@@ -37,17 +36,14 @@ class ForumTabFragment : DaggerFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
-        return FragmentForumTabBinding.inflate(inflater, container, false).apply {
-            lifecycleOwner = viewLifecycleOwner
-            vm = viewModel
-            initializeAdapter(this)
-        }.root
+        binding.vm = viewModel
+        initializeAdapter()
     }
 
-    private fun initializeAdapter(binding: FragmentForumTabBinding) {
-        binding.forumRecyclerView.apply {
+    private fun initializeAdapter() {
+        with(binding.forumRecyclerView) {
             layoutManager = LinearLayoutManager(context)
             adapter = dataAdapter
         }
@@ -68,13 +64,8 @@ class ForumTabFragment : DaggerFragment() {
         inflater.inflate(R.menu.forum, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.forum_open_in_browser -> {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(args.url)))
-                true
-            }
-            else -> false
-        }
-    }
+    override fun onOptionsItemSelected(item: MenuItem) = if (item.itemId == R.id.forum_open_in_browser) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(args.url)))
+        true
+    } else false
 }

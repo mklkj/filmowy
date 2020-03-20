@@ -3,36 +3,27 @@ package io.github.mklkj.filmowy.ui.person
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
-import androidx.databinding.DataBindingUtil
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
+import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentPersonBinding
-import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
-import javax.inject.Inject
 
-class PersonFragment : DaggerFragment() {
-
-    @Inject
-    lateinit var vmFactory: ViewModelFactory
+class PersonFragment : BaseFragment<FragmentPersonBinding>(R.layout.fragment_person) {
 
     private val vm: PersonViewModel by viewModels { vmFactory }
 
     private val args: PersonFragmentArgs by navArgs()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
-        val binding = DataBindingUtil.inflate<FragmentPersonBinding>(inflater, R.layout.fragment_person, container, false).apply {
-            lifecycleOwner = viewLifecycleOwner
-            person = args.person
-        }
-
+        binding.person = args.person
         vm.getPersonInfo(args.person.personId).observe(viewLifecycleOwner, Observer { binding.person = it })
-
-        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -40,13 +31,8 @@ class PersonFragment : DaggerFragment() {
         inflater.inflate(R.menu.person, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.person_open_in_browser -> {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://m.filmweb.pl/person/-${args.person.personId}")))
-                true
-            }
-            else -> false
-        }
-    }
+    override fun onOptionsItemSelected(item: MenuItem) = if (item.itemId == R.id.person_open_in_browser) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://m.filmweb.pl/person/-${args.person.personId}")))
+        true
+    } else false
 }

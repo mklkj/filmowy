@@ -3,37 +3,29 @@ package io.github.mklkj.filmowy.ui.login
 import android.app.Activity
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
 import android.view.inputmethod.EditorInfo.IME_NULL
 import android.view.inputmethod.InputMethodManager
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.NavGraphDirections
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.NetworkState
+import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentLoginBinding
-import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
-class LoginFragment : DaggerFragment() {
-
-    @Inject
-    lateinit var vmFactory: ViewModelFactory
+class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
     private val vm: LoginViewModel by viewModels { vmFactory }
 
     @Inject
     lateinit var navigationLoginHelper: NavigationLoginHelper
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return DataBindingUtil.inflate<FragmentLoginBinding>(inflater, R.layout.fragment_login, container, false).apply {
-            lifecycleOwner = viewLifecycleOwner
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(binding) {
             viewModel = vm
             vm.networkState.observe(viewLifecycleOwner, Observer {
                 if (it.status == NetworkState.LOADING.status) activity?.hideSoftInput()
@@ -47,7 +39,7 @@ class LoginFragment : DaggerFragment() {
             loginFormPass.setOnEditorActionListener { _, id, _ ->
                 if (id == IME_ACTION_DONE || id == IME_NULL) loginFormSignIn.callOnClick() else false
             }
-        }.root
+        }
     }
 
     private fun Activity.hideSoftInput() {

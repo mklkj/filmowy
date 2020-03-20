@@ -6,7 +6,7 @@
         <import type="io.github.mklkj.filmowy.api.NetworkState" />
 
         <variable
-            name="viewModel"
+            name="vm"
             type="io.github.mklkj.filmowy.ui.search.SearchViewModel" />
     </data>
 
@@ -16,14 +16,14 @@
         android:layout_height="match_parent">
 
         <ProgressBar
-            android:visibility="@{viewModel.networkState == NetworkState.LOADING}"
+            android:visibility="@{vm.networkState == NetworkState.LOADING}"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="@{viewModel.networkState.message}"
-            android:visibility="@{viewModel.networkState.message != null}"
+            android:text="@{vm.networkState.message}"
+            android:visibility="@{vm.networkState.message != null}"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchRecyclerView"
-            android:visibility="@{viewModel.networkState.message == null}"
+            android:visibility="@{vm.networkState.message == null}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/item_search_result" />

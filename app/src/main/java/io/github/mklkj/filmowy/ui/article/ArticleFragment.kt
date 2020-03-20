@@ -4,21 +4,19 @@ import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
-import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
+import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentArticleBinding
-import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
-import javax.inject.Inject
 
-class ArticleFragment : DaggerFragment() {
-
-    @Inject
-    lateinit var vmFactory: ViewModelFactory
+class ArticleFragment : BaseFragment<FragmentArticleBinding>(R.layout.fragment_article) {
 
     private val viewModel: ArticleViewModel by viewModels { vmFactory }
 
@@ -30,18 +28,15 @@ class ArticleFragment : DaggerFragment() {
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
-    @Suppress("DEPRECATION")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        setHasOptionsMenu(true)
-        return FragmentArticleBinding.inflate(inflater, container, false).apply {
-            lifecycleOwner = viewLifecycleOwner
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(binding) {
             vm = viewModel
 
             article = args.article
             articleImage.transitionName = "news_image_${args.position}"
 
             viewModel.article.observe(viewLifecycleOwner, Observer { article = it })
-        }.root
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -49,15 +44,13 @@ class ArticleFragment : DaggerFragment() {
         inflater.inflate(R.menu.article, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.article_open_in_browser -> {
-                startActivity(
-                    Intent(ACTION_VIEW, Uri.parse("https://m.filmweb.pl/news/${Uri.encode(args.article.title)}-${args.article.newsId}"))
-                )
-                true
-            }
-            else -> false
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.article_open_in_browser -> {
+            startActivity(
+                Intent(ACTION_VIEW, Uri.parse("https://m.filmweb.pl/news/${Uri.encode(args.article.title)}-${args.article.newsId}"))
+            )
+            true
         }
+        else -> false
     }
 }

@@ -4,16 +4,16 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="vm"
             type="io.github.mklkj.filmowy.ui.news.NewsViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/newsSwipeRefreshLayout"
-        app:onRefreshListener="@{() -> viewModel.refresh()}"
-        app:refreshing="@{safeUnbox(viewModel.isRefresh)}"
-        app:enabled="@{viewModel.refreshState.status != viewModel.networkState.component1().FAILED}"
+        app:onRefreshListener="@{() -> vm.refresh()}"
+        app:refreshing="@{safeUnbox(vm.isRefresh)}"
+        app:enabled="@{vm.refreshState.status != vm.networkState.component1().FAILED}"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

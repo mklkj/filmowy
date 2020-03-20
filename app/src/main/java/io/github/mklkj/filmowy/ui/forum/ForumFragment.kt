@@ -1,18 +1,17 @@
 package io.github.mklkj.filmowy.ui.forum
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import dagger.android.support.DaggerFragment
+import io.github.mklkj.filmowy.R
+import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentForumBinding
 
-class ForumFragment : DaggerFragment() {
+class ForumFragment : BaseFragment<FragmentForumBinding>(R.layout.fragment_forum) {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return FragmentForumBinding.inflate(inflater, container, false).apply {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(binding) {
             viewPager.adapter = ForumPagerAdapter(childFragmentManager)
             tabLayout.setupWithViewPager(viewPager)
-        }.root
+        }
     }
 }

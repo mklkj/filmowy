@@ -1,29 +1,22 @@
 package io.github.mklkj.filmowy.ui.search
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.pojo.Person
+import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentSearchBinding
-import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
 import javax.inject.Inject
 
-class SearchFragment : DaggerFragment() {
+class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
 
-    @Inject
-    lateinit var vmFactory: ViewModelFactory
-
-    private val vm: SearchViewModel by viewModels { vmFactory }
+    private val viewModel: SearchViewModel by viewModels { vmFactory }
 
     @Inject
     lateinit var dataAdapter: SearchResultsAdapter
@@ -32,21 +25,19 @@ class SearchFragment : DaggerFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vm.getSearchResults(args.query).observe(this, Observer {
+        viewModel.getSearchResults(args.query).observe(this, Observer {
             dataAdapter.items = it
             dataAdapter.notifyDataSetChanged()
         })
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return DataBindingUtil.inflate<FragmentSearchBinding>(inflater, R.layout.fragment_search, container, false).apply {
-            lifecycleOwner = viewLifecycleOwner
-            viewModel = vm
-            initializeAdapter(this)
-        }.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.vm = viewModel
+        initializeAdapter()
     }
 
-    private fun initializeAdapter(binding: FragmentSearchBinding) {
+    private fun initializeAdapter() {
         binding.searchRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = dataAdapter

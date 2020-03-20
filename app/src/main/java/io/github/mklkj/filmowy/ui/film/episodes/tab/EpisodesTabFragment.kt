@@ -5,24 +5,23 @@ import android.content.DialogInterface.BUTTON_POSITIVE
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.toUrl
+import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentEpisodesTabBinding
-import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 import javax.inject.Inject
 
-class EpisodesTabFragment : DaggerFragment() {
-
-    @Inject
-    lateinit var vmFactory: ViewModelFactory
+class EpisodesTabFragment : BaseFragment<FragmentEpisodesTabBinding>(R.layout.fragment_episodes_tab) {
 
     @Inject
     lateinit var dataAdapter: EpisodesTabListAdapter
@@ -36,12 +35,11 @@ class EpisodesTabFragment : DaggerFragment() {
         viewModel.loadEpisodes(args.film, args.seasonNumber)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
-        return FragmentEpisodesTabBinding.inflate(inflater, container, false).apply {
-            lifecycleOwner = viewLifecycleOwner
-            vm = viewModel
 
+        with(binding) {
+            vm = viewModel
             episodesSwipeRefreshLayout.setOnRefreshListener { viewModel.loadEpisodes(args.film, args.seasonNumber) }
             dataAdapter.setVoteCallback = { id, rate ->
                 AlertDialog.Builder(requireContext())
@@ -70,7 +68,7 @@ class EpisodesTabFragment : DaggerFragment() {
                 adapter = dataAdapter
             }
             viewModel.episodes.observe(viewLifecycleOwner, Observer { dataAdapter.submitList(it) })
-        }.root
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -78,13 +76,8 @@ class EpisodesTabFragment : DaggerFragment() {
         inflater.inflate(R.menu.film, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.film_open_in_browser -> {
-                args.film.run { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(toUrl() + "/episodes"))) }
-                true
-            }
-            else -> false
-        }
-    }
+    override fun onOptionsItemSelected(item: MenuItem) = if (item.itemId == R.id.film_open_in_browser) {
+        args.film.run { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(toUrl() + "/episodes"))) }
+        true
+    } else false
 }

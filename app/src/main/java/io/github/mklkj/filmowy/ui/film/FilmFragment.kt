@@ -3,22 +3,20 @@ package io.github.mklkj.filmowy.ui.film
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import dagger.android.support.DaggerFragment
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.toUrl
+import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentFilmBinding
-import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
-import javax.inject.Inject
 
-class FilmFragment : DaggerFragment() {
-
-    @Inject
-    lateinit var vmFactory: ViewModelFactory
+class FilmFragment : BaseFragment<FragmentFilmBinding>(R.layout.fragment_film) {
 
     private val viewModel: FilmViewModel by viewModels { vmFactory }
 
@@ -29,10 +27,10 @@ class FilmFragment : DaggerFragment() {
         viewModel.loadFilmInfo(args.film.filmId)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
-        return FragmentFilmBinding.inflate(inflater, container, false).apply {
-            lifecycleOwner = viewLifecycleOwner
+
+        with(binding) {
             vm = viewModel
             film = args.film
 
@@ -48,21 +46,15 @@ class FilmFragment : DaggerFragment() {
                     findNavController().navigate(FilmFragmentDirections.actionFilmFragmentToForumFragment(it.filmInfo?.forumUrl ?: ""))
                 }
             })
-        }.root
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.film, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.film_open_in_browser -> {
-                args.film.run { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(toUrl()))) }
-                true
-            }
-            else -> false
-        }
-    }
+    override fun onOptionsItemSelected(item: MenuItem) = if (item.itemId == R.id.film_open_in_browser) {
+        args.film.run { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(toUrl()))) }
+        true
+    } else false
 }
