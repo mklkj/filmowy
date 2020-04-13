@@ -22,13 +22,13 @@ class FilmViewModel @Inject constructor(private val filmRepository: FilmReposito
         disposable.add(filmRepository.getFilmInfoFull(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { networkState.postValue(NetworkState.LOADING) }
+            .doOnSubscribe { networkState.value = NetworkState.LOADING }
             .subscribe({
                 film.postValue(it)
-                networkState.postValue(NetworkState.LOADED)
+                networkState.value = NetworkState.LOADED
             }) {
                 Timber.e(it)
-                networkState.postValue(NetworkState.error(it.message))
+                networkState.value = NetworkState.error(it.message)
             })
     }
 }
