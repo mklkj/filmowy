@@ -3,6 +3,7 @@ package io.github.mklkj.filmowy.api.repository
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import io.github.mklkj.filmowy.api.ApiService
+import io.github.mklkj.filmowy.api.ScrapperService
 import io.github.mklkj.filmowy.api.asMethod
 import io.github.mklkj.filmowy.api.exception.NotFoundException
 import io.github.mklkj.filmowy.api.mapper.mapUserData
@@ -10,10 +11,14 @@ import io.github.mklkj.filmowy.api.pojo.UserData
 import io.reactivex.Single
 import javax.inject.Inject
 
-class LoginRepository @Inject constructor(private val api: ApiService, private val preferences: SharedPreferences) {
+class LoginRepository @Inject constructor(
+    private val api: ApiService,
+    private val scrapper: ScrapperService,
+    private val preferences: SharedPreferences
+) {
 
     fun login(login: String?, password: String?): Single<UserData> {
-        return api.postWithMethod("login".asMethod(login.quote(), password.quote(), 1)).map { it.mapUserData() }
+        return scrapper.login(login.orEmpty(), password.orEmpty()).map { it.mapUserData() }
     }
 
     fun isUserLoggedIn(): Single<Boolean> {
@@ -29,6 +34,4 @@ class LoginRepository @Inject constructor(private val api: ApiService, private v
             apply()
         }
     }
-
-    private fun String?.quote() = "\"$this\""
 }

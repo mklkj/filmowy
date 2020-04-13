@@ -1,7 +1,9 @@
 package io.github.mklkj.filmowy.api.mapper
 
+import androidx.core.net.toUri
 import com.google.gson.JsonArray
 import io.github.mklkj.filmowy.api.pojo.UserData
+import io.github.mklkj.filmowy.api.scrapper.response.SettingsResponse
 import io.github.mklkj.filmowy.api.toLocalDate
 
 fun JsonArray.mapUserData(): UserData {
@@ -23,5 +25,16 @@ fun JsonArray.mapUserData(): UserData {
                 else -> null
             }
         }
+    )
+}
+
+fun SettingsResponse.mapUserData(): UserData {
+    return UserData(
+        userId = 0,
+        nick = nick,
+        name = name,
+        birthday = null,
+        gender = 0,
+        imagePath = avatar.toUri().path.orEmpty().removePrefix("/u")
     )
 }

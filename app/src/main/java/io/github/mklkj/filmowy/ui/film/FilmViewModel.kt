@@ -16,7 +16,7 @@ class FilmViewModel @Inject constructor(private val filmRepository: FilmReposito
 
     fun navigateToEpisodes(film: Film) = navCommand.offer(FilmFragmentDirections.actionFilmFragmentToEpisodesFragment(film))
 
-    fun navigateToForum(film: Film) = navCommand.offer(FilmFragmentDirections.actionFilmFragmentToForumFragment(film.filmInfo?.forumUrl ?: ""))
+    fun navigateToForum(film: Film) = navCommand.offer(FilmFragmentDirections.actionFilmFragmentToForumFragment(film.filmInfo?.forumUrl.orEmpty()))
 
     fun loadFilmInfo(id: Long) {
         disposable.add(filmRepository.getFilmInfoFull(id)

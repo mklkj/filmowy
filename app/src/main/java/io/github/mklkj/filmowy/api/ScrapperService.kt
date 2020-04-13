@@ -3,11 +3,21 @@ package io.github.mklkj.filmowy.api
 import io.github.mklkj.filmowy.api.scrapper.response.ArticleResponse
 import io.github.mklkj.filmowy.api.scrapper.response.FilmSeasonEpisodesResponse
 import io.github.mklkj.filmowy.api.scrapper.response.ForumThreadsList
+import io.github.mklkj.filmowy.api.scrapper.response.SettingsResponse
 import io.reactivex.Completable
 import io.reactivex.Single
+import org.jsoup.nodes.Document
 import retrofit2.http.*
 
 interface ScrapperService {
+
+    @POST("j_login")
+    @FormUrlEncoded
+    fun login(
+        @Field("j_username") username: String,
+        @Field("j_password") password: String,
+        @Field("_login_redirect_url") redirectUrl: String = "%2Fsettings"
+    ): Single<SettingsResponse>
 
     @GET("news/{slug}-{id}")
     fun getArticle(@Path("slug") slug: String, @Path("id") id: Long): Single<ArticleResponse>
