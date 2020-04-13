@@ -15,7 +15,7 @@ class ResponseInterceptor : Interceptor {
         val body = response.body?.string().orEmpty()
 
         // check for json response
-        if (body.startsWith("{")) {
+        if (body.startsWith("{") || body.startsWith("[")) {
             return response.newBuilder().body(body.toResponseBody(response.body?.contentType())).build() // TODO: simplify this
         }
 

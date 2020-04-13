@@ -228,4 +228,13 @@ class FilmRepositoryTest : BaseApiTest() {
             assertEquals("8,1", avgRate)
         }
     }
+
+    @Test
+    fun getFilmVote() {
+        server.enqueue(MockResponse().setBody(getResource("film-vote.json")!!))
+        server.start()
+
+        val vote = filmRepository.getFilmVote(1, 1).blockingGet()
+        assertEquals(0, vote.a)
+    }
 }

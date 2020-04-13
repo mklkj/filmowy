@@ -4,6 +4,9 @@ import pl.droidsonroids.jspoon.annotation.Selector
 
 class SettingsResponse {
 
+    @Selector(".userAvatar", attr = "data-id")
+    var id: Long = 0
+
     @Selector(".mainSettings__groupItemStateContent")
     var nick: String = ""
 

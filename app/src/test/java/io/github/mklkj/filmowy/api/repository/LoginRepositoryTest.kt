@@ -20,7 +20,7 @@ class LoginRepositoryTest : BaseApiTest() {
         MockitoAnnotations.initMocks(this)
     }
 
-    private val loginRepository by lazy { LoginRepository(getRetrofit().create(), preferences) }
+    private val loginRepository by lazy { LoginRepository(getRetrofit().create(), getRetrofit().create(), preferences) }
 
     @Test
     fun login() {

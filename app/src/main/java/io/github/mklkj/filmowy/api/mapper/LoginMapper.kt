@@ -30,7 +30,7 @@ fun JsonArray.mapUserData(): UserData {
 
 fun SettingsResponse.mapUserData(): UserData {
     return UserData(
-        userId = 0,
+        userId = id,
         nick = nick,
         name = name,
         birthday = null,

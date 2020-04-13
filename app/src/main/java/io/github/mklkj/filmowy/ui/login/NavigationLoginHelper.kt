@@ -4,15 +4,18 @@ import android.content.SharedPreferences
 import android.view.View
 import android.widget.Button
 import com.google.android.material.navigation.NavigationView
-import com.google.gson.Gson
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.pojo.UserData
+import io.github.mklkj.filmowy.api.repository.LoginRepository
 import io.github.mklkj.filmowy.databinding.HeaderNavigationUserBinding
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class NavigationLoginHelper @Inject constructor(private val preferences: SharedPreferences) {
+class NavigationLoginHelper @Inject constructor(
+    private val preferences: SharedPreferences,
+    private val loginRepository: LoginRepository
+) {
 
     var onUserClick: (UserData) -> Unit = {}
 
@@ -43,7 +46,7 @@ class NavigationLoginHelper @Inject constructor(private val preferences: SharedP
 
     private fun loadUserData(): UserData? {
         if (preferences.contains(UserData.KEY)) {
-            return Gson().fromJson(preferences.getString(UserData.KEY, ""), UserData::class.java)
+            return loginRepository.getUser()
         }
         return null
     }

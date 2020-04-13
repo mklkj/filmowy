@@ -2,12 +2,14 @@ package io.github.mklkj.filmowy.api.repository
 
 import io.github.mklkj.filmowy.api.ApiService
 import io.github.mklkj.filmowy.api.ScrapperService
+import io.github.mklkj.filmowy.api.ajax.FilmVote
 import io.github.mklkj.filmowy.api.ajax.VotesResponse
 import io.github.mklkj.filmowy.api.asMethod
 import io.github.mklkj.filmowy.api.asVarargMethod
 import io.github.mklkj.filmowy.api.mapper.*
 import io.github.mklkj.filmowy.api.pojo.*
 import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Single
 import okhttp3.CookieJar
 import okhttp3.HttpUrl.Companion.toHttpUrl
@@ -64,13 +66,20 @@ class FilmRepository @Inject constructor(private val api: ApiService, private va
         return scrapper.getSeasonEpisodes(url, season).map { it.mapFilmSeasonEpisodes() }
     }
 
+    fun getFilmVote(userId: Long, filmId: Long): Maybe<FilmVote> {
+        return api.getFilmVote(userId, filmId).flatMapMaybe {
+            if (it.size == 1) Maybe.just(it.single())
+            else Maybe.empty()
+        }
+    }
+
     fun getFilmSeasonUserVotes(filmId: Long, season: Int): Single<VotesResponse> {
         return api.getUserVotes(filmId, season)
     }
 
     fun voteForEpisode(id: Int, rate: Int): Completable {
         return scrapper.voteForEpisode(
-            cookieJar.loadForRequest("https://www.filmweb.pl/".toHttpUrl()).singleOrNull { it.name == "_artuser_token" }?.value ?: "", id, rate
+            cookieJar.loadForRequest("https://www.filmweb.pl/".toHttpUrl()).singleOrNull { it.name == "_artuser_token" }?.value.orEmpty(), id, rate
         )
     }
 }

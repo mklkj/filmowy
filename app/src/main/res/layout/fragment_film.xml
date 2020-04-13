@@ -196,6 +196,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="8dp"
+                                android:text="@{`Obejrzane: ` + vm.vote.date.year + `-` + vm.vote.date.month + `-` + vm.vote.date.day, default=``}"
+                                tools:text="Obejrzane: 2020-04-13" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
                                 android:text="Widziałem/-am, moja ocena:" />
 
                             <me.zhanghai.android.materialratingbar.MaterialRatingBar
@@ -206,6 +213,7 @@
                                 android:layout_margin="8dp"
                                 android:isIndicator="false"
                                 android:numStars="10"
+                                android:rating="@{vm.vote.r}"
                                 android:stepSize="1.0" />
                         </LinearLayout>
 

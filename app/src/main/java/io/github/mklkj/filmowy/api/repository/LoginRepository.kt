@@ -34,4 +34,6 @@ class LoginRepository @Inject constructor(
             apply()
         }
     }
+
+    fun getUser(): UserData = Gson().fromJson(preferences.getString(UserData.KEY, "{}"), UserData::class.java)
 }
