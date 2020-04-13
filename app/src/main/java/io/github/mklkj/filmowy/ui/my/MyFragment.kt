@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
 
-    private val viewModel: MyViewModel by viewModels { vmFactory }
+    override val viewModel: MyViewModel by viewModels { vmFactory }
 
     @Inject
     lateinit var dataAdapter: MyListAdapter

@@ -19,18 +19,18 @@ import javax.inject.Inject
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
-    private val vm: LoginViewModel by viewModels { vmFactory }
+    override val viewModel: LoginViewModel by viewModels { vmFactory }
 
     @Inject
     lateinit var navigationLoginHelper: NavigationLoginHelper
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
-            viewModel = vm
-            vm.networkState.observe(viewLifecycleOwner, Observer {
+            vm = viewModel
+            viewModel.networkState.observe(viewLifecycleOwner, Observer {
                 if (it.status == NetworkState.LOADING.status) activity?.hideSoftInput()
             })
-            vm.user.observe(viewLifecycleOwner, Observer {
+            viewModel.user.observe(viewLifecycleOwner, Observer {
                 it?.let {
                     activity?.run { navigationLoginHelper.updateNavigationHeader(findViewById(R.id.navView)) }
                     findNavController().navigate(NavGraphDirections.actionGlobalNewsFragment())

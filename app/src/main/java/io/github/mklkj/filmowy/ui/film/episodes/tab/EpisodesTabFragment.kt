@@ -26,7 +26,7 @@ class EpisodesTabFragment : BaseFragment<FragmentEpisodesTabBinding>(R.layout.fr
     @Inject
     lateinit var dataAdapter: EpisodesTabListAdapter
 
-    private val viewModel: EpisodesTabViewModel by viewModels { vmFactory }
+    override val viewModel: EpisodesTabViewModel by viewModels { vmFactory }
 
     private val args: EpisodesTabFragmentArgs by navArgs()
 

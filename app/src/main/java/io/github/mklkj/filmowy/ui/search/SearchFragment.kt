@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
 
-    private val viewModel: SearchViewModel by viewModels { vmFactory }
+    override val viewModel: SearchViewModel by viewModels { vmFactory }
 
     @Inject
     lateinit var dataAdapter: SearchResultsAdapter

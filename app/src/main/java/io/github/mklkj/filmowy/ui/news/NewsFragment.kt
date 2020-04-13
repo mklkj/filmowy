@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class NewsFragment : BaseFragment<FragmentNewsBinding>(R.layout.fragment_news) {
 
-    private val viewModel: NewsViewModel by viewModels { vmFactory }
+    override val viewModel: NewsViewModel by viewModels { vmFactory }
 
     @Inject
     lateinit var dataAdapter: NewsListAdapter

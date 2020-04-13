@@ -18,7 +18,7 @@ import io.github.mklkj.filmowy.databinding.FragmentArticleBinding
 
 class ArticleFragment : BaseFragment<FragmentArticleBinding>(R.layout.fragment_article) {
 
-    private val viewModel: ArticleViewModel by viewModels { vmFactory }
+    override val viewModel: ArticleViewModel by viewModels { vmFactory }
 
     private val args: ArticleFragmentArgs by navArgs()
 

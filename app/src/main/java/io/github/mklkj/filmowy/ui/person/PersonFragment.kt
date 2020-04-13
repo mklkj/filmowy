@@ -16,14 +16,14 @@ import io.github.mklkj.filmowy.databinding.FragmentPersonBinding
 
 class PersonFragment : BaseFragment<FragmentPersonBinding>(R.layout.fragment_person) {
 
-    private val vm: PersonViewModel by viewModels { vmFactory }
+    override val viewModel: PersonViewModel by viewModels { vmFactory }
 
     private val args: PersonFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         binding.person = args.person
-        vm.getPersonInfo(args.person.personId).observe(viewLifecycleOwner, Observer { binding.person = it })
+        viewModel.getPersonInfo(args.person.personId).observe(viewLifecycleOwner, Observer { binding.person = it })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

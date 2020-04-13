@@ -14,6 +14,10 @@ class FilmViewModel @Inject constructor(private val filmRepository: FilmReposito
 
     val film = MutableLiveData<Film>()
 
+    fun navigateToEpisodes(film: Film) = navCommand.offer(FilmFragmentDirections.actionFilmFragmentToEpisodesFragment(film))
+
+    fun navigateToForum(film: Film) = navCommand.offer(FilmFragmentDirections.actionFilmFragmentToForumFragment(film.filmInfo?.forumUrl ?: ""))
+
     fun loadFilmInfo(id: Long) {
         disposable.add(filmRepository.getFilmInfoFull(id)
             .subscribeOn(Schedulers.io())

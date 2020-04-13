@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.toUrl
@@ -18,7 +17,7 @@ import io.github.mklkj.filmowy.databinding.FragmentFilmBinding
 
 class FilmFragment : BaseFragment<FragmentFilmBinding>(R.layout.fragment_film) {
 
-    private val viewModel: FilmViewModel by viewModels { vmFactory }
+    override val viewModel: FilmViewModel by viewModels { vmFactory }
 
     private val args: FilmFragmentArgs by navArgs()
 
@@ -32,19 +31,10 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>(R.layout.fragment_film) {
 
         with(binding) {
             vm = viewModel
-            film = args.film
 
             viewModel.film.observe(viewLifecycleOwner, Observer {
                 args.film.title = it.title
                 args.film.year = it.year
-                film = it
-
-                seasonsButton.setOnClickListener { _ ->
-                    findNavController().navigate(FilmFragmentDirections.actionFilmFragmentToEpisodesFragment(it))
-                }
-                forumButton.setOnClickListener { _ ->
-                    findNavController().navigate(FilmFragmentDirections.actionFilmFragmentToForumFragment(it.filmInfo?.forumUrl ?: ""))
-                }
             })
         }
     }

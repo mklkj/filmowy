@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 class ForumTabFragment : BaseFragment<FragmentForumTabBinding>(R.layout.fragment_forum_tab) {
 
-    private val viewModel: ForumViewModel by viewModels { vmFactory }
+    override val viewModel: ForumViewModel by viewModels { vmFactory }
 
     @Inject
     lateinit var dataAdapter: ForumListAdapter

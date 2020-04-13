@@ -9,10 +9,6 @@
         <variable
             name="vm"
             type="io.github.mklkj.filmowy.ui.film.FilmViewModel" />
-
-        <variable
-            name="film"
-            type="io.github.mklkj.filmowy.api.pojo.Film" />
     </data>
 
     <LinearLayout
@@ -31,7 +27,7 @@
                 android:layout_height="143dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:filmImage="@{film.imagePath}"
+                android:filmImage="@{vm.film.imagePath}"
                 android:imageWidth="@{100}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/layout"
@@ -43,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="@{film.title}"
+                android:text="@{vm.film.title}"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/poster"
@@ -55,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="@{`(` + Integer.toString(film.year) + `)`}"
+                android:text="@{`(` + Integer.toString(vm.film.year) + `)`}"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="@+id/title"
                 app:layout_constraintStart_toEndOf="@+id/title"
@@ -67,9 +63,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
-                android:text="@{film.filmInfo.originalTitle}"
+                android:text="@{vm.film.filmInfo.originalTitle}"
                 android:textColor="?android:textColorSecondary"
-                android:visibility='@{film.filmInfo.originalTitle != ""}'
+                android:visibility='@{vm.film.filmInfo.originalTitle != ""}'
                 app:layout_constraintStart_toEndOf="@+id/poster"
                 app:layout_constraintTop_toBottomOf="@+id/title"
                 tools:text="@tools:sample/lorem" />
@@ -82,9 +78,9 @@
                 android:layout_marginTop="8dp"
                 android:drawableStart="@drawable/ic_access_time"
                 android:drawablePadding="4dip"
-                android:duration="@{film.duration}"
+                android:duration="@{vm.film.duration}"
                 android:textColor="?android:textColorTertiary"
-                android:visibility="@{film.duration != 0}"
+                android:visibility="@{vm.film.duration != 0}"
                 app:layout_constraintStart_toEndOf="@+id/poster"
                 app:layout_constraintTop_toBottomOf="@+id/originalTitle"
                 tools:text="1 godz. 50 min." />
@@ -97,7 +93,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:lineSpacingMultiplier="1.2"
-                android:text="@{film.filmInfo.synopsis}"
+                android:text="@{vm.film.filmInfo.synopsis}"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/poster"
@@ -112,8 +108,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginVertical="8dp"
-            android:text="@{`Sezony: ` + film.filmInfo.seasonsCount + `, odcinki: ` + film.filmInfo.episodesCount}"
-            android:visibility="@{film.filmInfo.seasonsCount != 0}"
+            android:onClick="@{() -> vm.navigateToEpisodes(vm.film)}"
+            android:text="@{`Sezony: ` + vm.film.filmInfo.seasonsCount + `, odcinki: ` + vm.film.filmInfo.episodesCount}"
+            android:visibility="@{vm.film.filmInfo.seasonsCount != 0}"
             tools:text="Sezony: 5, odcinki: 25" />
 
         <com.google.android.material.card.MaterialCardView
@@ -133,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:avg="@{film.avgRate}"
+                    android:avg="@{vm.film.avgRate}"
                     android:drawableStart="@drawable/ic_star_border_black_24dp"
                     android:drawablePadding="4dip"
                     android:drawableTint="?colorPrimary"
@@ -149,7 +146,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@{film.votesCount + ` ocen`}"
+                    android:text="@{vm.film.votesCount + ` ocen`}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="46 ocen" />
@@ -159,7 +156,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="@{film.wantSee + ` chce zobaczyć`}"
+                    android:text="@{vm.film.wantSee + ` chce zobaczyć`}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/votesCount"
                     tools:text="37 chce zobaczyć" />
@@ -203,27 +200,27 @@
                     android:id="@+id/wantSeeButton"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
-                    app:layout_constraintWidth_default="percent"
-                    app:layout_constraintWidth_percent=".45"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="Chcę zobaczyć"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+                    app:layout_constraintWidth_default="percent"
+                    app:layout_constraintWidth_percent=".45" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/noInterestedButton"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
-                    app:layout_constraintWidth_default="percent"
-                    app:layout_constraintWidth_percent=".45"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="Nie interesuje mnie"
                     app:layout_constraintEnd_toEndOf="@+id/materialCardView"
-                    app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+                    app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+                    app:layout_constraintWidth_default="percent"
+                    app:layout_constraintWidth_percent=".45" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -234,6 +231,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:onClick="@{() -> vm.navigateToForum(vm.film)}"
             android:text="@string/forum_title" />
 
     </LinearLayout>

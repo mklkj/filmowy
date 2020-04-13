@@ -6,7 +6,7 @@
         <import type="io.github.mklkj.filmowy.api.NetworkState" />
 
         <variable
-            name="viewModel"
+            name="vm"
             type="io.github.mklkj.filmowy.ui.login.LoginViewModel" />
     </data>
 
@@ -17,7 +17,7 @@
         android:layout_height="match_parent">
 
         <ProgressBar
-            android:visibility="@{viewModel.networkState == NetworkState.LOADING}"
+            android:visibility="@{vm.networkState == NetworkState.LOADING}"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:fillViewport="true"
             android:scrollbars="none"
-            android:visibility="@{viewModel.networkState != NetworkState.LOADING}">
+            android:visibility="@{vm.networkState != NetworkState.LOADING}">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/loginFormContainer"
@@ -75,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
-                        android:text="@={viewModel.email}" />
+                        android:text="@={vm.email}" />
 
                     <requestFocus />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -91,7 +91,7 @@
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
                     android:hint="@string/login_password_hint"
-                    app:error="@{viewModel.networkState.message}"
+                    app:error="@{vm.networkState.message}"
                     app:errorEnabled="true"
                     app:layout_constraintBottom_toTopOf="@+id/loginFormSignIn"
                     app:layout_constraintTop_toBottomOf="@+id/loginFormNameLayout"
@@ -105,7 +105,7 @@
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:maxLines="1"
-                        android:text="@={viewModel.password}"
+                        android:text="@={vm.password}"
                         app:fontFamily="sans-serif" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -116,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:onClickListener="@{() -> viewModel.login()}"
+                    android:onClick="@{() -> vm.login()}"
                     android:text="@string/login_in"
                     android:textAppearance="?android:textAppearanceSmall"
                     android:textColor="@android:color/white"
