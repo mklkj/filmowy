@@ -34,14 +34,14 @@ class AttributeHelperBindingAdapter @Inject constructor(private val htmlImageGet
 
     @Suppress("DEPRECATION")
     @BindingAdapter("android:text", "android:html")
-    fun TextView.setHtml(content: String, html: String) {
+    fun TextView.setHtml(content: String?, html: String?) {
         movementMethod = LinkMovementMethod.getInstance()
         text = when {
-            html.isEmpty() -> content
+            html?.isEmpty() == true -> content
             else -> if (VERSION.SDK_INT >= VERSION_CODES.N) {
-                Html.fromHtml(html, Html.FROM_HTML_MODE_COMPACT, htmlImageGetter.apply { textView = this@setHtml }, null)
+                Html.fromHtml(html.orEmpty(), Html.FROM_HTML_MODE_COMPACT, htmlImageGetter.apply { textView = this@setHtml }, null)
             } else {
-                Html.fromHtml(html, htmlImageGetter.apply { textView = this@setHtml }, null)
+                Html.fromHtml(html.orEmpty(), htmlImageGetter.apply { textView = this@setHtml }, null)
             }
         }
     }

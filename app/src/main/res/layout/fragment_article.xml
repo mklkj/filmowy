@@ -6,98 +6,95 @@
         <import type="io.github.mklkj.filmowy.api.NetworkState" />
 
         <variable
-            name="article"
-            type="io.github.mklkj.filmowy.api.pojo.News" />
-
-        <variable
             name="vm"
             type="io.github.mklkj.filmowy.ui.article.ArticleViewModel" />
     </data>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/articleContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/articleImage"
-                android:newsImage="@{article.newsImageUrl}"
-                android:imageWidth="@{640}"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
+                android:imageWidth="@{640}"
+                android:newsImage="@{vm.article.newsImageUrl}"
                 tools:ignore="ContentDescription"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <TextView
-                android:text="@{article.title}"
-                android:textSize="16sp"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{vm.article.title}"
+                android:textSize="16sp"
                 tools:text="@tools:sample/lorem" />
 
             <TextView
-                android:text="@{article.publicationTime}"
-                android:format='@{"yyyy-MM-dd HH:mm"}'
-                android:textColor="?android:attr/textColorSecondary"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:format='@{"yyyy-MM-dd HH:mm"}'
+                android:text="@{vm.article.publicationTime}"
+                android:textColor="?android:attr/textColorSecondary"
                 tools:text="@tools:sample/date/ddmmyy" />
 
             <TextView
-                android:text="@{article.author}"
-                android:visibility="@{article.source != null}"
-                android:textColor="?android:attr/textColorSecondary"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{vm.article.author}"
+                android:textColor="?android:attr/textColorSecondary"
+                android:visibility="@{vm.article.source != null}"
                 tools:text="@tools:sample/lorem" />
 
             <TextView
-                android:text="@{article.source}"
-                android:visibility="@{article.source != null}"
-                android:textColor="?android:attr/textColorSecondary"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{vm.article.source}"
+                android:textColor="?android:attr/textColorSecondary"
+                android:visibility="@{vm.article.source != null}"
                 tools:text="@tools:sample/lorem" />
 
             <TextView
-                android:text="@{article.content}"
-                android:html="@{article.contentHtml}"
-                android:lineSpacingMultiplier="1.2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:html="@{vm.article.contentHtml}"
+                android:lineSpacingMultiplier="1.2"
+                android:text="@{vm.article.content}"
                 tools:text="@tools:sample/lorem" />
 
             <ProgressBar
-                android:visibility="@{vm.networkState == NetworkState.LOADING}"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="@{vm.networkState == NetworkState.LOADING}" />
 
             <TextView
-                android:text="@{vm.networkState.message}"
-                android:visibility="@{vm.networkState.message != null}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:text="@{vm.networkState.message}"
+                android:visibility="@{vm.networkState.message != null}" />
 
         </LinearLayout>
 

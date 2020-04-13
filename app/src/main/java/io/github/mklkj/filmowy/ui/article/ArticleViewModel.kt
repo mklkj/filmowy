@@ -15,16 +15,17 @@ class ArticleViewModel @Inject constructor(private val newsRepository: NewsRepos
     val article = MutableLiveData<News>()
 
     fun loadArticle(news: News) {
+        article.value = news
         disposable.add(newsRepository.getArticle(news.newsId, news.title)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { networkState.postValue(NetworkState.LOADING) }
+            .doOnSubscribe { networkState.value = NetworkState.LOADING }
             .subscribe({
                 article.postValue(it)
-                networkState.postValue(NetworkState.LOADED)
+                networkState.value = NetworkState.LOADED
             }) {
                 Timber.e(it)
-                networkState.postValue(NetworkState.error(it.message))
+                networkState.value = NetworkState.error(it.message)
             })
     }
 }

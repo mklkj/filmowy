@@ -9,7 +9,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import io.github.mklkj.filmowy.R
@@ -32,10 +31,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding>(R.layout.fragment_a
         with(binding) {
             vm = viewModel
 
-            article = args.article
             articleImage.transitionName = "news_image_${args.position}"
-
-            viewModel.article.observe(viewLifecycleOwner, Observer { article = it })
         }
     }
 
