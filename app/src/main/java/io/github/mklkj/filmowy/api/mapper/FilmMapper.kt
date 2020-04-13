@@ -1,6 +1,7 @@
 package io.github.mklkj.filmowy.api.mapper
 
 import com.google.gson.JsonArray
+import com.google.gson.JsonElement
 import io.github.mklkj.filmowy.api.getNullable
 import io.github.mklkj.filmowy.api.pojo.*
 import io.github.mklkj.filmowy.api.scrapper.response.FilmSeasonEpisodesResponse
@@ -70,7 +71,7 @@ fun JsonArray.mapFilmFullInfo(id: Long): Film {
             countriesString = getNullable(18)?.asString,
             synopsis = getNullable(19)?.asString,
             recommends = getNullable(23)?.asInt ?: 0 > 0,
-            premiereWorldPublic = getNullable(28)?.asString?.let {
+            premiereWorldPublic = getNullable(28)?.fixDate()?.let {
                 when(it.length) {
                     10 -> it.toLocalDate("yyyy-MM-dd")
                     7 -> it.toLocalDate("yyyy-MM")
@@ -81,10 +82,22 @@ fun JsonArray.mapFilmFullInfo(id: Long): Film {
                     }
                 }
             },
-            premiereCountryPublic = getNullable(29)?.asString?.toLocalDate("yyyy-MM-dd")
+            premiereCountryPublic = getNullable(29)?.fixDate()?.toLocalDate("yyyy-MM-dd")
         )
     )
 }
+
+private fun JsonElement?.fixDate(): String? {
+    return try {
+        this?.asJsonObject?.let {
+            it.get("year").asString + "-" + it.get("month").asString.addLeadingZero() + "-" + it.get("day").asString.addLeadingZero()
+        }
+    } catch (e: IllegalStateException) {
+        this?.asString
+    }
+}
+
+private fun String.addLeadingZero() = if (length == 1) "0$this" else this
 
 fun JsonArray.mapFilmPersons(filmId: Int, type: FilmPerson.AssocType): List<FilmPerson> {
     return map {
