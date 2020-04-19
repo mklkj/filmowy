@@ -5,6 +5,7 @@ import io.github.mklkj.filmowy.api.getNullable
 import io.github.mklkj.filmowy.api.pojo.News
 import io.github.mklkj.filmowy.api.pojo.NewsComment
 import io.github.mklkj.filmowy.api.pojo.NewsLead
+import io.github.mklkj.filmowy.api.scrapper.response.ArticleResponse
 import io.github.mklkj.filmowy.api.toLocalDateTime
 
 fun JsonArray.mapNewsList(): List<NewsLead> {
@@ -32,6 +33,20 @@ fun JsonArray.mapNews(id: Long): News {
         commentsCount = get(5).asInt,
         source = getNullable(6)?.asJsonArray?.map { it.asString },
         author = getNullable(7)?.asJsonArray?.map { it.asString }
+    )
+}
+
+fun ArticleResponse.mapNews(id: Long): News {
+    return News(
+        newsId = id,
+        content = content.apply { select("script, svg").remove() }.html().replace("\"/", "\"app://io.github.mklkj.filmowy/"),
+        title = title,
+        author = listOf(author),
+        commentsCount = -1,
+        lead = lead,
+        newsImageUrl = newsImageUrl,
+        publicationTime = date.html().split("\"")[1].toLocalDateTime("yyyy-MM-dd HH:mm:ss z"),
+        source = listOf(source)
     )
 }
 

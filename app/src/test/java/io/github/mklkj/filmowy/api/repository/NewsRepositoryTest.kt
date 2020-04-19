@@ -1,26 +1,18 @@
 package io.github.mklkj.filmowy.api.repository
 
-import android.content.SharedPreferences
 import io.github.mklkj.filmowy.api.BaseApiTest
 import okhttp3.mockwebserver.MockResponse
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers.anyBoolean
-import org.mockito.ArgumentMatchers.anyString
-import org.mockito.Mock
-import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
 import org.threeten.bp.LocalDateTime.of
 import retrofit2.create
 
 class NewsRepositoryTest : BaseApiTest() {
 
-    @Mock
-    private lateinit var preferences: SharedPreferences
-
-    private val newsRepository by lazy { NewsRepository(getRetrofit().create(), getRetrofitScrapper().create(), preferences) }
+    private val newsRepository by lazy { NewsRepository(getRetrofit().create(), getRetrofitScrapper().create()) }
 
     @Before
     fun setUp() {
@@ -49,7 +41,7 @@ class NewsRepositoryTest : BaseApiTest() {
         server.enqueue(MockResponse().setBody(getResource("news.txt")!!))
         server.start()
 
-        val news = newsRepository.getArticle(1).blockingGet()
+        val news = newsRepository.getArticle(1, "").blockingGet()
         news.run {
             assertEquals("Najlepsze filmy i seriale o podróżach w czasie na Netflix", title)
             assertEquals("Przedstawiamy ranking najlepszych produkcji o podróżach w czasie z okazji premiery 2. sezonu \"Dark\".", lead)
@@ -67,7 +59,7 @@ class NewsRepositoryTest : BaseApiTest() {
         server.enqueue(MockResponse().setBody(getResource("null.txt")!!))
         server.start()
 
-        newsRepository.getArticle(1).blockingGet()
+        newsRepository.getArticle(1, "").blockingGet()
     }
 
     @Test
@@ -75,8 +67,6 @@ class NewsRepositoryTest : BaseApiTest() {
         server.enqueue(MockResponse().setBody(getResource("news.txt")!!))
         server.enqueue(MockResponse().setBody(getResource("news.html")!!))
         server.start()
-
-        `when`(preferences.getBoolean(anyString(), anyBoolean())).thenReturn(true)
 
         val news = newsRepository.getArticle(1, "Najlepsze filmy i seriale o podróżach w czasie na Netflix").blockingGet()
         news.run {

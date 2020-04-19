@@ -16,8 +16,6 @@ data class News(
     val author: List<String>?
 ) : Serializable {
 
-    var contentHtml: String = ""
-
     companion object {
         fun get(id: Long, name: String = "", poster: String? = null, publicationTime: LocalDateTime = now()) = News(
             newsId = id,

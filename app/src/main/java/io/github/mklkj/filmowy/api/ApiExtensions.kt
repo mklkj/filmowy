@@ -86,7 +86,7 @@ fun Film.encodeName() = "${title.encodeFilmName()}-$year-$filmId"
 
 fun Film.toUrl() = "https://m.filmweb.pl/film/${encodeName()}"
 
-private fun String.encodeFilmName() = replace(" ", "+").replace("?", "")
+fun String.encodeFilmName() = replace("+", "%2B").replace(" ", "+").replace("?", "")
 
 fun Long.toLocalDateTime(): LocalDateTime = ofEpochMilli(this)
     .atZone(ZoneId.systemDefault())

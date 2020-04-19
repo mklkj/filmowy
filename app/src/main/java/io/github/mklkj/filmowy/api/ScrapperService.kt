@@ -19,7 +19,7 @@ interface ScrapperService {
     ): Single<SettingsResponse>
 
     @GET("news/{slug}-{id}")
-    fun getArticle(@Path("slug") slug: String, @Path("id") id: Long): Single<ArticleResponse>
+    fun getArticle(@Path("slug", encoded = true) slug: String, @Path("id") id: Long): Single<ArticleResponse>
 
     @GET("serial/{name}/episode/{season}/list")
     fun getSeasonEpisodes(@Path("name") name: String, @Path("season") season: Int): Single<FilmSeasonEpisodesResponse>
