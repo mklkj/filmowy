@@ -7,7 +7,7 @@ class SettingsResponse {
     @Selector(".userAvatar", attr = "data-id")
     var id: Long = 0
 
-    @Selector(".mainSettings__groupItemStateContent")
+    @Selector(".userAvatar", attr = "data-nick")
     var nick: String = ""
 
     @Selector(".user__name")
@@ -15,4 +15,7 @@ class SettingsResponse {
 
     @Selector(".userAvatar__image", attr = "data-image")
     var avatar: String = ""
+
+    @Selector("#form-male", attr = "checked")
+    var sex: String = ""
 }

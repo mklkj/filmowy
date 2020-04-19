@@ -11,9 +11,8 @@ data class News(
     val content: String,
     val publicationTime: LocalDateTime,
     val newsImageUrl: String?,
-    val commentsCount: Int,
-    val source: List<String>?,
-    val author: List<String>?
+    val source: String,
+    val author: String
 ) : Serializable {
 
     companion object {
@@ -24,9 +23,8 @@ data class News(
             lead = null,
             content = "",
             publicationTime = publicationTime,
-            commentsCount = 0,
-            source = null,
-            author = null
+            source = "",
+            author = ""
         )
     }
 }

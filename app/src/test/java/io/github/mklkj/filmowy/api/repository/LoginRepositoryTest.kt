@@ -20,11 +20,11 @@ class LoginRepositoryTest : BaseApiTest() {
         MockitoAnnotations.initMocks(this)
     }
 
-    private val loginRepository by lazy { LoginRepository(getRetrofit().create(), getRetrofit().create(), preferences) }
+    private val loginRepository by lazy { LoginRepository(getRetrofit().create(), getRetrofitScrapper().create(), preferences) }
 
     @Test
     fun login() {
-        server.enqueue(MockResponse().setBody(getResource("login-user.txt")!!))
+        server.enqueue(MockResponse().setBody(getResource("settings.html")!!))
         server.start()
 
         val user = loginRepository.login("", "").blockingGet()
@@ -33,7 +33,7 @@ class LoginRepositoryTest : BaseApiTest() {
             assertEquals("jankowalsky", nick)
             assertEquals("Jan Kowalsky", name)
             assertEquals(1, gender)
-            assertEquals("/55/60/2515560/2515560.0.jpg", imagePath)
+            assertEquals("/55/60/2515560/2515560.2.jpg", imagePath)
         }
     }
 }

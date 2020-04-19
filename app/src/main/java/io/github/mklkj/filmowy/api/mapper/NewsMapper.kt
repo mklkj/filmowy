@@ -22,31 +22,16 @@ fun JsonArray.mapNewsList(): List<NewsLead> {
     }
 }
 
-fun JsonArray.mapNews(id: Long): News {
-    return News(
-        newsId = id,
-        title = get(0).asString,
-        lead = getNullable(1)?.asString,
-        content = get(2).asString,
-        publicationTime = get(3).asLong.toLocalDateTime(),
-        newsImageUrl = getNullable(4)?.asString,
-        commentsCount = get(5).asInt,
-        source = getNullable(6)?.asJsonArray?.map { it.asString },
-        author = getNullable(7)?.asJsonArray?.map { it.asString }
-    )
-}
-
 fun ArticleResponse.mapNews(id: Long): News {
     return News(
         newsId = id,
         content = content.apply { select("script, svg").remove() }.html().replace("\"/", "\"app://io.github.mklkj.filmowy/"),
         title = title,
-        author = listOf(author),
-        commentsCount = -1,
+        author = author,
         lead = lead,
         newsImageUrl = newsImageUrl,
         publicationTime = date.html().split("\"")[1].toLocalDateTime("yyyy-MM-dd HH:mm:ss z"),
-        source = listOf(source)
+        source = source
     )
 }
 

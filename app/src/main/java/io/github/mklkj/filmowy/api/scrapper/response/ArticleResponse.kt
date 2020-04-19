@@ -20,7 +20,7 @@ class ArticleResponse {
     @Selector(".newsInfo script")
     lateinit var date: Element
 
-    @Selector(".newsContent b:first-child")
+    @Selector("meta[property='og:description']", attr = "content")
     var lead: String = ""
 
     @Selector("meta[property='og:image']", attr = "content")
