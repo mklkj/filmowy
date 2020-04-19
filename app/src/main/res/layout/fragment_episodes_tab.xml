@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="io.github.mklkj.filmowy.api.NetworkState.Status" />
+
         <variable
             name="vm"
             type="io.github.mklkj.filmowy.ui.film.episodes.tab.EpisodesTabViewModel" />
@@ -13,17 +15,29 @@
         android:id="@+id/episodesSwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:enabled="@{vm.networkState.status != vm.networkState.component1().FAILED}"
-        app:refreshing="@{vm.networkState.status == vm.networkState.component1().RUNNING}">
+        app:enabled="@{vm.networkState.status != Status.RUNNING}"
+        app:refreshing="@{vm.networkState.status == Status.RUNNING}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.networkState.message}"
+                android:visibility="@{vm.networkState.message != null}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/lorem" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/episodesRecyclerView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:visibility="@{vm.networkState.status == Status.SUCCESS}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -34,10 +48,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                app:backgroundTint="@color/colorAccent"
                 android:onClick="@{() -> vm.markSeasonAsWatched()}"
                 android:src="@drawable/ic_check_black_24dp"
                 android:tint="@android:color/white"
+                app:backgroundTint="@color/colorAccent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

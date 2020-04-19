@@ -19,6 +19,10 @@ class ResponseInterceptor : Interceptor {
             return response.newBuilder().body(body.toResponseBody(response.body?.contentType())).build() // TODO: simplify this
         }
 
+        if (response.networkResponse?.request?.url?.toString()?.contains("login_redirect") == true) {
+            throw NotLoggedInException("Musisz być zalogowany by zobaczyć tą stronę")
+        }
+
         val parts = body.split("\n")
 
         val newBody = if (parts.size == 1) {
