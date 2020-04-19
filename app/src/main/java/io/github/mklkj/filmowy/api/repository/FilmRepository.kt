@@ -6,6 +6,7 @@ import io.github.mklkj.filmowy.api.ajax.FilmVote
 import io.github.mklkj.filmowy.api.ajax.VotesResponse
 import io.github.mklkj.filmowy.api.asMethod
 import io.github.mklkj.filmowy.api.asVarargMethod
+import io.github.mklkj.filmowy.api.exception.NotLoggedInException
 import io.github.mklkj.filmowy.api.mapper.*
 import io.github.mklkj.filmowy.api.pojo.*
 import io.reactivex.Completable
@@ -73,8 +74,11 @@ class FilmRepository @Inject constructor(private val api: ApiService, private va
         }
     }
 
-    fun getFilmSeasonUserVotes(filmId: Long, season: Int): Single<VotesResponse> {
-        return api.getUserVotes(filmId, season)
+    fun getFilmSeasonUserVotes(filmId: Long, season: Int): Single<VotesResponse.Vote> {
+        return api.getUserVotes(filmId, season).map { VotesResponse.Vote(true, it) }.onErrorResumeNext {
+            if (it is NotLoggedInException) Single.just(VotesResponse.Vote(false, null))
+            else Single.error(it)
+        }
     }
 
     fun voteForSeason(seriesId: Long, season: Int, rate: Int): Completable {

@@ -15,4 +15,9 @@ data class VotesResponse(
 
     @SerializedName("votes")
     val votes: Map<String, Int>
-)
+) {
+    class Vote(
+        val isLoggedIn: Boolean,
+        val vote: VotesResponse?
+    )
+}

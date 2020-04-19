@@ -25,9 +25,11 @@ class EpisodesTabViewModel @Inject constructor(private val filmRepository: FilmR
         this.season = season
         disposable.add(filmRepository.getFilmSeasonUserVotes(film.filmId, season)
             .flatMap { votes ->
-                filmRepository.getFilmSeasonEpisodes(film.encodeName(), season).map { items ->
-                    items.map { it.copy(rate = votes.votes.getOrElse(it.id.toString()) { -1 }) }
-                }
+                filmRepository
+                    .getFilmSeasonEpisodes(film.encodeName(), season)
+                    .map { it ->
+                        it.map { it.copy(rate = votes.vote?.votes?.getOrElse(it.id.toString()) { -1 } ?: -1) }
+                    }
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

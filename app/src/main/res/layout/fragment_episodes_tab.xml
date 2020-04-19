@@ -37,7 +37,7 @@
                 android:id="@+id/episodesRecyclerView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:visibility="@{vm.networkState.status == Status.SUCCESS}"
+                android:visibility="@{vm.networkState.message == null}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
