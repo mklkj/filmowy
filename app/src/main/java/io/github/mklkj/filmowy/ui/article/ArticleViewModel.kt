@@ -21,7 +21,7 @@ class ArticleViewModel @Inject constructor(private val newsRepository: NewsRepos
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { networkState.value = NetworkState.LOADING }
             .subscribe({
-                article.value = it
+                article.value = it.copy(newsImageUrl = news.newsImageUrl)
                 networkState.value = NetworkState.LOADED
             }) {
                 Timber.e(it)
