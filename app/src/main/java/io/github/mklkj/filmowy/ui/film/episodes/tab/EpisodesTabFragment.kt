@@ -41,7 +41,7 @@ class EpisodesTabFragment : BaseFragment<FragmentEpisodesTabBinding>(R.layout.fr
         with(binding) {
             vm = viewModel
             episodesSwipeRefreshLayout.setOnRefreshListener { viewModel.loadEpisodes(args.film, args.seasonNumber) }
-            dataAdapter.setVoteCallback = { id, rate ->
+            dataAdapter.setEpisodeVoteCallback = { id, rate ->
                 AlertDialog.Builder(requireContext())
                     .setTitle("Oceń odcinek")
                     .setView(R.layout.dialog_vote)

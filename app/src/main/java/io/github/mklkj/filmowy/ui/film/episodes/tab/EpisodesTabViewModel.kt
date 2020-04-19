@@ -14,9 +14,15 @@ import javax.inject.Inject
 
 class EpisodesTabViewModel @Inject constructor(private val filmRepository: FilmRepository) : BaseViewModel() {
 
+    private lateinit var film: Film
+
+    private var season = 0
+
     val episodes = MutableLiveData<List<FilmEpisode>>()
 
     fun loadEpisodes(film: Film, season: Int) {
+        this.film = film
+        this.season = season
         disposable.add(filmRepository.getFilmSeasonUserVotes(film.filmId, season)
             .flatMap { votes ->
                 filmRepository.getFilmSeasonEpisodes(film.encodeName(), season).map { items ->
@@ -33,6 +39,19 @@ class EpisodesTabViewModel @Inject constructor(private val filmRepository: FilmR
                 Timber.e(it)
                 networkState.postValue(NetworkState.error(it.message))
             })
+    }
+
+    fun markSeasonAsWatched() {
+        disposable.add(filmRepository.voteForSeason(film.filmId, season, rate = 0)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Timber.d("Voted successfully!")
+                loadEpisodes(film, season)
+            }) {
+                Timber.e(it)
+            }
+        )
     }
 
     fun setVote(film: Film, season: Int, id: Int, rate: Int) {

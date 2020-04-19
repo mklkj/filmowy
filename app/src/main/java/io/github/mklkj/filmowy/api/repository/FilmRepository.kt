@@ -77,6 +77,12 @@ class FilmRepository @Inject constructor(private val api: ApiService, private va
         return api.getUserVotes(filmId, season)
     }
 
+    fun voteForSeason(seriesId: Long, season: Int, rate: Int): Completable {
+        return scrapper.voteForSeason(
+            cookieJar.loadForRequest("https://www.filmweb.pl/".toHttpUrl()).singleOrNull { it.name == "_artuser_token" }?.value.orEmpty(), seriesId, season, rate
+        )
+    }
+
     fun voteForEpisode(id: Int, rate: Int): Completable {
         return scrapper.voteForEpisode(
             cookieJar.loadForRequest("https://www.filmweb.pl/".toHttpUrl()).singleOrNull { it.name == "_artuser_token" }?.value.orEmpty(), id, rate

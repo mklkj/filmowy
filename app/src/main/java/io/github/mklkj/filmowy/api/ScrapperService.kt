@@ -6,7 +6,6 @@ import io.github.mklkj.filmowy.api.scrapper.response.ForumThreadsList
 import io.github.mklkj.filmowy.api.scrapper.response.SettingsResponse
 import io.reactivex.Completable
 import io.reactivex.Single
-import org.jsoup.nodes.Document
 import retrofit2.http.*
 
 interface ScrapperService {
@@ -24,6 +23,10 @@ interface ScrapperService {
 
     @GET("serial/{name}/episode/{season}/list")
     fun getSeasonEpisodes(@Path("name") name: String, @Path("season") season: Int): Single<FilmSeasonEpisodesResponse>
+
+    @FormUrlEncoded
+    @POST("season/vote")
+    fun voteForSeason(@Header("X-Artuser-Token") token: String, @Field("id") seriesId: Long, @Field("season") season: Int, @Field("rate") rate: Int): Completable
 
     @FormUrlEncoded
     @POST("episode/vote")

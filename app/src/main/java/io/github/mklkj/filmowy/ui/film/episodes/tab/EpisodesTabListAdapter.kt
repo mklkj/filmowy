@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class EpisodesTabListAdapter @Inject constructor() : ListAdapter<FilmEpisode, EpisodesTabListAdapter.ViewHolder>(diffCallback) {
 
-    var setVoteCallback: (Int, Int) -> Unit = { _, _ -> }
+    var setEpisodeVoteCallback: (Int, Int) -> Unit = { _, _ -> }
 
     class ViewHolder(val binding: ItemEpisodeBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -22,9 +22,9 @@ class EpisodesTabListAdapter @Inject constructor() : ListAdapter<FilmEpisode, Ep
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder.binding) {
             episode = getItem(position)
-            noRate.setOnClickListener { setVoteCallback(getItem(position).id, getItem(position).rate) }
-            rateNumber.setOnClickListener { setVoteCallback(getItem(position).id, getItem(position).rate) }
-            rateWatched.setOnClickListener { setVoteCallback(getItem(position).id, getItem(position).rate) }
+            noRate.setOnClickListener { setEpisodeVoteCallback(getItem(position).id, getItem(position).rate) }
+            rateNumber.setOnClickListener { setEpisodeVoteCallback(getItem(position).id, getItem(position).rate) }
+            rateWatched.setOnClickListener { setEpisodeVoteCallback(getItem(position).id, getItem(position).rate) }
             executePendingBindings()
         }
     }
