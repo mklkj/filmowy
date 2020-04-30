@@ -30,7 +30,7 @@ class NewsRepositoryTest : BaseApiTest() {
             assertEquals(133563, id)
             assertEquals("Morena Baccarin stawi czoła kataklizmowi u boku Gerarda Butlera", title)
             assertEquals("Aktorka dołączyła do obsady thrillera \"Greenland\".", lead)
-            assertEquals(of(2019, 6, 19, 10, 9, 19), publicationTime)
+            assertEquals(of(2019, 6, 19, 12, 9, 19), publicationTime)
             assertEquals("/np/1985708/2019/20253_1.1.jpg", newsImageUrl)
             assertEquals("news", type)
         }
@@ -51,14 +51,14 @@ class NewsRepositoryTest : BaseApiTest() {
 
         val news = newsRepository.getArticle(1, "Najlepsze filmy i seriale o podróżach w czasie na Netflix").blockingGet()
         news.run {
-            assertTrue(content.startsWith("Premiera drugiego sezonu\n<b> \" <a class=\"internal\"")) //
+            assertTrue(content.startsWith("Premiera drugiego sezonu\n<b> \"<a class=\"internal\"")) //
 
             assertEquals("Najlepsze filmy i seriale o podróżach w czasie na Netflix", title)
             assertEquals("Przedstawiamy ranking najlepszych produkcji o podróżach w czasie z okazji premiery 2. sezonu \"Dark\".", lead)
             assertTrue(content.startsWith("Premiera drugiego sezonu"))
             assertEquals(of(2019, 6, 21, 8, 0, 0), publicationTime)
             assertEquals("https://fwcdn.pl/nph/1032473/2019/20265_1.7.jpg", newsImageUrl)
-            assertEquals("", source)
+            assertEquals("Filmweb", source)
             assertEquals("", author)
         }
     }
@@ -76,7 +76,7 @@ class NewsRepositoryTest : BaseApiTest() {
             assertEquals("/98/64/2439864/2439864.0.jpg", userPhoto)
             assertEquals("Tiw", userName)
             assertEquals("Dobry serial byl, w przeciwienstwie do wielu innych na tej platformie", comment)
-            assertEquals(of(2019, 6, 19, 19, 37, 36), time)
+            assertEquals(of(2019, 6, 19, 21, 37, 36), time)
         }
     }
 }

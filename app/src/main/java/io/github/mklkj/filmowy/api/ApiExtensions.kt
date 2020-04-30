@@ -90,7 +90,7 @@ fun String.encodeFilmName() = replace("+", "%2B").replace(" ", "+").replace("?",
 
 fun Long.toLocalDateTime(): LocalDateTime = ofEpochMilli(this)
     .atZone(ZoneId.systemDefault())
-    .withZoneSameInstant(ZoneOffset.UTC)
+    .withZoneSameInstant(ZoneId.of("Europe/Warsaw"))
     .toLocalDateTime()
 
 fun Long.toLocalDate(): LocalDate = ofEpochMilli(this)

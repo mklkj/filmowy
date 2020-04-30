@@ -24,7 +24,7 @@ class MyRepositoryTest : BaseApiTest() {
             assertEquals("film", filmType)
             assertEquals("Toy Story 2", filmTitle)
             assertEquals(0, otherFilmsCount)
-            assertEquals(of(2019, 8, 2, 10, 50, 19), datetime)
+            assertEquals(of(2019, 8, 2, 12, 50, 19), datetime)
 
             userFilmVote.run {
                 assertEquals(831, filmId)
@@ -35,7 +35,7 @@ class MyRepositoryTest : BaseApiTest() {
                 assertEquals(0, commentsCount)
                 assertEquals(0, likesCount)
                 assertEquals(false, isLike)
-                assertEquals(of(2019, 8, 2, 10, 50, 19), datetime)
+                assertEquals(of(2019, 8, 2, 12, 50, 19), datetime)
             }
         }
     }
