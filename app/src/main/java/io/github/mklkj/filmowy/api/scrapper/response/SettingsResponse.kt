@@ -13,7 +13,7 @@ class SettingsResponse {
     @Selector(".user__name")
     var name: String = ""
 
-    @Selector(".userAvatar__image", attr = "data-image")
+    @Selector(".userAvatar", attr = "data-image")
     var avatar: String = ""
 
     @Selector("#form-male", attr = "checked")
