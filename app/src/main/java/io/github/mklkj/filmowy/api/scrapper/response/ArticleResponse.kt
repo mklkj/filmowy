@@ -8,17 +8,17 @@ class ArticleResponse {
     @Selector("html")
     lateinit var root: Element
 
-    @Selector("h1.inline")
+    @Selector("h1.newsHeaderSection__title")
     var title: String = ""
 
-    @Selector(".hdrWithAuthor .newsInfo li:nth-child(1)")
+    @Selector(".newsHeaderSection__source")
     var source: String = ""
 
-    @Selector(".hdrWithAuthor .newsInfo li:nth-child(2)")
+    @Selector(".newsHeaderSection__author")
     var author: String = ""
 
-    @Selector(".newsInfo script")
-    lateinit var date: Element
+    @Selector(".newsHeaderSection__date.tooltip__parent", attr = "data-datetime")
+    var date: Long = 0
 
     @Selector("meta[property='og:description']", attr = "content")
     var lead: String = ""
@@ -26,6 +26,6 @@ class ArticleResponse {
     @Selector("meta[property='og:image']", attr = "content")
     var newsImageUrl: String = ""
 
-    @Selector(".newsContent > div")
+    @Selector(".newsMainSection__news.page__container .page__text")
     lateinit var content: Element
 }

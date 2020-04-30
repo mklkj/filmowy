@@ -30,7 +30,7 @@ fun ArticleResponse.mapNews(id: Long): News {
         author = author,
         lead = lead,
         newsImageUrl = newsImageUrl,
-        publicationTime = date.html().split("\"")[1].toLocalDateTime("yyyy-MM-dd HH:mm:ss z"),
+        publicationTime = date.toLocalDateTime(),
         source = source
     )
 }
