@@ -1,4 +1,5 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -100,11 +101,11 @@
                 android:layout_marginTop="4dp"
                 android:drawableStart="@drawable/ic_star_border_black_24dp"
                 android:drawablePadding="4dip"
-                android:drawableTint="@color/colorPrimary"
                 android:gravity="center"
                 android:text="@{episode.avgRate}"
                 android:textSize="16sp"
                 android:visibility="@{!episode.premiereDate.isAfter(LocalDate.now())}"
+                app:drawableTint="@color/colorPrimary"
                 tools:text="8,9" />
         </LinearLayout>
 

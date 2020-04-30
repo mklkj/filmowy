@@ -148,8 +148,8 @@
                         android:avg="@{vm.film.avgRate}"
                         android:drawableStart="@drawable/ic_star_border_black_24dp"
                         android:drawablePadding="4dip"
-                        android:drawableTint="?colorPrimary"
                         android:textSize="20sp"
+                        app:drawableTint="?colorPrimary"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="7,5" />
