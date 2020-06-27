@@ -1,8 +1,8 @@
 package io.github.mklkj.filmowy.api.pojo
 
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.LocalDateTime.now
 import java.io.Serializable
+import java.time.LocalDateTime
+import java.time.LocalDateTime.now
 
 data class News(
     val newsId: Long, // used only for navigate

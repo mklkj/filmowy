@@ -7,12 +7,11 @@ import androidx.lifecycle.LiveDataReactiveStreams
 import com.google.gson.JsonArray
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.reactivex.Flowable
-import org.threeten.bp.Instant.ofEpochMilli
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZoneOffset
 import java.text.SimpleDateFormat
+import java.time.Instant.ofEpochMilli
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 fun JsonArray.getNullable(index: Int) = elementAtOrNull(index).let { if (it?.isJsonNull == true) null else it }
 

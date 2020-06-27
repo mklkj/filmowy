@@ -1,6 +1,6 @@
 package io.github.mklkj.filmowy.api.pojo
 
-import org.threeten.bp.LocalDate
+import java.time.LocalDate
 
 data class PersonBirthdate(
     val id: Long,

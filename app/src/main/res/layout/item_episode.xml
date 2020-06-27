@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="org.threeten.bp.LocalDate" />
+        <import type="java.time.LocalDate" />
 
         <variable
             name="episode"

@@ -1,6 +1,6 @@
 package io.github.mklkj.filmowy.api.pojo
 
-import org.threeten.bp.LocalDateTime
+import java.time.LocalDateTime
 
 data class FriendVoteFilmEvent(
     val filmId: Long,

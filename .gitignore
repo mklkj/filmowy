@@ -82,3 +82,4 @@ lint/tmp/
 .idea/navEditor.xml
 .idea/uiDesigner.xml
 .idea/$PRODUCT_WORKSPACE_FILE$
+.idea/jarRepositories.xml

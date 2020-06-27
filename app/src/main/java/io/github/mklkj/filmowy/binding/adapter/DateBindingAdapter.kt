@@ -2,9 +2,9 @@ package io.github.mklkj.filmowy.binding.adapter
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.format.DateTimeFormatter
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class DateBindingAdapter @Inject constructor() {

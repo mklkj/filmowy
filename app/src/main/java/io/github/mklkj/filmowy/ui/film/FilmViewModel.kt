@@ -3,7 +3,6 @@ package io.github.mklkj.filmowy.ui.film
 import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.ajax.FilmVote
-import io.github.mklkj.filmowy.api.ajax.VotesResponse
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.repository.FilmRepository
 import io.github.mklkj.filmowy.api.repository.LoginRepository
