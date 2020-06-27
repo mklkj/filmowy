@@ -8,8 +8,8 @@ fun JsonArray.mapSearchResults(): List<SearchResult> {
         val item = it.asJsonArray
         when (SearchResult.Type.getById(item.get(0).asString)) {
             SearchResult.Type.FILM,
-            SearchResult.Type.SERIES,
-            SearchResult.Type.GAME -> item.mapFilmResult()
+            SearchResult.Type.SERIAL,
+            SearchResult.Type.VIDEOGAME -> item.mapFilmResult()
             SearchResult.Type.PERSON -> item.mapPersonResult()
             SearchResult.Type.CHANNEL -> item.mapChannelResult()
             SearchResult.Type.CINEMA -> item.mapCinemaResult()

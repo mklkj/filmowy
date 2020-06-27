@@ -45,8 +45,8 @@
         android:label="@string/film_title"
         tools:layout="@layout/fragment_film">
         <argument
-            android:name="film"
-            app:argType="io.github.mklkj.filmowy.api.pojo.Film" />
+            android:name="url"
+            app:argType="string" />
         <action
             android:id="@+id/action_filmFragment_to_episodesFragment"
             app:destination="@id/episodesFragment" />
@@ -62,7 +62,7 @@
         tools:layout="@layout/fragment_episodes">
         <argument
             android:name="film"
-            app:argType="io.github.mklkj.filmowy.api.pojo.Film" />
+            app:argType="io.github.mklkj.filmowy.api.pojo.FilmFullInfo" />
     </fragment>
 
     <fragment
@@ -72,11 +72,11 @@
         tools:layout="@layout/fragment_episodes_tab">
         <argument
             android:name="film"
-            app:argType="io.github.mklkj.filmowy.api.pojo.Film" />
+            app:argType="io.github.mklkj.filmowy.api.pojo.FilmFullInfo" />
         <argument
             android:name="seasonNumber"
-            app:argType="integer"
-            android:defaultValue="1" />
+            android:defaultValue="1"
+            app:argType="integer" />
     </fragment>
 
     <fragment
@@ -164,7 +164,7 @@
         android:id="@+id/forumFragment"
         android:name="io.github.mklkj.filmowy.ui.forum.ForumFragment"
         android:label="@string/forum_title"
-        tools:layout="@layout/fragment_forum" >
+        tools:layout="@layout/fragment_forum">
         <action
             android:id="@+id/action_forumFragment_to_threadFragment2"
             app:destination="@id/threadFragment" />
@@ -180,8 +180,8 @@
             app:argType="string" />
         <argument
             android:name="pageSize"
-            app:argType="integer"
-            android:defaultValue="30" />
+            android:defaultValue="30"
+            app:argType="integer" />
         <action
             android:id="@+id/action_forumFragment_to_threadFragment"
             app:destination="@id/threadFragment" />

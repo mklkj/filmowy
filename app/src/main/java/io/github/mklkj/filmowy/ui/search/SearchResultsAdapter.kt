@@ -24,7 +24,7 @@ class SearchResultsAdapter @Inject constructor() : RecyclerView.Adapter<Recycler
     override fun getItemCount() = items.size
 
     override fun getItemViewType(position: Int) = when (items[position].type) {
-        FILM, SERIES -> R.layout.item_search_film
+        FILM, SERIAL -> R.layout.item_search_film
 //        GAME -> TODO()
         PERSON -> R.layout.item_search_person
 //        CHANNEL -> TODO()

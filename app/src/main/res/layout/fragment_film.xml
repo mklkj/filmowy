@@ -36,8 +36,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:background="@android:color/white"
-                    android:filmImage="@{vm.film.imagePath}"
-                    android:imageWidth="@{100}"
+                    android:image="@{vm.film.imagePath}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription"
@@ -72,9 +71,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
-                    android:text="@{vm.film.filmInfo.originalTitle}"
+                    android:text="@{vm.film.originalTitle}"
                     android:textColor="?android:textColorSecondary"
-                    android:visibility='@{vm.film.filmInfo.originalTitle != ""}'
+                    android:visibility='@{vm.film.originalTitle != ""}'
                     app:layout_constraintStart_toEndOf="@+id/poster"
                     app:layout_constraintTop_toBottomOf="@+id/title"
                     tools:text="@tools:sample/lorem" />
@@ -102,7 +101,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:lineSpacingMultiplier="1.2"
-                    android:text="@{vm.film.filmInfo.synopsis}"
+                    android:text="@{vm.film.synopsis}"
                     app:layout_constrainedWidth="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/poster"
@@ -118,8 +117,8 @@
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginVertical="8dp"
                 android:onClick="@{() -> vm.navigateToEpisodes(vm.film)}"
-                android:text="@{`Sezony: ` + vm.film.filmInfo.seasonsCount + `, odcinki: ` + vm.film.filmInfo.episodesCount}"
-                android:visibility="@{vm.film.filmInfo.seasonsCount != 0 &amp;&amp; vm.networkState.status == Status.SUCCESS}"
+                android:text="@{`Sezony: ` + vm.film.seasonsCount + `, odcinki: ` + vm.film.episodesCount}"
+                android:visibility="@{vm.film.seasonsCount != 0 &amp;&amp; vm.networkState.status == Status.SUCCESS}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/header"
                 tools:text="Sezony: 5, odcinki: 25" />

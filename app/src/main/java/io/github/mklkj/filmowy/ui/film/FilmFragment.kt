@@ -8,11 +8,9 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
-import io.github.mklkj.filmowy.api.toUrl
 import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentFilmBinding
 
@@ -25,20 +23,12 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>(R.layout.fragment_film) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.loadData(args.film.filmId)
+        viewModel.loadData(args.url)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
-
-        with(binding) {
-            vm = viewModel
-
-            viewModel.film.observe(viewLifecycleOwner) {
-                args.film.title = it.title
-                args.film.year = it.year
-            }
-        }
+        binding.vm = viewModel
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -46,7 +36,7 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>(R.layout.fragment_film) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = if (item.itemId == R.id.film_open_in_browser) {
-        args.film.run { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(toUrl()))) }
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(args.url)))
         true
     } else false
 }

@@ -43,7 +43,7 @@ class ApiModule {
                 .followRedirects(true)
                 .callTimeout(30, TimeUnit.SECONDS)
                 .addNetworkInterceptor(HttpLoggingInterceptor().apply {
-                    if (BuildConfig.DEBUG) level = HttpLoggingInterceptor.Level.BODY
+                    if (BuildConfig.DEBUG) level = HttpLoggingInterceptor.Level.BASIC
                 })
                 .addInterceptor(SignatureInterceptor())
                 .addInterceptor(ResponseInterceptor()).build()
@@ -64,7 +64,7 @@ class ApiModule {
                 .callTimeout(30, TimeUnit.SECONDS)
                 .addInterceptor(UserAgentInterceptor())
                 .addNetworkInterceptor(HttpLoggingInterceptor().apply {
-                    if (BuildConfig.DEBUG) level = HttpLoggingInterceptor.Level.BODY
+                    if (BuildConfig.DEBUG) level = HttpLoggingInterceptor.Level.BASIC
                 }).build()
         )
         .build()

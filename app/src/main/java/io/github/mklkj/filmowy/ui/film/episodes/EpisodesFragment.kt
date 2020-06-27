@@ -16,7 +16,7 @@ class EpisodesFragment : BaseFragment<FragmentEpisodesBinding>(R.layout.fragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
             viewPager.adapter = EpisodesPagerAdapter(childFragmentManager, args.film)
-            viewPager.currentItem = args.film.filmInfo?.seasonsCount ?: 1 - 1
+            viewPager.currentItem = args.film.seasonsCount
             tabLayout.setupWithViewPager(viewPager)
         }
     }

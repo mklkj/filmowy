@@ -20,7 +20,7 @@ class SearchRepositoryTest : BaseApiTest() {
         val results = searchRepository.search("Dark").blockingGet()
         assertEquals(10, results.size)
         (results[0] as SearchResult.Film).run {
-            assertEquals(SearchResult.Type.SERIES, type)
+            assertEquals(SearchResult.Type.SERIAL, type)
             assertEquals(771383, id)
             assertEquals("Dark", title)
             assertEquals("Dark", originalTitle)

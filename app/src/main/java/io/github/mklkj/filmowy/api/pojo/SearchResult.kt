@@ -1,5 +1,6 @@
 package io.github.mklkj.filmowy.api.pojo
 
+import io.github.mklkj.filmowy.api.encodeFilmName
 import java.io.Serializable
 
 interface SearchResult : Serializable {
@@ -14,9 +15,9 @@ interface SearchResult : Serializable {
 
     enum class Type(val type: String) {
         FILM("f"),
-        SERIES("s"),
-        GAME("g"),
+        SERIAL("s"),
         PERSON("p"),
+        VIDEOGAME("g"),
         CHANNEL("t"),
         CINEMA("c");
 
@@ -24,6 +25,16 @@ interface SearchResult : Serializable {
             private val values = values()
             fun getById(type: String) = values.firstOrNull { it.type == type } ?: FILM
             fun getByName(name: String) = values.firstOrNull { it.name == name } ?: FILM
+        }
+    }
+
+    fun toUrl(): String {
+        return "https://m.filmweb.pl/" + when (this) {
+            is Film -> (if (type == Type.FILM) "film" else "serial") + "/${title.encodeFilmName()}-$year-$id"
+            is Person -> "person/${title.encodeFilmName()}-$id"
+            is Channel -> TODO()
+            is Cinema -> TODO()
+            else -> TODO()
         }
     }
 

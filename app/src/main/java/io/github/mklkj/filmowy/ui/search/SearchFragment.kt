@@ -9,10 +9,11 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
-import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.pojo.Person
 import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentSearchBinding
+import io.github.mklkj.filmowy.ui.search.SearchFragmentDirections.Companion.actionSearchFragmentToFilmFragment
+import io.github.mklkj.filmowy.ui.search.SearchFragmentDirections.Companion.actionSearchFragmentToPersonFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -47,13 +48,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
         dataAdapter.openFilmCallback = {
             findNavController().navigate(
-                SearchFragmentDirections.actionSearchFragmentToFilmFragment(Film.get(it.id.toLong(), it.title, it.poster))
+                actionSearchFragmentToFilmFragment(it.toUrl())
             )
         }
 
         dataAdapter.openPersonCallback = {
             findNavController().navigate(
-                SearchFragmentDirections.actionSearchFragmentToPersonFragment(Person.get(it.id.toLong(), it.title, it.poster))
+                actionSearchFragmentToPersonFragment(Person.get(it.id.toLong(), it.title, it.poster))
             )
         }
     }

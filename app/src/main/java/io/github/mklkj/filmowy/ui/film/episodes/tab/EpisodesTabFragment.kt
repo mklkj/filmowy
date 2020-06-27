@@ -16,7 +16,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
-import io.github.mklkj.filmowy.api.toUrl
 import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentEpisodesTabBinding
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
@@ -79,7 +78,7 @@ class EpisodesTabFragment : BaseFragment<FragmentEpisodesTabBinding>(R.layout.fr
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = if (item.itemId == R.id.film_open_in_browser) {
-        args.film.run { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(toUrl() + "/episodes"))) }
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(args.film.url + "/episodes")))
         true
     } else false
 }

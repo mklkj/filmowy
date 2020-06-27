@@ -3,9 +3,8 @@ package io.github.mklkj.filmowy.ui.film.episodes.tab
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
-import io.github.mklkj.filmowy.api.encodeName
-import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.pojo.FilmEpisode
+import io.github.mklkj.filmowy.api.pojo.FilmFullInfo
 import io.github.mklkj.filmowy.api.repository.FilmRepository
 import io.github.mklkj.filmowy.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,19 +13,19 @@ import timber.log.Timber
 
 class EpisodesTabViewModel @ViewModelInject constructor(private val filmRepository: FilmRepository) : BaseViewModel() {
 
-    private lateinit var film: Film
+    private lateinit var film: FilmFullInfo
 
     private var season = 0
 
     val episodes = MutableLiveData<List<FilmEpisode>>()
 
-    fun loadEpisodes(film: Film, season: Int) {
+    fun loadEpisodes(film: FilmFullInfo, season: Int) {
         this.film = film
         this.season = season
         disposable.add(filmRepository.getFilmSeasonUserVotes(film.filmId, season)
             .flatMap { votes ->
                 filmRepository
-                    .getFilmSeasonEpisodes(film.encodeName(), season)
+                    .getFilmSeasonEpisodes(film.url, season)
                     .map { it ->
                         it.map { it.copy(rate = votes.vote?.votes?.getOrElse(it.id.toString()) { -1 } ?: -1) }
                     }
@@ -56,7 +55,7 @@ class EpisodesTabViewModel @ViewModelInject constructor(private val filmReposito
         )
     }
 
-    fun setVote(film: Film, season: Int, id: Int, rate: Int) {
+    fun setVote(film: FilmFullInfo, season: Int, id: Int, rate: Int) {
         disposable.add(filmRepository.voteForEpisode(id, rate)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

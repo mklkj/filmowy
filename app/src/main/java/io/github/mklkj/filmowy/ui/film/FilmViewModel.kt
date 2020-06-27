@@ -1,10 +1,11 @@
 package io.github.mklkj.filmowy.ui.film
 
+import androidx.core.net.toUri
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.ajax.FilmVote
-import io.github.mklkj.filmowy.api.pojo.Film
+import io.github.mklkj.filmowy.api.pojo.FilmFullInfo
 import io.github.mklkj.filmowy.api.repository.FilmRepository
 import io.github.mklkj.filmowy.api.repository.LoginRepository
 import io.github.mklkj.filmowy.base.BaseViewModel
@@ -20,22 +21,22 @@ class FilmViewModel @ViewModelInject constructor(
     private val filmRepository: FilmRepository
 ) : BaseViewModel() {
 
-    val film = MutableLiveData<Film>()
+    val film = MutableLiveData<FilmFullInfo>()
 
     val vote = MutableLiveData<FilmVote>()
 
-    fun loadData(filmId: Long) {
-        loadFilmInfo(filmId)
-        loadUserVote(filmId)
+    fun loadData(url: String) {
+        loadFilmInfo(url.toUri().path.orEmpty())
+        loadUserVote(url.toUri().pathSegments.last().split("-").last().toLong())
     }
 
-    private fun loadFilmInfo(id: Long) {
-        disposable.add(filmRepository.getFilmInfoFull(id)
+    private fun loadFilmInfo(url: String) {
+        disposable.add(filmRepository.getFilm(url)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { networkState.value = NetworkState.LOADING }
             .subscribe({
-                film.postValue(it)
+                film.value = it
                 networkState.value = NetworkState.LOADED
             }) {
                 Timber.e(it)
@@ -57,11 +58,11 @@ class FilmViewModel @ViewModelInject constructor(
             }))
     }
 
-    fun navigateToEpisodes(film: Film) {
+    fun navigateToEpisodes(film: FilmFullInfo) {
         navigate(actionFilmFragmentToEpisodesFragment(film))
     }
 
-    fun navigateToForum(film: Film) {
-        navigate(actionFilmFragmentToForumFragment(film.filmInfo?.forumUrl.orEmpty()))
+    fun navigateToForum(film: FilmFullInfo) {
+        navigate(actionFilmFragmentToForumFragment(film.forumUrl.orEmpty()))
     }
 }
