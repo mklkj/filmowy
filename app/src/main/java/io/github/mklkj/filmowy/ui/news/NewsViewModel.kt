@@ -1,13 +1,14 @@
 package io.github.mklkj.filmowy.ui.news
 
+import androidx.hilt.lifecycle.ViewModelInject
 import io.github.mklkj.filmowy.api.pojo.NewsLead
 import io.github.mklkj.filmowy.api.repository.NewsRepository
 import io.github.mklkj.filmowy.base.BaseDataSource
 import io.github.mklkj.filmowy.base.BasePagedViewModel
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
-class NewsViewModel @Inject constructor(private val newsRepository: NewsRepository) : BasePagedViewModel<NewsLead, NewsViewModel.NewsDataSource>() {
+class NewsViewModel @ViewModelInject constructor(private val newsRepository: NewsRepository) :
+    BasePagedViewModel<NewsLead, NewsViewModel.NewsDataSource>() {
 
     override val sourceFactory by lazy { BaseDataSource.Factory { NewsDataSource(newsRepository, disposable) } }
 

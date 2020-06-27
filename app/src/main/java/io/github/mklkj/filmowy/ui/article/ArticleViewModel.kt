@@ -1,5 +1,6 @@
 package io.github.mklkj.filmowy.ui.article
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.News
@@ -8,9 +9,8 @@ import io.github.mklkj.filmowy.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import javax.inject.Inject
 
-class ArticleViewModel @Inject constructor(private val newsRepository: NewsRepository) : BaseViewModel() {
+class ArticleViewModel @ViewModelInject constructor(private val newsRepository: NewsRepository) : BaseViewModel() {
 
     val article = MutableLiveData<News>()
 

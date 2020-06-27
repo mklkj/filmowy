@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.toUrl
 import io.github.mklkj.filmowy.base.BaseFragment
@@ -21,12 +22,13 @@ import io.github.mklkj.filmowy.databinding.FragmentEpisodesTabBinding
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class EpisodesTabFragment : BaseFragment<FragmentEpisodesTabBinding>(R.layout.fragment_episodes_tab) {
 
     @Inject
     lateinit var dataAdapter: EpisodesTabListAdapter
 
-    override val viewModel: EpisodesTabViewModel by viewModels { vmFactory }
+    override val viewModel: EpisodesTabViewModel by viewModels()
 
     private val args: EpisodesTabFragmentArgs by navArgs()
 

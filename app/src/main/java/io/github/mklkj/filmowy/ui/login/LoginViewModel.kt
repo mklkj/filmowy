@@ -1,5 +1,6 @@
 package io.github.mklkj.filmowy.ui.login
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.UserData
@@ -8,9 +9,8 @@ import io.github.mklkj.filmowy.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import javax.inject.Inject
 
-class LoginViewModel @Inject constructor(private val loginRepository: LoginRepository) : BaseViewModel() {
+class LoginViewModel @ViewModelInject constructor(private val loginRepository: LoginRepository) : BaseViewModel() {
 
     var email = MutableLiveData("")
 

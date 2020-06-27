@@ -1,5 +1,6 @@
 package io.github.mklkj.filmowy.ui.film.episodes.tab
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.encodeName
@@ -10,9 +11,8 @@ import io.github.mklkj.filmowy.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import javax.inject.Inject
 
-class EpisodesTabViewModel @Inject constructor(private val filmRepository: FilmRepository) : BaseViewModel() {
+class EpisodesTabViewModel @ViewModelInject constructor(private val filmRepository: FilmRepository) : BaseViewModel() {
 
     private lateinit var film: Film
 

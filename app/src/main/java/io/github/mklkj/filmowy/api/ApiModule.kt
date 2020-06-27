@@ -7,6 +7,9 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.github.mklkj.filmowy.BuildConfig
 import io.github.mklkj.filmowy.api.interceptor.ResponseInterceptor
 import io.github.mklkj.filmowy.api.interceptor.SignatureInterceptor
@@ -24,6 +27,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
+@InstallIn(ApplicationComponent::class)
 class ApiModule {
 
     @Singleton
@@ -72,7 +76,7 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun provideCookieJar(context: Context): CookieJar {
+    fun provideCookieJar(@ApplicationContext context: Context): CookieJar {
         return PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context))
     }
 }

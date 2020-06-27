@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.pojo.Person
@@ -14,9 +15,10 @@ import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentSearchBinding
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
 
-    override val viewModel: SearchViewModel by viewModels { vmFactory }
+    override val viewModel: SearchViewModel by viewModels()
 
     @Inject
     lateinit var dataAdapter: SearchResultsAdapter

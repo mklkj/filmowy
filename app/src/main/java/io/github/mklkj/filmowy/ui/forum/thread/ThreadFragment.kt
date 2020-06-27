@@ -8,10 +8,12 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentThreadBinding
 
+@AndroidEntryPoint
 class ThreadFragment : BaseFragment<FragmentThreadBinding>(R.layout.fragment_thread) {
 
     private val args: ThreadFragmentArgs by navArgs()

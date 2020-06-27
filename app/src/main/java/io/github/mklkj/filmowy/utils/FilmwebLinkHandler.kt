@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.navigation.NavController
+import dagger.hilt.android.qualifiers.ActivityContext
 import io.github.mklkj.filmowy.NavGraphDirections
 import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.pojo.News
@@ -13,7 +14,7 @@ import io.github.mklkj.filmowy.api.pojo.SearchResult
 import timber.log.Timber
 import javax.inject.Inject
 
-class FilmwebLinkHandler @Inject constructor(private val context: Context) {
+class FilmwebLinkHandler @Inject constructor(@ActivityContext private val context: Context) {
 
     fun parseIntent(intent: Intent, navController: NavController) {
         when (intent.action) {

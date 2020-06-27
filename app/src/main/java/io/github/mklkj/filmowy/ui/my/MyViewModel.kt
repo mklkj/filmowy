@@ -1,13 +1,14 @@
 package io.github.mklkj.filmowy.ui.my
 
+import androidx.hilt.lifecycle.ViewModelInject
 import io.github.mklkj.filmowy.api.pojo.FriendVoteFilmEvent
 import io.github.mklkj.filmowy.api.repository.MyRepository
 import io.github.mklkj.filmowy.base.BaseDataSource
 import io.github.mklkj.filmowy.base.BasePagedViewModel
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
-class MyViewModel @Inject constructor(private val myRepository: MyRepository) : BasePagedViewModel<FriendVoteFilmEvent, MyViewModel.MyDataSource>() {
+class MyViewModel @ViewModelInject constructor(private val myRepository: MyRepository) :
+    BasePagedViewModel<FriendVoteFilmEvent, MyViewModel.MyDataSource>() {
 
     override val sourceFactory by lazy { BaseDataSource.Factory { MyDataSource(myRepository, disposable) } }
 

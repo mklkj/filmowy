@@ -10,14 +10,16 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.toUrl
 import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentFilmBinding
 
+@AndroidEntryPoint
 class FilmFragment : BaseFragment<FragmentFilmBinding>(R.layout.fragment_film) {
 
-    override val viewModel: FilmViewModel by viewModels { vmFactory }
+    override val viewModel: FilmViewModel by viewModels()
 
     private val args: FilmFragmentArgs by navArgs()
 

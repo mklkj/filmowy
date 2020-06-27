@@ -1,5 +1,6 @@
 package io.github.mklkj.filmowy.ui.person
 
+import androidx.hilt.lifecycle.ViewModelInject
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.Person
 import io.github.mklkj.filmowy.api.repository.PersonRepository
@@ -8,9 +9,8 @@ import io.github.mklkj.filmowy.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import javax.inject.Inject
 
-class PersonViewModel @Inject constructor(private val personRepository: PersonRepository) : BaseViewModel() {
+class PersonViewModel @ViewModelInject constructor(private val personRepository: PersonRepository) : BaseViewModel() {
 
     fun getPersonInfo(id: Long) = personRepository.getPersonInfoFull(id)
         .subscribeOn(Schedulers.io())

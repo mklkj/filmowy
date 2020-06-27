@@ -11,13 +11,15 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentArticleBinding
 
+@AndroidEntryPoint
 class ArticleFragment : BaseFragment<FragmentArticleBinding>(R.layout.fragment_article) {
 
-    override val viewModel: ArticleViewModel by viewModels { vmFactory }
+    override val viewModel: ArticleViewModel by viewModels()
 
     private val args: ArticleFragmentArgs by navArgs()
 

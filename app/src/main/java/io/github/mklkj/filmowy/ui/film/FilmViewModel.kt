@@ -1,5 +1,6 @@
 package io.github.mklkj.filmowy.ui.film
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.ajax.FilmVote
@@ -11,9 +12,8 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import javax.inject.Inject
 
-class FilmViewModel @Inject constructor(
+class FilmViewModel @ViewModelInject constructor(
     private val userRepository: LoginRepository,
     private val filmRepository: FilmRepository
 ) : BaseViewModel() {

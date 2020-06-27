@@ -7,15 +7,17 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.pojo.News
 import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentNewsBinding
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NewsFragment : BaseFragment<FragmentNewsBinding>(R.layout.fragment_news) {
 
-    override val viewModel: NewsViewModel by viewModels { vmFactory }
+    override val viewModel: NewsViewModel by viewModels()
 
     @Inject
     lateinit var dataAdapter: NewsListAdapter

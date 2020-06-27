@@ -13,9 +13,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SizeReadyCallback
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
-import javax.inject.Inject
 
-class HtmlImageGetter @Inject constructor(private val context: Context) : Html.ImageGetter {
+class HtmlImageGetter(private val context: Context) : Html.ImageGetter {
 
     lateinit var textView: TextView
 

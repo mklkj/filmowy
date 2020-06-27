@@ -1,5 +1,6 @@
 package io.github.mklkj.filmowy.ui.forum
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import io.github.mklkj.filmowy.api.pojo.ForumThread
@@ -8,9 +9,8 @@ import io.github.mklkj.filmowy.base.BaseDataSource
 import io.github.mklkj.filmowy.base.BasePagedViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
-class ForumViewModel @Inject constructor(private val forumRepository: ForumRepository) :
+class ForumViewModel @ViewModelInject constructor(private val forumRepository: ForumRepository) :
     BasePagedViewModel<ForumThread, ForumViewModel.ForumDataSource>() {
 
     val dataSource by lazy { ForumDataSource(forumRepository, disposable) }

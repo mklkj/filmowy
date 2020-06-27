@@ -12,14 +12,16 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentForumTabBinding
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ForumTabFragment : BaseFragment<FragmentForumTabBinding>(R.layout.fragment_forum_tab) {
 
-    override val viewModel: ForumViewModel by viewModels { vmFactory }
+    override val viewModel: ForumViewModel by viewModels()
 
     @Inject
     lateinit var dataAdapter: ForumListAdapter

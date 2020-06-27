@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.NavGraphDirections
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.NetworkState
@@ -17,9 +18,10 @@ import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentLoginBinding
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
-    override val viewModel: LoginViewModel by viewModels { vmFactory }
+    override val viewModel: LoginViewModel by viewModels()
 
     @Inject
     lateinit var navigationLoginHelper: NavigationLoginHelper

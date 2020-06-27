@@ -7,15 +7,10 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import dagger.android.support.DaggerFragment
-import io.github.mklkj.filmowy.viewmodel.ViewModelFactory
-import javax.inject.Inject
 
-abstract class BaseFragment<DB : ViewDataBinding>(@LayoutRes private val layoutId: Int) : DaggerFragment() {
-
-    @Inject
-    lateinit var vmFactory: ViewModelFactory
+abstract class BaseFragment<DB : ViewDataBinding>(@LayoutRes private val layoutId: Int) : Fragment() {
 
     protected lateinit var binding: DB
 

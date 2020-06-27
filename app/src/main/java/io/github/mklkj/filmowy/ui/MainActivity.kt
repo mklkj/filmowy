@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.DisplayMetrics.DENSITY_DEFAULT
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
@@ -12,14 +13,15 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.elevation.ElevationOverlayProvider
 import com.google.android.material.navigation.NavigationView
-import dagger.android.support.DaggerAppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.NavGraphDirections
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.ui.login.NavigationLoginHelper
 import io.github.mklkj.filmowy.utils.FilmwebLinkHandler
 import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var fragmentLifecycleLogger: FragmentLifecycleLogger

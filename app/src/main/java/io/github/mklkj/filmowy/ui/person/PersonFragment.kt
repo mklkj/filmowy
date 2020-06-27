@@ -10,13 +10,15 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentPersonBinding
 
+@AndroidEntryPoint
 class PersonFragment : BaseFragment<FragmentPersonBinding>(R.layout.fragment_person) {
 
-    override val viewModel: PersonViewModel by viewModels { vmFactory }
+    override val viewModel: PersonViewModel by viewModels()
 
     private val args: PersonFragmentArgs by navArgs()
 

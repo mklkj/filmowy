@@ -5,14 +5,16 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentMyBinding
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
 
-    override val viewModel: MyViewModel by viewModels { vmFactory }
+    override val viewModel: MyViewModel by viewModels()
 
     @Inject
     lateinit var dataAdapter: MyListAdapter

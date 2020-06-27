@@ -1,5 +1,6 @@
 package io.github.mklkj.filmowy.ui.search
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import io.github.mklkj.filmowy.api.NetworkState
 import io.github.mklkj.filmowy.api.pojo.SearchResult
@@ -9,9 +10,8 @@ import io.github.mklkj.filmowy.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import javax.inject.Inject
 
-class SearchViewModel @Inject constructor(private val searchRepository: SearchRepository) : BaseViewModel() {
+class SearchViewModel @ViewModelInject constructor(private val searchRepository: SearchRepository) : BaseViewModel() {
 
     fun getSearchResults(query: String): LiveData<List<SearchResult>> = searchRepository.search(query)
         .subscribeOn(Schedulers.io())
