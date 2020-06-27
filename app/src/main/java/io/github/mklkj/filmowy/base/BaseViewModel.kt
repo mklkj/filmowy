@@ -15,6 +15,10 @@ open class BaseViewModel : ViewModel() {
 
     open val networkState: MutableLiveData<NetworkState> = MutableLiveData()
 
+    fun navigate(directions: NavDirections) {
+        navCommand.offer(directions)
+    }
+
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

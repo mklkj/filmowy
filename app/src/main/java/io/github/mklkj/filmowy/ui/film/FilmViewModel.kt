@@ -8,6 +8,8 @@ import io.github.mklkj.filmowy.api.pojo.Film
 import io.github.mklkj.filmowy.api.repository.FilmRepository
 import io.github.mklkj.filmowy.api.repository.LoginRepository
 import io.github.mklkj.filmowy.base.BaseViewModel
+import io.github.mklkj.filmowy.ui.film.FilmFragmentDirections.Companion.actionFilmFragmentToEpisodesFragment
+import io.github.mklkj.filmowy.ui.film.FilmFragmentDirections.Companion.actionFilmFragmentToForumFragment
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -22,12 +24,12 @@ class FilmViewModel @ViewModelInject constructor(
 
     val vote = MutableLiveData<FilmVote>()
 
-    fun navigateToEpisodes(film: Film) = navCommand.offer(FilmFragmentDirections.actionFilmFragmentToEpisodesFragment(film))
+    fun loadData(filmId: Long) {
+        loadFilmInfo(filmId)
+        loadUserVote(filmId)
+    }
 
-    fun navigateToForum(film: Film) = navCommand.offer(FilmFragmentDirections.actionFilmFragmentToForumFragment(film.filmInfo?.forumUrl.orEmpty()))
-
-    fun loadFilmInfo(id: Long) {
-        loadVote(id)
+    private fun loadFilmInfo(id: Long) {
         disposable.add(filmRepository.getFilmInfoFull(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -41,7 +43,7 @@ class FilmViewModel @ViewModelInject constructor(
             })
     }
 
-    private fun loadVote(filmId: Long) {
+    private fun loadUserVote(filmId: Long) {
         disposable.add(Single.fromCallable { userRepository.getUser() }
             .flatMapMaybe { filmRepository.getFilmVote(it.userId, filmId) }
             .subscribeOn(Schedulers.io())
@@ -53,5 +55,13 @@ class FilmViewModel @ViewModelInject constructor(
             }, {
                 Timber.d("loading vote complete")
             }))
+    }
+
+    fun navigateToEpisodes(film: Film) {
+        navigate(actionFilmFragmentToEpisodesFragment(film))
+    }
+
+    fun navigateToForum(film: Film) {
+        navigate(actionFilmFragmentToForumFragment(film.filmInfo?.forumUrl.orEmpty()))
     }
 }

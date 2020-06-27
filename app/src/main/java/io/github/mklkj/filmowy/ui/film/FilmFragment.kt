@@ -8,7 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
@@ -25,7 +25,7 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>(R.layout.fragment_film) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.loadFilmInfo(args.film.filmId)
+        viewModel.loadData(args.film.filmId)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,10 +34,10 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>(R.layout.fragment_film) {
         with(binding) {
             vm = viewModel
 
-            viewModel.film.observe(viewLifecycleOwner, Observer {
+            viewModel.film.observe(viewLifecycleOwner) {
                 args.film.title = it.title
                 args.film.year = it.year
-            })
+            }
         }
     }
 
