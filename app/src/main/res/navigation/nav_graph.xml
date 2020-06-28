@@ -42,7 +42,6 @@
     <fragment
         android:id="@+id/filmFragment"
         android:name="io.github.mklkj.filmowy.ui.film.FilmFragment"
-        android:label="@string/film_title"
         tools:layout="@layout/fragment_film">
         <argument
             android:name="url"

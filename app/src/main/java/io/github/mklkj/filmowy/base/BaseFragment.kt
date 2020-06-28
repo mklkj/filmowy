@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import io.github.mklkj.filmowy.ui.MainActivity
 
 abstract class BaseFragment<DB : ViewDataBinding>(@LayoutRes private val layoutId: Int) : Fragment() {
 
@@ -27,6 +28,10 @@ abstract class BaseFragment<DB : ViewDataBinding>(@LayoutRes private val layoutI
     override fun onStart() {
         super.onStart()
         initNavCommandObserver()
+    }
+
+    protected fun setFragmentTitle(title: String) {
+        (activity as? MainActivity)?.supportActionBar?.title = title
     }
 
     private fun initNavCommandObserver() {

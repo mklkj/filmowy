@@ -29,6 +29,7 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>(R.layout.fragment_film) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setFragmentTitle("")
         viewModel.loadData(args.url)
     }
 
@@ -45,6 +46,7 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>(R.layout.fragment_film) {
             layoutManager = LinearLayoutManager(context)
         }
         viewModel.film.observe(viewLifecycleOwner) {
+            setFragmentTitle(it.filmType)
             with(filmAdapter) {
                 film = it
                 notifyDataSetChanged()
