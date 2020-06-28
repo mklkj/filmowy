@@ -15,7 +15,6 @@
         android:id="@+id/episodesSwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:enabled="@{vm.networkState.status != Status.RUNNING}"
         app:refreshing="@{vm.networkState.status == Status.RUNNING}">
 
         <androidx.constraintlayout.widget.ConstraintLayout

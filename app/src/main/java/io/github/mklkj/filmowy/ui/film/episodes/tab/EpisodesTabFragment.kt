@@ -11,7 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,7 +68,9 @@ class EpisodesTabFragment : BaseFragment<FragmentEpisodesTabBinding>(R.layout.fr
                 layoutManager = LinearLayoutManager(context)
                 adapter = dataAdapter
             }
-            viewModel.episodes.observe(viewLifecycleOwner, Observer { dataAdapter.submitList(it) })
+            viewModel.episodes.observe(viewLifecycleOwner) {
+                dataAdapter.submitList(it)
+            }
         }
     }
 
