@@ -1,0 +1,72 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="cover"
+            type="String" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="year"
+            type="String" />
+
+        <variable
+            name="type"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/suggestion_cover"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:image="@{cover}"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/suggestion_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{title}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/suggestion_cover"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/suggestion_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{year}"
+            app:layout_constraintStart_toEndOf="@id/suggestion_cover"
+            app:layout_constraintTop_toBottomOf="@+id/suggestion_title"
+            tools:text="@tools:sample/date/mmddyy" />
+
+        <TextView
+            android:id="@+id/suggestion_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{type}"
+            app:layout_constraintStart_toEndOf="@id/suggestion_year"
+            app:layout_constraintTop_toBottomOf="@+id/suggestion_title"
+            tools:text="serial" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

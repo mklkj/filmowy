@@ -32,9 +32,9 @@ interface SearchResult : Serializable {
         return "https://m.filmweb.pl/" + when (this) {
             is Film -> (if (type == Type.FILM) "film" else "serial") + "/${title.encodeFilmName()}-$year-$id"
             is Person -> "person/${title.encodeFilmName()}-$id"
-            is Channel -> TODO()
-            is Cinema -> TODO()
-            else -> TODO()
+            is Channel -> "/entityLink?entityName=channel&id=$id"
+            is Cinema -> "/entityLink?entityName=cinema&id=$id"
+            else -> throw NotImplementedError("type: $this")
         }
     }
 

@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.NavGraphDirections
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.ui.login.NavigationLoginHelper
+import io.github.mklkj.filmowy.ui.search.SearchProvider
 import io.github.mklkj.filmowy.utils.FilmwebLinkHandler
 import javax.inject.Inject
 

@@ -27,11 +27,12 @@ class FilmwebLinkHandler @Inject constructor(@ActivityContext private val contex
 
     private fun parseSearchIntent(intent: Intent, navController: NavController) {
         if (intent.data != null) {
-            val id = intent.data!!.lastPathSegment!!.split("-").last().toLong()
             when (intent.data!!.pathSegments[0].toUpperCase()) {
                 SearchResult.Type.FILM.name, SearchResult.Type.SERIAL.name -> navController.navigate(actionGlobalFilmFragment(intent.dataString.orEmpty()))
                 SearchResult.Type.VIDEOGAME.name -> TODO()
-                SearchResult.Type.PERSON.name -> navController.navigate(actionGlobalPersonFragment(Person.get(id)))
+                SearchResult.Type.PERSON.name -> navController.navigate(actionGlobalPersonFragment(Person.get(intent.data!!.lastPathSegment!!.split("-").last().toLong())))
+            }
+            when(intent.data?.getQueryParameter("entityName")?.toUpperCase()) {
                 SearchResult.Type.CHANNEL.name -> TODO()
                 SearchResult.Type.CINEMA.name -> TODO()
             }
