@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
+import io.github.mklkj.filmowy.api.toFilmWebUrl
 import io.github.mklkj.filmowy.base.BaseFragment
 import io.github.mklkj.filmowy.databinding.FragmentFilmBinding
 import javax.inject.Inject
@@ -65,7 +66,7 @@ class FilmFragment : BaseFragment<FragmentFilmBinding>(R.layout.fragment_film) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = if (item.itemId == R.id.film_open_in_browser) {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(args.url)))
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(args.url.toFilmWebUrl())))
         true
     } else false
 }

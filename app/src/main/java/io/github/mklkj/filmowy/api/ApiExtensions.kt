@@ -1,6 +1,7 @@
 package io.github.mklkj.filmowy.api
 
 import android.annotation.SuppressLint
+import androidx.core.net.toUri
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
@@ -84,6 +85,8 @@ fun String.getPersonFilmsImageUrl(width: Int = 90) = ("https://fwcdn.pl/po" + wh
 fun Film.encodeName() = "${title.encodeFilmName()}-$year-$filmId"
 
 fun Film.toUrl() = "https://m.filmweb.pl/film/${encodeName()}"
+
+fun String.toFilmWebUrl() = "https://m.filmweb.pl" + toUri().path
 
 fun String.encodeFilmName() = replace("+", "%2B")
     .replace(" ", "+")
