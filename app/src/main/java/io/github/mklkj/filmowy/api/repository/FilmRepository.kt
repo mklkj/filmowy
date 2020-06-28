@@ -1,15 +1,18 @@
 package io.github.mklkj.filmowy.api.repository
 
-import io.github.mklkj.filmowy.api.*
+import com.franmontiel.persistentcookiejar.ClearableCookieJar
+import io.github.mklkj.filmowy.api.ApiService
+import io.github.mklkj.filmowy.api.ScrapperService
 import io.github.mklkj.filmowy.api.ajax.FilmVote
 import io.github.mklkj.filmowy.api.ajax.VotesResponse
+import io.github.mklkj.filmowy.api.asMethod
+import io.github.mklkj.filmowy.api.asVarargMethod
 import io.github.mklkj.filmowy.api.exception.NotLoggedInException
 import io.github.mklkj.filmowy.api.mapper.*
 import io.github.mklkj.filmowy.api.pojo.*
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
-import okhttp3.CookieJar
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import org.jsoup.Jsoup
 import javax.inject.Inject
@@ -17,7 +20,7 @@ import javax.inject.Inject
 class FilmRepository @Inject constructor(
     private val api: ApiService,
     private val scrapper: ScrapperService,
-    private val cookieJar: CookieJar
+    private val cookieJar: ClearableCookieJar
 ) {
 
     fun getFilm(url: String): Single<FilmFullInfo> {

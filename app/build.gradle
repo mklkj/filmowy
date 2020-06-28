@@ -96,7 +96,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp-urlconnection:$okhttp3"
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp3"
 
-    implementation "com.github.franmontiel:PersistentCookieJar:v1.0.1"
+    implementation "io.github.mklkj:PersistentCookieJar:51ce845"
 
     implementation "com.github.bumptech.glide:glide:4.11.0"
     implementation "de.hdodenhof:circleimageview:3.1.0"

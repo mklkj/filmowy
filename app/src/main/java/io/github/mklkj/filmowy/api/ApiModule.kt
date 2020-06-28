@@ -1,6 +1,7 @@
 package io.github.mklkj.filmowy.api
 
 import android.content.Context
+import com.franmontiel.persistentcookiejar.ClearableCookieJar
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
@@ -14,7 +15,6 @@ import io.github.mklkj.filmowy.BuildConfig
 import io.github.mklkj.filmowy.api.interceptor.ResponseInterceptor
 import io.github.mklkj.filmowy.api.interceptor.SignatureInterceptor
 import io.github.mklkj.filmowy.api.interceptor.UserAgentInterceptor
-import okhttp3.CookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import pl.droidsonroids.retrofit2.JspoonConverterFactory
@@ -32,7 +32,11 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun provideApiService(okHttpClient: OkHttpClient, cookieJar: CookieJar): ApiService = Retrofit.Builder()
+    fun provideApiService(
+        okHttpClient: OkHttpClient,
+        cookieJar: ClearableCookieJar,
+        responseInterceptor: ResponseInterceptor
+    ): ApiService = Retrofit.Builder()
         .baseUrl("https://www.filmweb.pl/")
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(ScalarsConverterFactory.create())
@@ -46,14 +50,15 @@ class ApiModule {
                     if (BuildConfig.DEBUG) level = HttpLoggingInterceptor.Level.BASIC
                 })
                 .addInterceptor(SignatureInterceptor())
-                .addInterceptor(ResponseInterceptor()).build()
+                .addInterceptor(responseInterceptor)
+                .build()
         )
         .build()
         .create()
 
     @Singleton
     @Provides
-    fun provideScrapperService(okHttpClient: OkHttpClient, cookieJar: CookieJar): ScrapperService = Retrofit.Builder()
+    fun provideScrapperService(okHttpClient: OkHttpClient, cookieJar: ClearableCookieJar): ScrapperService = Retrofit.Builder()
         .baseUrl("https://www.filmweb.pl/")
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(JspoonConverterFactory.create())
@@ -76,7 +81,7 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun provideCookieJar(@ApplicationContext context: Context): CookieJar {
-        return PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context))
+    fun provideCookieJar(@ApplicationContext context: Context): ClearableCookieJar {
+        return PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context), true)
     }
 }

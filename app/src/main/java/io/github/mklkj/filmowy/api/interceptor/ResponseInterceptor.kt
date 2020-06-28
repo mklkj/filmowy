@@ -1,14 +1,18 @@
 package io.github.mklkj.filmowy.api.interceptor
 
+import android.content.SharedPreferences
+import androidx.core.content.edit
 import io.github.mklkj.filmowy.api.exception.BadCredentialsException
 import io.github.mklkj.filmowy.api.exception.NotFoundException
 import io.github.mklkj.filmowy.api.exception.NotLoggedInException
+import io.github.mklkj.filmowy.api.pojo.UserData
 import io.github.mklkj.filmowy.api.safeSubstring
 import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
+import javax.inject.Inject
 
-class ResponseInterceptor : Interceptor {
+class ResponseInterceptor @Inject constructor(private val preferences: SharedPreferences) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val response = chain.proceed(chain.request())
@@ -19,9 +23,7 @@ class ResponseInterceptor : Interceptor {
             return response.newBuilder().body(body.toResponseBody(response.body?.contentType())).build() // TODO: simplify this
         }
 
-        if (response.networkResponse?.request?.url?.toString()?.contains("login_redirect") == true) {
-            throw NotLoggedInException("Musisz być zalogowany by zobaczyć tą stronę")
-        }
+        if (response.networkResponse?.request?.url?.toString()?.contains("login_redirect") == true) handleNotLoggedIn()
 
         val parts = body.split("\n")
 
@@ -36,7 +38,7 @@ class ResponseInterceptor : Interceptor {
 
     private fun proceedCommonResponse(parts: List<String>): String {
         if (parts[1].contains("badCreadentials")) throw BadCredentialsException("Zła nazwa użytkownika lub hasło")
-        if (parts[1].contains("login_redirect")) throw NotLoggedInException("Musisz być zalogowany by zobaczyć tą stronę")
+        if (parts[1].contains("login_redirect")) handleNotLoggedIn()
 
         if ("ok" != parts[0]) throw Exception(parts[1])
 
@@ -57,5 +59,10 @@ class ResponseInterceptor : Interceptor {
         return response.split("\\a").joinToString(",", "[", "]") {
             it.split("\\c").joinToString(",", "[", "]") { value -> "\"$value\"" }
         }
+    }
+
+    private fun handleNotLoggedIn() {
+        preferences.edit { remove(UserData.KEY) }
+        throw NotLoggedInException("Musisz być zalogowany by zobaczyć tą stronę")
     }
 }
