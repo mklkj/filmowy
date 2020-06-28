@@ -26,6 +26,7 @@ class FilmRepository @Inject constructor(
     fun getFilm(url: String): Single<FilmFullInfo> {
         return scrapper.getFilm(url).map {
             it.also {
+                it.filmId = url.split("-").last().toLong()
                 it.url = url
                 it.filmInfo = Jsoup.parse(it.filmInfo?.html()?.replace("\"/", "\"app://io.github.mklkj.filmowy/"))
                 it.seasonsCount = it.seasons.size
