@@ -11,6 +11,7 @@ import io.reactivex.Maybe
 import io.reactivex.Single
 import okhttp3.CookieJar
 import okhttp3.HttpUrl.Companion.toHttpUrl
+import org.jsoup.Jsoup
 import javax.inject.Inject
 
 class FilmRepository @Inject constructor(
@@ -23,6 +24,8 @@ class FilmRepository @Inject constructor(
         return scrapper.getFilm(url).map {
             it.also {
                 it.url = url
+                it.filmInfo = Jsoup.parse(it.filmInfo?.html()?.replace("\"/", "\"app://io.github.mklkj.filmowy/"))
+                it.seasonsCount = it.seasons.size
             }
         }
     }
@@ -74,6 +77,10 @@ class FilmRepository @Inject constructor(
 
     fun getFilmSeasonEpisodes(url: String, season: Int): Single<List<FilmEpisode>> {
         return scrapper.getSeasonEpisodes(url, season).map { it.mapFilmSeasonEpisodes() }
+    }
+
+    fun getFilmEpisodes(url: String): Single<List<FilmEpisode>> {
+        return scrapper.getEpisodes(url).map { it.mapFilmSeasonEpisodes() }
     }
 
     fun getFilmVote(userId: Long, filmId: Long): Maybe<FilmVote> {

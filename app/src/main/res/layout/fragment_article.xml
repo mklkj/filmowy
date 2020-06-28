@@ -26,6 +26,7 @@
                 android:layout_height="170dp"
                 android:imageWidth="@{640}"
                 android:newsImage="@{vm.article.newsImageUrl}"
+                android:scaleType="centerCrop"
                 tools:ignore="ContentDescription"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
@@ -79,7 +80,6 @@
                 android:layout_marginBottom="16dp"
                 android:html="@{vm.article.content}"
                 android:lineSpacingMultiplier="1.2"
-                android:text="@{vm.article.content}"
                 tools:text="@tools:sample/lorem" />
 
             <ProgressBar

@@ -33,7 +33,7 @@ fun String.asMethod(vararg params: Any) = "$this${params.joinNotEmptyToString(",
 
 fun String.asVarargMethod(vararg params: Any) = "$this${params.joinNotEmptyToString(",", " [[", "]]")}\n"
 
-fun String.getFilmImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/ph" + when (width) {
+fun String.getFilmImageUrl(width: Int = 90) = ("https://fwcdn.pl/ph" + when (width) {
     in 0..90 -> this
     in 91..180 -> replace("0.jpg", "2.jpg")
     in 181..450 -> replace("0.jpg", "3.jpg")
@@ -56,13 +56,13 @@ fun String.getNewsImageUrl(width: Int = 90) = when (width) {
     else -> replace("0.jpg", "1.jpg")
 }
 
-fun String.getUserImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/u" + when (width) {
+fun String.getUserImageUrl(width: Int = 90) = ("https://fwcdn.pl/u" + when (width) {
     in 0..75 -> replace("0.jpg", "3.jpg")
     in 76..80 -> replace("0.jpg", "2.jpg")
     else -> replace("0.jpg", "1.jpg")
 })
 
-fun String.getPersonImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/p" + when (width) {
+fun String.getPersonImageUrl(width: Int = 90) = ("https://fwcdn.pl/p" + when (width) {
     in 0..70 -> replace("1.jpg", "0.jpg")
     in 71..140 -> this
     in 141..200 -> replace("1.jpg", "2.jpg")
@@ -71,7 +71,7 @@ fun String.getPersonImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/p" 
     else -> replace("1.jpg", "5.jpg")
 })
 
-fun String.getPersonFilmsImageUrl(width: Int = 90) = ("https://ssl-gfx.filmweb.pl/po" + when (width) {
+fun String.getPersonFilmsImageUrl(width: Int = 90) = ("https://fwcdn.pl/po" + when (width) {
     in 0..38 -> replace("2.jpg", "0.jpg")
     in 39..70 -> replace("2.jpg", "4.jpg")
     in 71..90 -> replace("2.jpg", "1.jpg")

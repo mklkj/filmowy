@@ -14,6 +14,15 @@
     <string name="series_title">Seriale</string>
     <string name="tv_title">Program TV</string>
 
+    <plurals name="film_votes">
+        <item quantity="one">%d\nocena</item>
+        <item quantity="two">%d\noceny</item>
+        <item quantity="few">%d\nocen</item>
+        <item quantity="many">%d\nocen</item>
+        <item quantity="zero">%d\nocen</item>
+    </plurals>
+    <string name="forum_button">Zobacz wszystkie tematy</string>
+
     <string name="retry">Ponów</string>
     <string name="open_in_browser">Otwórz w przeglądarce</string>
     <string name="search_hint">Szukaj filmu, serialu…</string>

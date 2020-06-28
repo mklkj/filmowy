@@ -28,6 +28,9 @@ interface ScrapperService {
     @GET("{url}/episode/{season}/list")
     fun getSeasonEpisodes(@Path("url", encoded = true) name: String, @Path("season") season: Int): Single<FilmSeasonEpisodesResponse>
 
+    @GET("{url}/episode/list")
+    fun getEpisodes(@Path("url", encoded = true) name: String): Single<FilmSeasonEpisodesResponse>
+
     @FormUrlEncoded
     @POST("season/vote")
     fun voteForSeason(

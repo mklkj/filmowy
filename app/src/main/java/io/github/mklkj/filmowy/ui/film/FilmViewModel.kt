@@ -11,6 +11,7 @@ import io.github.mklkj.filmowy.api.repository.LoginRepository
 import io.github.mklkj.filmowy.base.BaseViewModel
 import io.github.mklkj.filmowy.ui.film.FilmFragmentDirections.Companion.actionFilmFragmentToEpisodesFragment
 import io.github.mklkj.filmowy.ui.film.FilmFragmentDirections.Companion.actionFilmFragmentToForumFragment
+import io.github.mklkj.filmowy.ui.film.FilmFragmentDirections.Companion.actionFilmFragmentToThreadFragment
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -58,11 +59,15 @@ class FilmViewModel @ViewModelInject constructor(
             }))
     }
 
-    fun navigateToEpisodes(film: FilmFullInfo) {
-        navigate(actionFilmFragmentToEpisodesFragment(film))
+    fun navigateToEpisodes() {
+        navigate(actionFilmFragmentToEpisodesFragment(film.value!!))
     }
 
-    fun navigateToForum(film: FilmFullInfo) {
-        navigate(actionFilmFragmentToForumFragment(film.forumUrl.orEmpty()))
+    fun navigateToTopic(topic: FilmFullInfo.ForumTopic) {
+        navigate(actionFilmFragmentToThreadFragment(topic.url))
+    }
+
+    fun navigateToForum() {
+        navigate(actionFilmFragmentToForumFragment(film.value?.forumUrl.orEmpty()))
     }
 }

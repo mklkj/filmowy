@@ -28,14 +28,10 @@ fun TextView.setListAsText(list: List<String>?) {
     text = list?.joinToString(", ")
 }
 
-@Suppress("DEPRECATION")
-@BindingAdapter("android:text", "android:html")
-fun TextView.setHtml(content: String?, html: String?) {
+@BindingAdapter("android:html")
+fun TextView.setHtml(html: String?) {
     movementMethod = LinkMovementMethod.getInstance()
-    text = when {
-        html?.isEmpty() == true -> content
-        else -> HtmlCompat.fromHtml(html.orEmpty(), FROM_HTML_MODE_COMPACT, HtmlImageGetter(context).apply { textView = this@setHtml }, null)
-    }
+    text = HtmlCompat.fromHtml(html.orEmpty(), FROM_HTML_MODE_COMPACT, HtmlImageGetter(context).apply { textView = this@setHtml }, null)
 }
 
 @BindingAdapter("android:text")

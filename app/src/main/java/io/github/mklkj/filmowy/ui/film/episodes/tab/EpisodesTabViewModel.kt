@@ -24,8 +24,8 @@ class EpisodesTabViewModel @ViewModelInject constructor(private val filmReposito
         this.season = season
         disposable.add(filmRepository.getFilmSeasonUserVotes(film.filmId, season)
             .flatMap { votes ->
-                filmRepository
-                    .getFilmSeasonEpisodes(film.url, season)
+                (if (season == 1) filmRepository.getFilmEpisodes(film.url)
+                else filmRepository.getFilmSeasonEpisodes(film.url, season))
                     .map { it ->
                         it.map { it.copy(rate = votes.vote?.votes?.getOrElse(it.id.toString()) { -1 } ?: -1) }
                     }

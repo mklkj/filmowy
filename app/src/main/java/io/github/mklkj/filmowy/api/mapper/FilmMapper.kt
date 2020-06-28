@@ -197,7 +197,7 @@ fun FilmSeasonEpisodesResponse.mapFilmSeasonEpisodes(): List<FilmEpisode> {
         FilmEpisode(
             id = it.id,
             image = it.image,
-            season = it.season,
+            season = it.season.ifBlank { "1" }.toInt(),
             number = it.number,
             premiereDate = it.premiereDate.toLocalDate("yyyy-MM-dd"),
             title = it.title,

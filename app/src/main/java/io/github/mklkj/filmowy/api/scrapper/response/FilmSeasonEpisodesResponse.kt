@@ -12,8 +12,8 @@ class FilmSeasonEpisodesResponse {
         @Selector(".episodePreview", attr = "data-id")
         var id: Int = 0
 
-        @Selector(".episodePreview", attr = "data-season-number")
-        var season: Int = 0
+        @Selector(".episodePreview", attr = "data-season-number", defValue = "1")
+        var season: String = "1"
 
         @Selector(".episodePreview", attr = "data-image")
         var image: String = ""

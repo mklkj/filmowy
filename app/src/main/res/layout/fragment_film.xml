@@ -1,7 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout2"
     tools:context=".ui.film.FilmFragment">
 
     <data>
@@ -13,272 +12,36 @@
             type="io.github.mklkj.filmowy.ui.film.FilmViewModel" />
     </data>
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.networkState.status == Status.SUCCESS}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_film_cover" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="@{vm.networkState.status == Status.SUCCESS}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.networkState.status == Status.RUNNING}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/poster"
-                    android:layout_width="100dp"
-                    android:layout_height="143dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@android:color/white"
-                    android:image="@{vm.film.imagePath}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="ContentDescription"
-                    tools:src="@tools:sample/avatars" />
-
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="@{vm.film.title}"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/poster"
-                    app:layout_constraintTop_toTopOf="@+id/poster"
-                    tools:text="@tools:sample/lorem" />
-
-                <TextView
-                    android:id="@+id/year"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="@{`(` + Integer.toString(vm.film.year) + `)`}"
-                    android:textSize="13sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/title"
-                    app:layout_constraintStart_toEndOf="@+id/title"
-                    tools:text="2019" />
-
-                <TextView
-                    android:id="@+id/originalTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="4dp"
-                    android:text="@{vm.film.originalTitle}"
-                    android:textColor="?android:textColorSecondary"
-                    android:visibility='@{vm.film.originalTitle != ""}'
-                    app:layout_constraintStart_toEndOf="@+id/poster"
-                    app:layout_constraintTop_toBottomOf="@+id/title"
-                    tools:text="@tools:sample/lorem" />
-
-                <TextView
-                    android:id="@+id/duration"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:drawableStart="@drawable/ic_access_time"
-                    android:drawablePadding="4dip"
-                    android:duration="@{vm.film.duration}"
-                    android:textColor="?android:textColorTertiary"
-                    android:visibility="@{vm.film.duration != 0}"
-                    app:layout_constraintStart_toEndOf="@+id/poster"
-                    app:layout_constraintTop_toBottomOf="@+id/originalTitle"
-                    tools:text="1 godz. 50 min." />
-
-                <TextView
-                    android:id="@+id/synopis"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:lineSpacingMultiplier="1.2"
-                    android:text="@{vm.film.synopsis}"
-                    app:layout_constrainedWidth="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/poster"
-                    app:layout_constraintTop_toBottomOf="@+id/duration"
-                    tools:text="@tools:sample/lorem" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/seasonsButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginVertical="8dp"
-                android:onClick="@{() -> vm.navigateToEpisodes(vm.film)}"
-                android:text="@{`Sezony: ` + vm.film.seasonsCount + `, odcinki: ` + vm.film.episodesCount}"
-                android:visibility="@{vm.film.seasonsCount != 0 &amp;&amp; vm.networkState.status == Status.SUCCESS}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/header"
-                tools:text="Sezony: 5, odcinki: 25" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/review"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:visibility="@{vm.networkState.status == Status.SUCCESS}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/seasonsButton">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/avgRate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:avg="@{vm.film.avgRate}"
-                        android:drawableStart="@drawable/ic_star_border_black_24dp"
-                        android:drawablePadding="4dip"
-                        android:textSize="20sp"
-                        app:drawableTint="?colorPrimary"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="7,5" />
-
-                    <TextView
-                        android:id="@+id/votesCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:text="@{vm.film.votesCount + ` ocen`}"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="46 ocen" />
-
-                    <TextView
-                        android:id="@+id/wantSeeNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:text="@{vm.film.wantSee + ` chce zobaczyć`}"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/votesCount"
-                        tools:text="37 chce zobaczyć" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/materialCardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/wantSeeNumber">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:text="@{`Obejrzane: ` + vm.vote.date.year + `-` + vm.vote.date.month + `-` + vm.vote.date.day, default=``}"
-                                tools:text="Obejrzane: 2020-04-13" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:text="Widziałem/-am, moja ocena:" />
-
-                            <me.zhanghai.android.materialratingbar.MaterialRatingBar
-                                android:id="@+id/ratingBar"
-                                style="?android:attr/ratingBarStyleIndicator"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:isIndicator="false"
-                                android:numStars="10"
-                                android:rating="@{vm.vote.r}"
-                                android:stepSize="1.0" />
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/wantSeeButton"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:text="Chcę zobaczyć"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
-                        app:layout_constraintWidth_default="percent"
-                        app:layout_constraintWidth_percent=".45" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/noInterestedButton"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="Nie interesuje mnie"
-                        app:layout_constraintEnd_toEndOf="@+id/materialCardView"
-                        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
-                        app:layout_constraintWidth_default="percent"
-                        app:layout_constraintWidth_percent=".45" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/forumButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:onClick="@{() -> vm.navigateToForum(vm.film)}"
-                android:text="@string/forum_title"
-                android:visibility="@{vm.networkState.status == Status.SUCCESS}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/review" />
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="@{vm.networkState.status == Status.RUNNING}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{vm.networkState.message}"
-                android:visibility="@{vm.networkState.status == Status.FAILED}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{vm.networkState.message}"
+            android:visibility="@{vm.networkState.status == Status.FAILED}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
