@@ -1,5 +1,6 @@
 package io.github.mklkj.filmowy.ui.film.episodes.tab
 
+import androidx.core.text.isDigitsOnly
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
@@ -22,14 +23,17 @@ class EpisodesTabViewModel @ViewModelInject constructor(private val filmReposito
     fun loadEpisodes(film: FilmFullInfo, season: Int) {
         this.film = film
         this.season = season
-        disposable.add(filmRepository.getFilmSeasonUserVotes(film.filmId, season)
-            .flatMap { votes ->
-                (if (season == 1) filmRepository.getFilmEpisodes(film.url)
-                else filmRepository.getFilmSeasonEpisodes(film.url, season))
-                    .map { it ->
-                        it.map { it.copy(rate = votes.vote?.votes?.getOrElse(it.id.toString()) { -1 } ?: -1) }
-                    }
+        disposable.add(filmRepository.getFilmSeasonUserVotes(
+            filmId = film.filmId,
+            season = if (film.seasonsCount == 1) film.year?.takeIf { it.isDigitsOnly() }?.toInt() ?: 0 else season
+        ).flatMap { votes ->
+            when (film.seasonsCount) {
+                1 -> filmRepository.getFilmEpisodes(film.url)
+                else -> filmRepository.getFilmSeasonEpisodes(film.url, season)
+            }.map { it ->
+                it.map { it.copy(rate = votes.vote?.votes?.getOrElse(it.id.toString()) { -1 } ?: -1) }
             }
+        }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { networkState.postValue(NetworkState.LOADING) }
