@@ -4,9 +4,15 @@
 
     <data>
 
+        <import type="io.github.mklkj.filmowy.api.Status" />
+
         <variable
             name="item"
             type="io.github.mklkj.filmowy.api.ajax.FilmVote" />
+
+        <variable
+            name="state"
+            type="io.github.mklkj.filmowy.api.Resource" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +22,17 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{item == null}"
+            android:visibility="@{state.status == Status.LOADING}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{state.error.message}"
+            android:visibility="@{state.status == Status.ERROR}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:visibility="@{item != null}"
+            android:visibility="@{state.status == Status.SUCCESS}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

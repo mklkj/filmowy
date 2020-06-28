@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import io.github.mklkj.filmowy.R
+import io.github.mklkj.filmowy.api.Resource
 import io.github.mklkj.filmowy.api.ajax.FilmVote
 import io.github.mklkj.filmowy.api.pojo.FilmFullInfo
 import io.github.mklkj.filmowy.databinding.*
@@ -13,7 +14,7 @@ class FilmAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.View
 
     lateinit var film: FilmFullInfo
 
-    var vote: FilmVote? = null
+    var vote: Resource<FilmVote>? = null
 
     var onEpisodesButtonCallback: () -> Unit = {}
 
@@ -76,7 +77,8 @@ class FilmAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.View
 
     private fun bindRatingViewHolder(holder: RatingViewHolder) {
         with(holder.binding) {
-            item = vote
+            item = vote?.data
+            state = vote
             executePendingBindings()
         }
     }

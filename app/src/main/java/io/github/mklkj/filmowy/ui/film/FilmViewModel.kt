@@ -4,6 +4,7 @@ import androidx.core.net.toUri
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import io.github.mklkj.filmowy.api.NetworkState
+import io.github.mklkj.filmowy.api.Resource
 import io.github.mklkj.filmowy.api.ajax.FilmVote
 import io.github.mklkj.filmowy.api.pojo.FilmFullInfo
 import io.github.mklkj.filmowy.api.repository.FilmRepository
@@ -24,7 +25,7 @@ class FilmViewModel @ViewModelInject constructor(
 
     val film = MutableLiveData<FilmFullInfo>()
 
-    val vote = MutableLiveData<FilmVote>()
+    val vote = MutableLiveData<Resource<FilmVote>>()
 
     fun loadData(url: String) {
         loadFilmInfo(url.toUri().path.orEmpty())
@@ -50,11 +51,14 @@ class FilmViewModel @ViewModelInject constructor(
             .flatMapMaybe { filmRepository.getFilmVote(it.userId, filmId) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { vote.value = Resource.loading() }
             .subscribe({
-                vote.value = it
+                vote.value = Resource.success(it)
             }, {
+                vote.value = Resource.error(it)
                 Timber.e(it)
             }, {
+                vote.value = Resource.success(null)
                 Timber.d("loading vote complete")
             }))
     }
