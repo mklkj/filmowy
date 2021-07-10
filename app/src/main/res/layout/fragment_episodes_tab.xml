@@ -3,7 +3,7 @@
 
     <data>
 
-        <import type="io.github.mklkj.filmowy.api.NetworkState.Status" />
+        <import type="io.github.mklkj.filmowy.api.Status" />
 
         <variable
             name="vm"
@@ -15,7 +15,7 @@
         android:id="@+id/episodesSwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:refreshing="@{vm.networkState.status == Status.RUNNING}">
+        app:refreshing="@{vm.status == Status.LOADING}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

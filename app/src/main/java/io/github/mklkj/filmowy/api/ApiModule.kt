@@ -38,7 +38,6 @@ class ApiModule {
         responseInterceptor: ResponseInterceptor
     ): ApiService = Retrofit.Builder()
         .baseUrl("https://www.filmweb.pl/")
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
         .client(

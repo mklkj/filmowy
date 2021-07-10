@@ -7,10 +7,9 @@ import io.github.mklkj.filmowy.api.encodeFilmName
 import io.github.mklkj.filmowy.api.mapper.mapNews
 import io.github.mklkj.filmowy.api.mapper.mapNewsComments
 import io.github.mklkj.filmowy.api.mapper.mapNewsList
-import io.github.mklkj.filmowy.api.pojo.News
 import io.github.mklkj.filmowy.api.pojo.NewsComment
 import io.github.mklkj.filmowy.api.pojo.NewsLead
-import io.reactivex.Single
+import io.github.mklkj.filmowy.utils.flowWithResource
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(
@@ -18,15 +17,15 @@ class NewsRepository @Inject constructor(
     private val scrapper: ScrapperService
 ) {
 
-    fun getNewsList(page: Int): Single<List<NewsLead>> {
-        return api.getWithMethod("getNewsList".asMethod(page)).map { it.mapNewsList() }
+    suspend fun getNewsList(page: Int): List<NewsLead> {
+        return api.getWithMethod("getNewsList".asMethod(page)).mapNewsList()
     }
 
-    fun getArticle(id: Long, title: String): Single<News> {
-        return scrapper.getArticle(title.encodeFilmName(), id).map { it.mapNews(id) }
+    fun getArticle(id: Long, title: String) = flowWithResource {
+        scrapper.getArticle(title.encodeFilmName(), id).mapNews(id)
     }
 
-    fun getNewsComments(newsId: Long, page: Int): Single<List<NewsComment>> {
-        return api.getWithMethod("getNewsComments".asMethod(newsId, page.toLong())).map { it.mapNewsComments(newsId) }
+    suspend fun getNewsComments(newsId: Long, page: Int): List<NewsComment> {
+        return api.getWithMethod("getNewsComments".asMethod(newsId, page.toLong())).mapNewsComments(newsId)
     }
 }

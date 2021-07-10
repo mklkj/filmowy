@@ -8,7 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.filmowy.R
@@ -25,7 +25,9 @@ class PersonFragment : BaseFragment<FragmentPersonBinding>(R.layout.fragment_per
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         binding.person = args.person
-        viewModel.getPersonInfo(args.person.personId).observe(viewLifecycleOwner, Observer { binding.person = it })
+        viewModel.getPersonInfo(args.person.personId)
+
+        viewModel.person.observe(viewLifecycleOwner) { binding.person = it }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

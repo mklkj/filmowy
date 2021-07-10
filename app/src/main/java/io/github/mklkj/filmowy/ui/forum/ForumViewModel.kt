@@ -9,6 +9,7 @@ import io.github.mklkj.filmowy.base.BaseDataSource
 import io.github.mklkj.filmowy.base.BasePagedViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.rx2.rxSingle
 
 class ForumViewModel @ViewModelInject constructor(private val forumRepository: ForumRepository) :
     BasePagedViewModel<ForumThread, ForumViewModel.ForumDataSource>() {
@@ -28,6 +29,6 @@ class ForumViewModel @ViewModelInject constructor(private val forumRepository: F
 
         override fun getFirstPageNumber() = 1
 
-        override fun getListByPageNumber(page: Int): Single<List<ForumThread>> = forumRepository.getForumThreadList(url, page)
+        override fun getListByPageNumber(page: Int): Single<List<ForumThread>> = rxSingle { forumRepository.getForumThreadList(url, page) }
     }
 }

@@ -14,7 +14,7 @@ class FilmAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.View
 
     lateinit var film: FilmFullInfo
 
-    var vote: Resource<FilmVote>? = null
+    var vote: Resource<FilmVote?>? = null
 
     var onEpisodesButtonCallback: () -> Unit = {}
 

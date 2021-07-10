@@ -61,7 +61,7 @@ class FilmFullInfo : Serializable {
     var premiereWorld: String? = null
     var premiereCountry: String? = null
 
-    @Selector(".filmCoverSection__type")
+    @Selector(".filmCoverSection__type", defValue = "FILM")
     var filmType: String = ""
 
     @Selector(".filmPosterSection__serialSeasons .filmInfo__info--group a:not(.see-all)")

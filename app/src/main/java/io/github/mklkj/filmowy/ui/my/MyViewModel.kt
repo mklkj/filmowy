@@ -6,6 +6,7 @@ import io.github.mklkj.filmowy.api.repository.MyRepository
 import io.github.mklkj.filmowy.base.BaseDataSource
 import io.github.mklkj.filmowy.base.BasePagedViewModel
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.rx2.rxSingle
 
 class MyViewModel @ViewModelInject constructor(private val myRepository: MyRepository) :
     BasePagedViewModel<FriendVoteFilmEvent, MyViewModel.MyDataSource>() {
@@ -16,7 +17,7 @@ class MyViewModel @ViewModelInject constructor(private val myRepository: MyRepos
 
     class MyDataSource(private val repo: MyRepository, disposable: CompositeDisposable) : BaseDataSource<FriendVoteFilmEvent>(disposable) {
 
-        override fun getListByPageNumber(page: Int) = repo.getFriendVoteFilmEvents(page)
+        override fun getListByPageNumber(page: Int) = rxSingle { repo.getFriendVoteFilmEvents(page) }
 
         override fun getFirstPageNumber() = 1
     }

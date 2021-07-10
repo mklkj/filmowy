@@ -3,7 +3,7 @@
 
     <data>
 
-        <import type="io.github.mklkj.filmowy.api.NetworkState" />
+        <import type="io.github.mklkj.filmowy.api.Status" />
 
         <variable
             name="vm"
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:visibility="@{vm.networkState == NetworkState.LOADING}" />
+                android:visibility="@{vm.status == Status.LOADING}" />
 
             <TextView
                 android:layout_width="wrap_content"

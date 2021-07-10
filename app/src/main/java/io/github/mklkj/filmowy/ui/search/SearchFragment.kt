@@ -3,7 +3,7 @@ package io.github.mklkj.filmowy.ui.search
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,10 +28,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getSearchResults(args.query).observe(this, Observer {
+        viewModel.getSearchResults(args.query)
+        viewModel.searchResults.observe(this) {
             dataAdapter.items = it
             dataAdapter.notifyDataSetChanged()
-        })
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

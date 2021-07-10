@@ -3,7 +3,7 @@ package io.github.mklkj.filmowy.ui.news
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,8 +24,8 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>(R.layout.fragment_news) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.news.observe(this, Observer { dataAdapter.submitList(it) })
-        viewModel.networkState.observe(this, Observer { dataAdapter.setNetworkState(it) })
+        viewModel.news.observe(this) { dataAdapter.submitList(it) }
+        viewModel.networkState.observe(this) { dataAdapter.setNetworkState(it) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

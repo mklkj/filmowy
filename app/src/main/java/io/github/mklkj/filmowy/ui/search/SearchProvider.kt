@@ -1,57 +1,65 @@
 package io.github.mklkj.filmowy.ui.search
 
-import android.app.Activity
 import android.app.SearchManager
 import android.app.SearchManager.*
 import android.database.Cursor
 import android.database.MatrixCursor
 import android.provider.BaseColumns
 import android.view.Menu
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.getSystemService
 import androidx.cursoradapter.widget.CursorAdapter
+import androidx.lifecycle.lifecycleScope
 import io.github.mklkj.filmowy.R
 import io.github.mklkj.filmowy.api.pojo.SearchResult
 import io.github.mklkj.filmowy.api.repository.SearchRepository
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 class SearchProvider @Inject constructor(private val searchRepository: SearchRepository) {
 
+    private val searchChannel = Channel<String>()
+
     private val disposable = CompositeDisposable()
 
-    fun initSearch(menu: Menu, activity: Activity) {
+    fun initSearch(menu: Menu, activity: AppCompatActivity) {
         with(menu.findItem(R.id.search).actionView as SearchView) {
             val adapter = SearchSuggestionsAdapter(context)
             setSearchableInfo(context.getSystemService<SearchManager>()?.getSearchableInfo(activity.componentName))
             suggestionsAdapter = adapter
-            setOnQueryTextListener(adapter)
+            setOnQueryTextListener(activity.lifecycleScope)
+            initializeSearchStream(adapter, activity.lifecycleScope)
         }
     }
 
-    private fun SearchView.setOnQueryTextListener(adapter: CursorAdapter) {
+    private fun SearchView.setOnQueryTextListener(scope: CoroutineScope) {
         setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String) = false
             override fun onQueryTextChange(query: String): Boolean {
                 if (query.length < 2) return false
-                performSearch(query, adapter)
+                scope.launch {
+                    searchChannel.send(query)
+                }
                 return true
             }
         })
     }
 
-    private fun performSearch(query: String, adapter: CursorAdapter) {
-        disposable.apply {
-            clear()
-            add(searchRepository.search(query)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    adapter.changeCursor(createCursorFromResult(it))
-                }) { Timber.d(it) })
+    private fun initializeSearchStream(adapter: CursorAdapter, scope: CoroutineScope) {
+        scope.launch {
+            searchChannel.consumeAsFlow()
+                .debounce(250)
+                .flatMapMerge { searchRepository.search(it) }
+                .catch { Timber.e(it) }
+                .collect {
+                    it.data?.let { results -> adapter.changeCursor(createCursorFromResult(results)) }
+                }
         }
     }
 

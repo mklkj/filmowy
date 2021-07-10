@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
@@ -46,7 +47,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding>(R.layout.fragment_a
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.article_open_in_browser -> {
             startActivity(
-                Intent(ACTION_VIEW, Uri.parse("https://m.filmweb.pl/news/${Uri.encode(args.article.title)}-${args.article.newsId}"))
+                Intent(ACTION_VIEW, "https://m.filmweb.pl/news/${Uri.encode(args.article.title)}-${args.article.newsId}".toUri())
             )
             true
         }
